@@ -22,6 +22,13 @@ namespace RT_ISICG
 
 	void PerspectiveCamera::_updateViewport()
 	{
+		float _viewportHeight  = _focalDistance * glm::tan( _fovy / 2 );
+		float _viewportWidth   = _aspectRatio * _viewportHeight;
+
+		_viewportTopLeftCorner = lookAt
+		_viewportV			   = _focalDistance * glm::cos( _fovy );
+		_viewportU			   = _aspectRatio * _viewportV;
+		_viewportTopLeftCorner = ;
 		/// TODO ! _viewportTopLeftCorner ?	_viewportU ? _viewportV ?
 	}
 

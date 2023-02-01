@@ -42,11 +42,15 @@ namespace RT_ISICG
 		progressBar.start( height, 50 );
 		chrono.start();
 
+		//Color
+		float x, y;
 		for ( int j = 0; j < height; j++ )
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				/// TODO !
+				x = (float) i / (width-1);
+				y = (float) j / (height-1);
+				p_texture.setPixel( i, j, Vec3f(x, y , 0.f) );
 			}
 			progressBar.next();
 		}
