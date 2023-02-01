@@ -16,7 +16,9 @@ namespace RT_ISICG
 		: BaseCamera( p_position ), _fovy( p_fovy ), _aspectRatio( p_aspectRatio )
 	{
 		/// TODO ! _u ? _v ? _w ?
-
+		//_u = ;
+		//_v = p_position - p_up;
+		//_w = p_position - ( -p_lookAt );
 		_updateViewport();
 	}
 
