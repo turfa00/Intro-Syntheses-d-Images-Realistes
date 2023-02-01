@@ -20,8 +20,14 @@ namespace RT_ISICG
 
 		inline Ray generateRay( const float p_sx, const float p_sy ) const override
 		{
+			Vec3f rayDirection;
+			/* float d   = 1 / _viewportHeight;
+			rayDirection.x = _aspectRatio / (2 * _viewportWidth) - 1;
+			rayDirection.y = ( 2 / _viewportHeight );*/
 			/// TODO !
-			return Ray( Vec3f( 0.f ), Vec3f( 0.f, 0.f, 1.f ) );
+			//return Ray( Vec3f( 0.f ), Vec3f( 0.f, 0.f, 1.f ) );
+
+			return Ray( Vec3f( _position ), glm::normalize(Vec3f( p_sx, p_sy, _focalDistance )) );
 		}
 
 	  private:
@@ -41,6 +47,9 @@ namespace RT_ISICG
 		Vec3f _viewportTopLeftCorner = VEC3F_ZERO; // Top left corner position
 		Vec3f _viewportU			 = VEC3F_ZERO; // Horizontal vector
 		Vec3f _viewportV			 = VEC3F_ZERO; // Vertical vector
+
+		float _viewportHeight = 0.f;
+		float _viewportWidth = 0.f;
 	};
 } // namespace RT_ISICG
 

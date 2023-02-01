@@ -42,15 +42,23 @@ namespace RT_ISICG
 		progressBar.start( height, 50 );
 		chrono.start();
 
+		//Rays
+
+		//PerspectiveCamera camera( Vec3f( 0.f, 0.f, -1.f ), Vec3f( 0.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), 45.f, 1.5f );
+
 		//Color
 		float x, y;
 		for ( int j = 0; j < height; j++ )
 		{
 			for ( int i = 0; i < width; i++ )
 			{
+				Ray ray( Vec3f( 0.f, 0.f, 0.f ), Vec3f( i, j, 1.f ) );
+				p_camera->generateRay(i, j );
+				Vec3f color = (ray.getDirection() + 1.f) * 0.5f;
 				x = (float) i / (width-1);
 				y = (float) j / (height-1);
-				p_texture.setPixel( i, j, Vec3f(x, y , 0.f) );
+				//p_texture.setPixel( i, j, Vec3f(x, y , 0.f) );
+				p_texture.setPixel( i, j, color );
 			}
 			progressBar.next();
 		}
