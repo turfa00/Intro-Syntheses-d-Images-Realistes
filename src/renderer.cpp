@@ -54,7 +54,7 @@ namespace RT_ISICG
 			for ( int i = 0; i < width; i++ )
 			{
 				//Ray ray( p_camera->getPosition(), Vec3f( i, j, 1.f ) );
-				Ray ray = p_camera->generateRay( i, j );
+				Ray ray = p_camera->generateRay( i  - 0.5 , j - 0.5 );
 				color = (ray.getDirection() + 1.f) * 0.5f;
 				x = (float) i / (width-1);
 				y = (float) j / (height-1);
