@@ -14,8 +14,9 @@ namespace RT_ISICG
 			Vec3f normal = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();
 
-			//float angle = glm::max(glm::dot(normal, rayDirection), 0.f);
-			//float angle = hitRecord.faceNormal(normal, rayDirection);
+			float angle = glm::max(glm::dot( normal, rayDirection ), 0.f);
+			//hitRecord.faceNormal( rayDirection * glm::cos(angle));
+			hitRecord.faceNormal( rayDirection * glm::cos(angle) );
 			return hitRecord._object->getMaterial()->getFlatColor();
 		}
 		else
