@@ -22,7 +22,7 @@ namespace RT_ISICG
 			p_t2 = ( -b + sqrt( delta ) ) / 2;
 			if ( p_t1 > p_t2 )
 			{
-				std::swap( p_t2, p_t1 );
+				std::swap( p_t1, p_t2 );
 			}
 			return true;
 		}

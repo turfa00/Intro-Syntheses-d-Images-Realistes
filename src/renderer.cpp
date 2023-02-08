@@ -56,8 +56,9 @@ namespace RT_ISICG
 				x = (float) i / (width);
 				y = (float) j / (height);
 				Ray ray = p_camera->generateRay( x, y );
-				_integrator->Li( p_scene, ray, i, j );
-				color	= ( ray.getDirection() + 1.f ) * 0.5f;
+				
+				color = _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
+				//color	= ( ray.getDirection() + 1.f ) * 0.5f;
 				p_texture.setPixel( i, j, color );
 			}
 			progressBar.next();
