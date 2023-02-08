@@ -12,11 +12,11 @@ namespace RT_ISICG
 
 		Vec3f oc		   = rayOrigin - center;
 		//TD5 FIG
-		//float a = glm::dot( rayDirection, rayDirection );
+		float a = glm::dot( rayDirection, rayDirection );
 		float b	= 2.0f * glm::dot(oc, rayDirection );
 		float c = glm::dot( oc, oc ) - (radius * radius);
 		
-		float delta = b * b - 4 * c;
+		float delta = b * b - 4 * a * c;
 		if ( delta >= 0 ) { 
 			p_t1 = ( -b - sqrt( delta ) ) / 2;
 			p_t2 = ( -b + sqrt( delta ) ) / 2;

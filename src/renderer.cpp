@@ -53,8 +53,8 @@ namespace RT_ISICG
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				x = (float) i / (width);
-				y = (float) j / (height);
+				x = (float) i / (width-1);
+				y = (float) j / (height-1);
 				Ray ray = p_camera->generateRay( x, y );
 				
 				color = _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
