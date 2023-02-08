@@ -16,25 +16,22 @@ namespace RT_ISICG
 		: BaseCamera( p_position ), _fovy( p_fovy ), _aspectRatio( p_aspectRatio )
 	{
 		/// TODO ! _u ? _v ? _w ?
-		_v = p_position - p_up;
-		_u = p_position - glm::cross( _v, p_lookAt);
-		_w = p_position - ( -p_lookAt );
+		//_u = glm::cross( p_up, p_lookAt );
+		//_v = glm::normalize(p_up);
+		//_w = glm::normalize(-p_lookAt);
 		_updateViewport();
 	}
 
 	void PerspectiveCamera::_updateViewport()
 	{
-		_viewportHeight  = _focalDistance * glm::tan( _fovy / 2 );
-		_viewportWidth   = _aspectRatio * _viewportHeight;
+		_viewportHeight  = 2.0f * _focalDistance * glm::tan( glm::radians(_fovy / 2.0f ));
+		_viewportWidth   = 2.0f * _aspectRatio * _viewportHeight;
 
-		_viewportTopLeftCorner = _position - Vec3f( 0.f, 0.f, _focalDistance ) + Vec3f( 0.f, _viewportHeight / 2, 0.f )
-								 - Vec3f( _viewportWidth / 2, 0.f, 0.f );
-		Vec3f _viewportBottomLeftCorner = _position - Vec3f( 0.f, 0.f, _focalDistance )
-										  - Vec3f( 0.f, _viewportHeight / 2, 0.f ) - Vec3f( _viewportWidth / 2, 0.f, 0.f );
-		Vec3f _viewportBottomRightCorner = _position - Vec3f( 0.f, 0.f, _focalDistance )
-									   - Vec3f( 0.f, _viewportHeight / 2, 0.f ) + Vec3f( _viewportWidth / 2, 0.f, 0.f );
-		_viewportV = _viewportBottomLeftCorner - _viewportTopLeftCorner;
-		_viewportU = _viewportBottomLeftCorner - _viewportBottomRightCorner;
+		_viewportV			   = _v * _viewportHeight;
+		_viewportU			   = _u * _viewportWidth;
+
+		_viewportTopLeftCorner = _position - ( _w * _focalDistance ) + ( _viewportV * 0.5f ) - ( _viewportU * 0.5f );
+
 		/// TODO ! _viewportTopLeftCorner ?	_viewportU ? _viewportV ?
 	}
 
