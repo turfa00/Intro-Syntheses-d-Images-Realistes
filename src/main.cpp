@@ -1,4 +1,5 @@
 #include "cameras/perspective_camera.hpp"
+#include "objects/sphere.hpp"
 #include "defines.hpp"
 #include "renderer.hpp"
 
