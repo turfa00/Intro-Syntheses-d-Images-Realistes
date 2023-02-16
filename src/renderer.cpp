@@ -47,15 +47,36 @@ namespace RT_ISICG
 		//PerspectiveCamera camera( Vec3f( 0.f, 0.f, -1.f ), Vec3f( 0.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), 45.f, 1.5f );
 
 		//Color
-		Vec3f color;
+		Vec3f color, rayColor;
 		float x, y;
+		float pixelHeight = _nbPixelSamples / 4;
+		float pixelWidth  = _nbPixelSamples / pixelHeight;
 		for ( int j = 0; j < height; j++ )
 		{
 			for ( int i = 0; i < width; i++ )
 			{
+				
 				x = (float) i / (width-1);
 				y = (float) j / (height-1);
+				/* Ray ray = p_camera->generateRay( x, y );
+				rayColor = Vec3f( 0.f, 0.f, 0.f );
+				for (int k = 0; k < pixelHeight; k++) {
+					for (int l = 0; l < pixelWidth; l++) {
+
+					}
+				}
+				for (int k = 0; k < _nbPixelSamples; k++) {
+					x = (float)i / ( width - 1 ) + (  k+1 * 2 / _nbPixelSamples );
+					y = (float)j / ( height - 1 ) + ( k+1 * 2/ _nbPixelSamples);
+					//Ray ray = p_camera->generateRay( x, y );
+					//rayColor += _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
+					//rayColor *= 2;
+					//std::cout << rayColor.x << "," << rayColor.y << "," << rayColor.z << std::endl; 
+				}
+				color	= Vec3f(rayColor.x / _nbPixelSamples, rayColor.y / _nbPixelSamples, rayColor.z / _nbPixelSamples);*/
 				Ray ray = p_camera->generateRay( x, y );
+				//std::cout << color.x << color.y << color.z << std::endl; 
+				//Ray ray = p_camera->generateRay( x, y );
 				
 				color = _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
 				//color	= ( ray.getDirection() + 1.f ) * 0.5f;
