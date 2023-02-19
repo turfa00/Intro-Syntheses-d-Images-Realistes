@@ -21,7 +21,8 @@ namespace RT_ISICG
 		//_v = glm::cross(_u, );
 		_w = - glm::normalize(p_lookAt - p_position);
 		_u = glm::normalize(glm::cross(p_up, _w));
-		_v = glm::normalize( glm::cross(_w, _u));
+		//_u = glm::normalize(glm::cross(_w, p_up));
+		_v = glm::normalize( glm::cross(_u, _w));
 		_updateViewport();
 	}
 
