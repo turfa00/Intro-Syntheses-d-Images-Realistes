@@ -12,13 +12,18 @@ namespace RT_ISICG
 		{
 			Vec3f normal	   = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();
-			LightSample lightSample(rayDirection, 1.f, WHITE, 1.f);
 			float angle = glm::max( glm::dot( -rayDirection, normal ), 0.f );
 
+			Vec3f color = VEC3F_ZERO;
 			//luminanceFinale += _directLighting( p_scene, p_ray, p_tMin, p_tMax );
-			Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+			//Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * angle;
 			//luminanceFinale += Li( p_scene, p_ray, p_tMin, p_tMax );
 			//hitRecord._object->getMaterial()->getFlatColor();
+
+			int lights = p_scene.getLights().size();
+			for (int i = 0; i < lights; i++) {
+				color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+			}
 			return color;
 			//return hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * angle;
 			/// TODO ! cos theta...
@@ -31,14 +36,13 @@ namespace RT_ISICG
 		else { return _backgroundColor; }
 	}
 
-		Vec3f DirectLightingIntegrator::_directLighting( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax )
+		Vec3f DirectLightingIntegrator::_directLighting( const BaseLight * light, const HitRecord hitRecord ) const
 	{
-		HitRecord hitRecord;
+		LightSample lightSample	 = light->sample( hitRecord._point );
 		Vec3f	  normal	   = hitRecord._normal;
-		Vec3f	  rayDirection = p_ray.getDirection();
-		float	  angle = glm::max( glm::dot( -rayDirection, normal ), 0.f );
-
-		Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+		
+		float cosTheta = glm::max(glm::dot(hitRecord._normal, lightSample._direction), 0.f);
+		Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		return color;
 	}
 

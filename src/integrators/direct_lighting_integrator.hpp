@@ -17,7 +17,7 @@ namespace RT_ISICG
 		Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
 
 	  private:
-		Vec3f _directLighting( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax );
+		Vec3f _directLighting( const BaseLight * light, const HitRecord hitRecord ) const;
 		Vec3f luminanceFinale = VEC3F_ZERO;
 	};
 
