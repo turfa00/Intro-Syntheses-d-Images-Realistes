@@ -12,10 +12,19 @@ namespace RT_ISICG
 		PointLight()	 = delete;
 		virtual ~PointLight() = default;
 
-		PointLight( const Vec3f p_position ) { _position = p_position; }
+		PointLight( const Vec3f p_position ) : BaseLight(Vec3f(1.f, 1.f, 1.f), 1.f )
+		{
+			_position = p_position;
+		}
 
-		void sample() {
+		LightSample sample( const Vec3f & p_point ) {
+			//this._radiance =
+			float _distance = glm::distance( _position, p_point );
+			Vec3f _radiance = glm::inverse( _distance );
+			Vec3f _direction = p_point - _position;
 
+			LightSample lightSample(_direction, _distance, _radiance, 1.f);
+			return lightSample;
 		}
 	  private:
 		Vec3f _position;
