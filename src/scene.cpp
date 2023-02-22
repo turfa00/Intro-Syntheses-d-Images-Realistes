@@ -36,7 +36,7 @@ namespace RT_ISICG
 		// Add Plane
 		_addObject( new Plane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
 		//Add Lighting
-		_addLight( new PointLight( Vec3f( 1, 10, 1 ), Vec3f(1.f, 1.f, 1.f), 100.f ));
+		_addLight( new PointLight( Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f ));
 
 		// Add materials.
 		_addMaterial( new ColorMaterial( "Blue", BLUE ) );

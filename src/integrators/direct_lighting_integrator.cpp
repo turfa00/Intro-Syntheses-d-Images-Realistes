@@ -13,10 +13,11 @@ namespace RT_ISICG
 		{
 			Vec3f normal	   = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();
-			//float angle = glm::max( glm::dot( -rayDirection, normal ), 0.f )
-
-			int lights = p_scene.getLights().size();
-			for (int i = 0; i < lights; i++) {
+			float angle		   = glm::max( glm::dot( -rayDirection, normal ), 0.f );
+			//std::cout << "here:" << p_scene.getLights().size() << std::endl;
+			color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+			for ( int i = 0; i < p_scene.getLights().size(); i++ )
+			{
 				color += _directLighting( p_scene.getLights().at( i ), hitRecord );
 			}
 			return color;
@@ -36,6 +37,7 @@ namespace RT_ISICG
 		Vec3f	  normal	   = hitRecord._normal;
 		
 		float cosTheta = glm::max(glm::dot(hitRecord._normal, lightSample._direction), 0.f);
+		//float cosTheta = glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
 		Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		return color;
 	}
