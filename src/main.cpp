@@ -30,7 +30,8 @@ namespace RT_ISICG
 		// Create and setup the renderer.
 		Renderer renderer;
 		renderer.setNbPixelSamples( 32 );
-		renderer.setIntegrator( IntegratorType::RAY_CAST );
+		//renderer.setIntegrator( IntegratorType::RAY_CAST ); //A
+		renderer.setIntegrator( IntegratorType::COUNT );
 		renderer.setBackgroundColor( GREY );
 
 		// Launch rendering.
