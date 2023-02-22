@@ -8,24 +8,18 @@ namespace RT_ISICG
 								 const float   p_tMax ) const
 	{
 		HitRecord hitRecord;
+		Vec3f	  color = VEC3F_ZERO;
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
 		{
 			Vec3f normal	   = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();
-			float angle = glm::max( glm::dot( -rayDirection, normal ), 0.f );
-
-			Vec3f color = VEC3F_ZERO;
-			//luminanceFinale += _directLighting( p_scene, p_ray, p_tMin, p_tMax );
-			//Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * angle;
-			//luminanceFinale += Li( p_scene, p_ray, p_tMin, p_tMax );
-			//hitRecord._object->getMaterial()->getFlatColor();
+			//float angle = glm::max( glm::dot( -rayDirection, normal ), 0.f )
 
 			int lights = p_scene.getLights().size();
 			for (int i = 0; i < lights; i++) {
 				color += _directLighting( p_scene.getLights().at( i ), hitRecord );
 			}
 			return color;
-			//return hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * angle;
 			/// TODO ! cos theta...
 			/* Vec3f normal = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();

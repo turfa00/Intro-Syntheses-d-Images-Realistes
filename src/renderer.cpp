@@ -1,5 +1,6 @@
 #include "renderer.hpp"
 #include "integrators/ray_cast_integrator.hpp"
+#include "integrators/direct_lighting_integrator.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
@@ -19,6 +20,10 @@ namespace RT_ISICG
 			_integrator = new RayCastIntegrator();
 			break;
 		}
+
+		case IntegratorType::COUNT: 
+			_integrator = new DirectLightingIntegrator(); 
+			break;
 		}
 	}
 
