@@ -112,6 +112,9 @@ namespace RT_ISICG
 
 				//_addMaterial( new PlasticMaterial( std::string( mtlName.C_Str() ), kd, ks, s ) );
 				//_attachMaterialToObject( mtlName.C_Str(), meshName );
+				/*_addMaterial( new ColorMaterial( std::string( mtlName.C_Str() ), kd ) );
+				_attachMaterialToObject( mtlName.C_Str(), meshName );*/
+
 			}
 
 			std::cout << "-- [DONE] " << triMesh->getNbTriangles() << " triangles, " << triMesh->getNbVertices()

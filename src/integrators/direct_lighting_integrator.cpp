@@ -25,9 +25,14 @@ namespace RT_ISICG
 				Ray		  shadowRay( hitRecord._point, shadowRayDirection );
 				shadowRay.offset( normal );
 				color = hitRecord._object->getMaterial()->getFlatColor() * angle;
-				if (p_scene.intersect(shadowRay, p_tMin, p_tMax, hitRecordShadow)) { 
+
+				if (p_scene.intersectAny(shadowRay, p_tMin, p_tMax)) { 
 					color = BLACK;
 				}
+				/*if ( p_scene.intersect( shadowRay, p_tMin, p_tMax, hitRecordShadow ) )
+				{ 
+					color = BLACK;
+				}*/
 				else { 
 					color += _directLighting( p_scene.getLights().at( i ), hitRecord );
 				}
