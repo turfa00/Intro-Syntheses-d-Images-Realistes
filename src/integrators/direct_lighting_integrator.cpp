@@ -11,16 +11,56 @@ namespace RT_ISICG
 		Vec3f	  color = VEC3F_ZERO;
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
 		{
+			//Shadows
 			Vec3f normal	   = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();
+
+			float angle = glm::max( glm::dot( -rayDirection, normal ), 0.f );
+
+			for (int i = 0; i < p_scene.getLights().size(); i++) {
+				HitRecord hitRecordShadow;
+				//BaseLight light				 = p_scene.getLights().at( i );
+				Vec3f	  lightPoint		 = Vec3f(1, 10, 1); //To work on later
+				Vec3f	  shadowRayDirection = glm::normalize( lightPoint - hitRecord._point );
+				Ray		  shadowRay( hitRecord._point, shadowRayDirection );
+				shadowRay.offset( normal );
+				color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+				if (p_scene.intersect(shadowRay, p_tMin, p_tMax, hitRecordShadow)) { 
+					color = BLACK;
+				}
+				else { 
+					color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+				}
+			}
+
+			return color;
+
+			//color		= hitRecord._object->getMaterial()->getFlatColor() * angle;
+
+			//Original
+			/* Vec3f normal		= hitRecord._normal;
+			Vec3f rayDirection = p_ray.getDirection();
+
 			float angle		   = glm::max( glm::dot( -rayDirection, normal ), 0.f );
-			//std::cout << "here:" << p_scene.getLights().size() << std::endl;
 			color = hitRecord._object->getMaterial()->getFlatColor() * angle;
 			for ( int i = 0; i < p_scene.getLights().size(); i++ )
 			{
+				HitRecord hitRecordShadow;
+				Ray rayShadow( hitRecord._point, -rayDirection );
+				Vec3f objectPoint = p_ray.getOrigin();
 				color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+				if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
+				{ 
+					//if ( hitRecordShadow._object->getMaterial()->shade )
+					//std::cout << "here" << std::endl;
+					//color += Vec3f( 0.f );
+				}
+				else { color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+				}
 			}
-			return color;
+			return color;*/
+
+			//First
 			/// TODO ! cos theta...
 			/* Vec3f normal = hitRecord._normal;
 			Vec3f rayDirection = p_ray.getDirection();
@@ -37,7 +77,6 @@ namespace RT_ISICG
 		Vec3f	  normal	   = hitRecord._normal;
 		
 		float cosTheta = glm::max(glm::dot(hitRecord._normal, lightSample._direction), 0.f);
-		//float cosTheta = glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
 		Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		return color;
 	}

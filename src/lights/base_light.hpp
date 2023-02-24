@@ -14,6 +14,7 @@ namespace RT_ISICG
 
 		inline const Vec3f & getFlatColor() const { return _color; }
 		inline const float & getPower() const { return _power; }
+		inline const Vec3f & getPosition() const;
 
 		virtual LightSample sample( const Vec3f & p_point ) const = 0;
 

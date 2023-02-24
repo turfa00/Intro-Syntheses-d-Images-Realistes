@@ -31,6 +31,10 @@ namespace RT_ISICG
 			return lightSample;
 		}
 
+		inline const Vec3f& getPosition() const { 
+			return _position;
+		}
+
 	  private:
 		Vec3f _position;
 	};
