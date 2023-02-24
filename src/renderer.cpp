@@ -83,7 +83,9 @@ namespace RT_ISICG
 				//std::cout << color.x << color.y << color.z << std::endl; 
 				//Ray ray = p_camera->generateRay( x, y );
 				
-				color = _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
+				//color = _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
+				color
+					= glm::clamp( _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() ), 0.f, 255.f );
 				//color	= ( ray.getDirection() + 1.f ) * 0.5f;
 				p_texture.setPixel( i, j, color );
 			}
