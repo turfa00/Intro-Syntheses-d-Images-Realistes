@@ -28,6 +28,9 @@ namespace RT_ISICG
 
 				if (p_scene.intersectAny(shadowRay, p_tMin, p_tMax)) { 
 					color = BLACK;
+					//for (int j = 0; j < _nbLightSamples; j++) {
+						//Li( p_scene, shadowRay, p_tMin, p_tMax );
+					//}
 				}
 				/*if ( p_scene.intersect( shadowRay, p_tMin, p_tMax, hitRecordShadow ) )
 				{ 

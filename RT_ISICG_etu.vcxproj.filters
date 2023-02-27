@@ -211,5 +211,8 @@
     <ClInclude Include="src\integrators\direct_lighting_integrator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\lights\quad_light.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

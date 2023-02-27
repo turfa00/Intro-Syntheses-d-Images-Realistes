@@ -56,6 +56,7 @@ namespace RT_ISICG
 		float x, y;
 		float pixelHeight = _nbPixelSamples / 4;
 		float pixelWidth  = _nbPixelSamples / pixelHeight;
+		#pragma omp parallel for
 		for ( int j = 0; j < height; j++ )
 		{
 			for ( int i = 0; i < width; i++ )

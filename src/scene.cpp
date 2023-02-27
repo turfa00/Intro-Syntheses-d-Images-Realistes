@@ -7,6 +7,7 @@
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
 #include "lights/point_light.hpp"
+#include "lights/quad_light.hpp"
 
 namespace RT_ISICG
 {
@@ -30,8 +31,11 @@ namespace RT_ISICG
 
 	void Scene::init()
 	{
-		
-		// Add objects.
+
+		//initTP1();
+		//initTP2();
+		initTP3();
+		/*// Add objects.
 		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
 		// Add Plane
 		_addObject( new Plane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
@@ -45,6 +49,7 @@ namespace RT_ISICG
 		// Link objects and materials.
 		_attachMaterialToObject( "Blue", "Sphere1" );
 		_attachMaterialToObject( "Red", "Plane1" );
+		*/
 	}
 
 	void Scene::loadFileTriangleMesh( const std::string & p_name, const std::string & p_path )
@@ -199,4 +204,41 @@ namespace RT_ISICG
 		}
 	}
 
+	void Scene::initTP1() {
+		//First change to rayCast integrator
+		// Add objects.
+		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
+		_attachMaterialToObject( "Blue", "Sphere1" );
+	}
+
+	void Scene::initTP2() {
+		// Add objects.
+		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+		// Add Plane
+		_addObject( new Plane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+		// Add Lighting
+		_addLight( new PointLight( Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f ) );
+
+		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
+		_addMaterial( new ColorMaterial( "Red", RED ) );
+
+		_attachMaterialToObject( "Blue", "Sphere1" );
+		_attachMaterialToObject( "Red", "Plane1" );
+	}
+
+	void Scene::initTP3() {
+		// Add objects.
+		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+		// Add Plane
+		_addObject( new Plane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+		// Add Lighting
+		_addLight( new QuadLight( Vec3f( 1.f, 10.f, 2.f ), Vec3f(-2.f, 0.f, 0.f), Vec3f(0.f, 0.f, 2.f), WHITE, 40.f ) );
+
+		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
+		_addMaterial( new ColorMaterial( "Red", RED ) );
+
+		_attachMaterialToObject( "Blue", "Sphere1" );
+		_attachMaterialToObject( "Red", "Plane1" );
+	}
 } // namespace RT_ISICG

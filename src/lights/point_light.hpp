@@ -2,7 +2,6 @@
 #define __RT_ISICG_POINT_LIGHT__
 
 #include "base_light.hpp"
-#include "point_light.hpp"
 
 namespace RT_ISICG
 {
