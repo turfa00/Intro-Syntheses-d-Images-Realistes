@@ -24,27 +24,25 @@ namespace RT_ISICG
 			_u		  = p_u;
 			_v		  = p_v;
 
-			//_aire = () * ();
+			float x = glm::length( _u );
+			float y = glm::length( _v );
+			_aire = (x) * (y);
+			_n		= glm::normalize(glm::cross( _u, _v ));
 		}
 
 		virtual LightSample sample( const Vec3f & p_point ) const override
 		{
 			float _rx = _position.x + (randomFloat() * glm::sign(_u.x));
-			float _ry = _position.y + (randomFloat() * glm::sign( _v.y ));
+			float _rz = _position.z + (randomFloat() * glm::sign( _v.z ));
 
-			Vec3f rPosition = Vec3f(_rx, _ry, _position.z);
+			Vec3f rPosition	 = Vec3f( _rx, _position.y, _rz );
 			Vec3f _direction = glm::normalize( p_point - rPosition );
-			//Vec3f _direction = glm::normalize( p_point - _position );
-			float _distance	 = glm::distance( _position, p_point );
+			//float _distance	 = glm::distance( _position, p_point );
+			float _distance	 = glm::distance( rPosition, p_point );
 			float _facteur	 = 1 / glm::pow( _distance, 2 );
 			float _pdf		 = ( ( 1 / _aire ) * _facteur )
 						 / ( glm::dot( _n, _direction ) / glm::length( _u ) * glm::length( _direction ) );
 			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _pdf;
-
-
-			// float _distance = glm::distance( _position, p_point);
-			// float _facteur	 = glm::pow( 1 / _distance, 2 );
-			//Vec3f _direction = glm::normalize( p_point - _position );
 
 			LightSample lightSample( _direction, _distance, _radiance, _pdf );
 			return lightSample;
