@@ -3,6 +3,7 @@
 
 #include "defines.hpp"
 #include "lights/base_light.hpp"
+#include "lights/quad_light.hpp"
 #include "objects/base_object.hpp"
 #include <exception>
 #include <map>
@@ -34,6 +35,7 @@ namespace RT_ISICG
 		void loadFileTriangleMesh( const std::string & p_name, const std::string & p_path );
 
 		const LightList & getLights() const { return _lightList; }
+		//const QuadLight & getQuadLight() const { return _lightList.at( i ); }
 
 		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
 		bool intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const;
