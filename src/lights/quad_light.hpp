@@ -28,6 +28,8 @@ namespace RT_ISICG
 			float y = glm::length( _v );
 			_aire = (x) * (y);
 			_n		= glm::normalize(glm::cross( _u, _v ));
+
+			_isSurface = true;
 		}
 
 		virtual LightSample sample( const Vec3f & p_point ) const override

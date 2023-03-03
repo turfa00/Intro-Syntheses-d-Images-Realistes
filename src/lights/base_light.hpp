@@ -24,7 +24,7 @@ namespace RT_ISICG
 		const std::string _name;
 		Vec3f _color = WHITE;
 		float _power	 = 1.f;
-		bool			  _isSurface = true;
+		bool			  _isSurface = false;
 	};
 
 } // namespace RT_ISICG

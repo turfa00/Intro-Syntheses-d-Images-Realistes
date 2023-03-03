@@ -11,6 +11,7 @@ namespace RT_ISICG
 	{
 		HitRecord hitRecord;
 		Vec3f	  color = VEC3F_ZERO;
+
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
 		{
 			//Shadows
@@ -20,15 +21,17 @@ namespace RT_ISICG
 			float angle = glm::max( glm::dot( -rayDirection, normal ), 0.f );
 
 			for (int i = 0; i < p_scene.getLights().size(); i++) {
-				if (hitRecord._object != nullptr) {
+				Vec3f lightPoint = Vec3f( 1, 10, 2 ); // To work on later
+				if ( p_scene.getLights().at(i)->getIsSurface())
+				{
+					HitRecord hitRecordShadow;
+					// QuadLight light( p_scene.getLights().at(i) );
+					Vec3f shadowRayDirection = glm::normalize( lightPoint - hitRecord._point );
+					Ray	  shadowRay( hitRecord._point, shadowRayDirection );
+					shadowRay.offset( normal );
+					//color = hitRecord._object->getMaterial()->getFlatColor() * angle;
 					for (int j = 0; j < _nbLightSamples; j++) {
-						HitRecord hitRecordShadow;
-						//QuadLight light( p_scene.getLights().at(i) );
-						Vec3f	  lightPoint		 = Vec3f( 1, 10, 2 ); // To work on later
-						Vec3f	  shadowRayDirection = glm::normalize( lightPoint - hitRecord._point );
-						Ray		  shadowRay( hitRecord._point, shadowRayDirection );
-						shadowRay.offset( normal );
-						color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+						color += hitRecord._object->getMaterial()->getFlatColor() * angle;
 						if ( p_scene.intersectAny( shadowRay, p_tMin, p_tMax ) )
 						{
 							color = BLACK;
@@ -39,8 +42,23 @@ namespace RT_ISICG
 
 					}
 					
+					//color = Vec3f( glm::max( 0.f, color.x / 4 ), glm::max( 0.f, color.y / 4 ), glm::max( 0.f, color.z / 4 ) ); 
+					color /= _nbLightSamples;
 
-
+				}
+				else { 
+					HitRecord hitRecordShadow;
+					// QuadLight light( p_scene.getLights().at(i) );
+					Vec3f shadowRayDirection = glm::normalize( lightPoint - hitRecord._point );
+					Ray	  shadowRay( hitRecord._point, shadowRayDirection );
+					shadowRay.offset( normal );
+					color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+					if ( p_scene.intersectAny( shadowRay, p_tMin, p_tMax ) ) { 
+						color = BLACK; 
+					}
+					else {
+						color += _directLighting( p_scene.getLights().at( i ), hitRecord ); 
+					}
 				}
 
 
@@ -79,7 +97,7 @@ namespace RT_ISICG
 					color += _directLighting( p_scene.getLights().at( i ), hitRecord );
 				}*/
 			}
-
+			
 			return color;
 
 			//color		= hitRecord._object->getMaterial()->getFlatColor() * angle;
@@ -119,6 +137,7 @@ namespace RT_ISICG
 	}
 
 	Vec3f DirectLightingIntegrator::_directLighting( const BaseLight * light, const HitRecord hitRecord ) const
+	//Vec3f DirectLightingIntegrator::_directLighting( const QuadLight * light, const HitRecord hitRecord ) const
 	{
 		LightSample lightSample	 = light->sample( hitRecord._point );
 		Vec3f	  normal	   = hitRecord._normal;
