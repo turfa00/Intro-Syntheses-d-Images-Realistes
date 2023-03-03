@@ -24,10 +24,13 @@ namespace RT_ISICG
 				Vec3f lightPoint = Vec3f( 1, 10, 2 ); // To work on later
 				if ( p_scene.getLights().at(i)->getIsSurface())
 				{
+					LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 					HitRecord hitRecordShadow;
 					// QuadLight light( p_scene.getLights().at(i) );
 					Vec3f shadowRayDirection = glm::normalize( lightPoint - hitRecord._point );
-					Ray	  shadowRay( hitRecord._point, shadowRayDirection );
+
+					//Ray	  shadowRay( hitRecord._point, shadowRayDirection );
+					Ray	  shadowRay( hitRecord._point, lightSample._direction );
 					shadowRay.offset( normal );
 					//color = hitRecord._object->getMaterial()->getFlatColor() * angle;
 					for (int j = 0; j < _nbLightSamples; j++) {
