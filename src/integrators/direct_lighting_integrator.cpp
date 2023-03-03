@@ -24,6 +24,18 @@ namespace RT_ISICG
 				Ray			shadowRay( hitRecord._point, -lightSample._direction );
 				shadowRay.offset( normal );
 				color = hitRecord._object->getMaterial()->getFlatColor() * angle;
+				if ( p_scene.intersectAny( shadowRay, p_tMin, p_tMax ) ) 
+				{ 
+					color = BLACK; 
+				}
+				else 
+				{ 
+					color += _directLighting( p_scene.getLights().at( i ), hitRecord ); 
+				}
+
+
+
+				/*
 				if ( p_scene.getLights().at(i)->getIsSurface())
 				{
 					for (int j = 0; j < _nbLightSamples; j++) {
@@ -47,7 +59,7 @@ namespace RT_ISICG
 					else {
 						color += _directLighting( p_scene.getLights().at( i ), hitRecord ); 
 					}
-				}
+				}*/
 
 
 				/* HitRecord hitRecordShadow;
@@ -78,11 +90,23 @@ namespace RT_ISICG
 
 	Vec3f DirectLightingIntegrator::_directLighting( const BaseLight * light, const HitRecord hitRecord ) const
 	{
-		LightSample lightSample	 = light->sample( hitRecord._point );
-		Vec3f	  normal	   = hitRecord._normal;
-		
-		float cosTheta = glm::max(glm::dot(hitRecord._normal, lightSample._direction), 0.f);
-		Vec3f color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
+		Vec3f color = VEC3F_ZERO;
+		if ( light->getIsSurface() ) 
+		{
+			for (int i = 0; i < _nbLightSamples; i++) {
+				LightSample lightSample = light->sample( hitRecord._point );
+				Vec3f		normal		= hitRecord._normal;
+				float cosTheta = glm::max( glm::dot( hitRecord._normal, lightSample._direction ), 0.f );
+				color		   += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
+			}
+			color /= _nbLightSamples;
+		}
+		else {
+			LightSample lightSample = light->sample( hitRecord._point );
+			Vec3f		normal		= hitRecord._normal;
+			float		cosTheta	= glm::max( glm::dot( hitRecord._normal, lightSample._direction ), 0.f );
+			color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
+		}
 		return color;
 	}
 

@@ -69,8 +69,8 @@ namespace RT_ISICG
 				for (int k = 0; k < _nbPixelSamples; k++) {
 					offsetx = randomFloat();
 					offsety = randomFloat();
-					x = (float)(i + offsetx) / ( width - 1 );
-					y = (float)(j + offsety) / ( height - 1 );
+					x = (float) ((i + offsetx) / ( width - 1 ));
+					y = (float) ((j + offsety) / ( height - 1 ));
 
 					Ray ray = p_camera->generateRay( x, y );
 					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
