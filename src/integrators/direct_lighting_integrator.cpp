@@ -91,21 +91,20 @@ namespace RT_ISICG
 	Vec3f DirectLightingIntegrator::_directLighting( const BaseLight * light, const HitRecord hitRecord ) const
 	{
 		Vec3f color = VEC3F_ZERO;
+
+		LightSample lightSample = light->sample( hitRecord._point );
+		Vec3f		normal		= hitRecord._normal;
+		float		cosTheta	= glm::max( glm::dot( hitRecord._normal, lightSample._direction ), 0.f );
 		if ( light->getIsSurface() ) 
 		{
 			for (int i = 0; i < _nbLightSamples; i++) {
-				LightSample lightSample = light->sample( hitRecord._point );
-				Vec3f		normal		= hitRecord._normal;
-				float cosTheta = glm::max( glm::dot( hitRecord._normal, lightSample._direction ), 0.f );
 				color		   += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 			}
 			color /= _nbLightSamples;
 		}
 		else {
-			LightSample lightSample = light->sample( hitRecord._point );
-			Vec3f		normal		= hitRecord._normal;
-			float		cosTheta	= glm::max( glm::dot( hitRecord._normal, lightSample._direction ), 0.f );
-			color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
+			
+			color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		}
 		return color;
 	}

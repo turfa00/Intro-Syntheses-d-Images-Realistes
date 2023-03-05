@@ -59,31 +59,25 @@ namespace RT_ISICG
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				
-				//x = (float) i / (width-1);
-				//y = (float) j / (height-1);
-				//Ray ray = p_camera->generateRay( x, y );
+				/* rayColor = Vec3f( 0.f );
+				x		 = (float) i / ( width - 1 );
+				y		 = (float) j / ( height - 1 );
+				Ray ray	 = p_camera->generateRay( x, y );
+				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000000000.f );*/
 				rayColor = Vec3f( 0.f, 0.f, 0.f );
-				
-				
-				for (int k = 0; k < _nbPixelSamples; k++) {
-					offsetx = randomFloat();
-					offsety = randomFloat();
-					x = (float) ((i + offsetx) / ( width - 1 ));
-					y = (float) ((j + offsety) / ( height - 1 ));
+				for ( int k = 0; k < _nbPixelSamples; k++ )
+				{
+					
+					offsetx = randomFloat() - randomFloat();
+					offsety = randomFloat() - randomFloat();
+					x = ((float) i + offsetx ) / ( width - 1 );
+					y =	((float) j + offsety ) / ( height - 1 );
 
 					Ray ray = p_camera->generateRay( x, y );
-					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
+					//rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
+					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000000.f );
 				}
 				rayColor /= _nbPixelSamples;
-				//color	= Vec3f(rayColor.x / _nbPixelSamples, rayColor.y / _nbPixelSamples, rayColor.z / _nbPixelSamples);
-				//Ray ray = p_camera->generateRay( x, y );
-				//std::cout << color.x << color.y << color.z << std::endl; 
-				//Ray ray = p_camera->generateRay( x, y );
-				
-				//color = _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() );
-				//color = glm::clamp( _integrator->Li( p_scene, ray, 0.f, std::numeric_limits<float>::max() ), 0.f, 255.f );
-				//color	= ( ray.getDirection() + 1.f ) * 0.5f;
 				p_texture.setPixel( i, j, rayColor );
 			}
 			progressBar.next();
