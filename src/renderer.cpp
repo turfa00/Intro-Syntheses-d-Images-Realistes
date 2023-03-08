@@ -20,10 +20,11 @@ namespace RT_ISICG
 			_integrator = new RayCastIntegrator();
 			break;
 		}
-
-		case IntegratorType::COUNT: 
+		case IntegratorType::DIRECT_LIGHTING: 
 			_integrator = new DirectLightingIntegrator(); 
 			break;
+		//case IntegratorType::COUNT: 
+
 		}
 	}
 
@@ -51,23 +52,20 @@ namespace RT_ISICG
 
 		//PerspectiveCamera camera( Vec3f( 0.f, 0.f, -1.f ), Vec3f( 0.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), 45.f, 1.5f );
 
-		//Color
-		Vec3f color, rayColor;
-		float x, y, offsetx, offsety;
 		#pragma omp parallel for
 		for ( int j = 0; j < height; j++ )
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				rayColor = VEC3F_ZERO;
+				Vec3f rayColor = VEC3F_ZERO;
 				//Without anti aliasing
-				/* x	 = (float)i / ( width - 1 );
-				y		 = (float) j / ( height - 1 );
+				float x	 = (float)i / ( width - 1 );
+				float y	  = (float)j / ( height - 1 );
 				Ray ray	 = p_camera->generateRay( x, y );
-				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000000000.f );*/
+				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000.f );
 
 				//With anti aliasing
-				for ( int k = 0; k < _nbPixelSamples; k++ )
+				/* for ( int k = 0; k < _nbPixelSamples; k++ )
 				{
 					
 					offsetx = randomFloat() - randomFloat();
@@ -79,7 +77,7 @@ namespace RT_ISICG
 					//rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
 					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000000.f );
 				}
-				rayColor /= _nbPixelSamples;
+				rayColor /= _nbPixelSamples;*/
 				p_texture.setPixel( i, j, rayColor );
 			}
 			progressBar.next();

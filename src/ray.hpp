@@ -21,7 +21,7 @@ namespace RT_ISICG
 		// This function add an offset to the ray origin to avoid self-intersection when e.g. computing shadows
 		inline void offset( const Vec3f p_normal )
 		{
-			float offsetBias = 0.005;
+			float offsetBias = 0.0001f;
 			_origin = _origin + p_normal * offsetBias;
 			/// TODO
 		}

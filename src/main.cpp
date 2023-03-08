@@ -31,7 +31,7 @@ namespace RT_ISICG
 		Renderer renderer;
 		renderer.setNbPixelSamples( 1 );
 		//renderer.setIntegrator( IntegratorType::RAY_CAST ); //A
-		renderer.setIntegrator( IntegratorType::COUNT );
+		renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
 		
 		renderer.setBackgroundColor( GREY );
 

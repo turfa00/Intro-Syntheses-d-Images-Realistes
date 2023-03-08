@@ -8,6 +8,7 @@ namespace RT_ISICG
 	enum class IntegratorType : int
 	{
 		RAY_CAST = 0,
+		DIRECT_LIGHTING,
 		COUNT // keep it last
 	};
 

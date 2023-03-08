@@ -34,16 +34,18 @@ namespace RT_ISICG
 
 		virtual LightSample sample( const Vec3f & p_point ) const override
 		{
-			float _rx = _position.x + (randomFloat() * glm::sign(_u.x));
-			float _ry = _position.y + ( randomFloat() * glm::sign( _u.y ) * glm::sign( _v.y ) );
-			float _rz = _position.z + (randomFloat() * glm::sign( _v.z ));
+			//float _rx = _position.x + ( randomFloat() * _u.x ) + ( randomFloat() * _v.x );
+			//float _ry = _position.y + ( randomFloat() * _u.y ) + ( randomFloat() * _v.y );
+			//float _rz = _position.z + ( randomFloat() * _u.z ) + ( randomFloat() * _v.z );
 
-			Vec3f randomPosition	 = Vec3f( _rx, _ry, _rz );
-			Vec3f _direction	 = glm::normalize( p_point - randomPosition );
+			Vec3f randomPosition = _position + _u * randomFloat() + _v * randomFloat(); 
+				
+			Vec3f _direction = glm::normalize( randomPosition - p_point );
 			float _distance	 = glm::distance( randomPosition, p_point );
-			float _facteur = 1 / glm::pow( _distance, 2 );
-			float cosTheta = glm::dot( _n, _direction );
-			float _pdf	   = ( ( 1 / _aire ) * _facteur / cosTheta);
+			float _facteur = glm::pow( _distance, 2.f );
+			float cosTheta = glm::max( glm::dot( _n, _direction ), 0.f );
+			//float cosTheta	= glm::dot( _direction, _n );
+			float _pdf		= ( ( 1.f / _aire ) * ( _facteur / cosTheta ) );
 			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _pdf;
 
 			LightSample lightSample( _direction, _distance, _radiance, _pdf );

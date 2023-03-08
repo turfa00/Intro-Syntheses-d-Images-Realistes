@@ -23,7 +23,7 @@ namespace RT_ISICG
 			float _facteur	 = 1 / glm::pow( _distance, 2 );
 			//float _facteur	 = glm::pow( 1 / _distance, 2 );
 			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _facteur;
-			Vec3f _direction = glm::normalize(p_point - _position);
+			Vec3f _direction = glm::normalize( _position - p_point );
 			float _pdf = 1.f;
 
 			LightSample lightSample( _direction, _distance, _radiance, _pdf);

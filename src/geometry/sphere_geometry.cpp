@@ -18,12 +18,10 @@ namespace RT_ISICG
 		
 		float delta = b * b - 4 * a * c;
 		if ( delta >= 0 ) { 
+			// p_t2 is always greater than p_t1
 			p_t1 = ( -b - sqrt( delta ) ) / 2;
 			p_t2 = ( -b + sqrt( delta ) ) / 2;
-			if ( p_t1 > p_t2 )
-			{
-				std::swap( p_t1, p_t2 );
-			}
+
 			return true;
 		}
 
