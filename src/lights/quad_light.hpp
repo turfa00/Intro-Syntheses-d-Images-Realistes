@@ -38,14 +38,12 @@ namespace RT_ISICG
 			float _ry = _position.y + ( randomFloat() * glm::sign( _u.y ) * glm::sign( _v.y ) );
 			float _rz = _position.z + (randomFloat() * glm::sign( _v.z ));
 
-			Vec3f randomPosition	 = Vec3f( _rx, _position.y, _rz );
+			Vec3f randomPosition	 = Vec3f( _rx, _ry, _rz );
 			Vec3f _direction	 = glm::normalize( p_point - randomPosition );
 			float _distance	 = glm::distance( randomPosition, p_point );
-			//float _facteur	 = 1 / glm::pow( _distance, 2 );
-			float _facteur	 = glm::pow( _distance, 2 );
+			float _facteur = 1 / glm::pow( _distance, 2 );
 			float cosTheta = glm::dot( _n, _direction );
-			float _pdf	   = ( ( 1 / _aire ) * _facteur ) / cosTheta;
-			// glm::length( _u ) * glm::length( _direction ) );
+			float _pdf	   = ( ( 1 / _aire ) * _facteur / cosTheta);
 			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _pdf;
 
 			LightSample lightSample( _direction, _distance, _radiance, _pdf );

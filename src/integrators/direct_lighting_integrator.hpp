@@ -18,7 +18,7 @@ namespace RT_ISICG
 
 	  private:
 		Vec3f _directLighting( const BaseLight * light, const HitRecord hitRecord ) const;
-		int	  _nbLightSamples = 6;
+		int	  _nbLightSamples = 1;
 	};
 
 } // namespace RT_ISICG

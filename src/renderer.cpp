@@ -59,12 +59,14 @@ namespace RT_ISICG
 		{
 			for ( int i = 0; i < width; i++ )
 			{
-				/* rayColor = Vec3f( 0.f );
-				x		 = (float) i / ( width - 1 );
+				rayColor = VEC3F_ZERO;
+				//Without anti aliasing
+				/* x	 = (float)i / ( width - 1 );
 				y		 = (float) j / ( height - 1 );
 				Ray ray	 = p_camera->generateRay( x, y );
 				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000000000.f );*/
-				rayColor = Vec3f( 0.f, 0.f, 0.f );
+
+				//With anti aliasing
 				for ( int k = 0; k < _nbPixelSamples; k++ )
 				{
 					
