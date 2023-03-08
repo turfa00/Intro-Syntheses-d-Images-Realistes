@@ -18,8 +18,7 @@ namespace RT_ISICG
 			{
 				// TODO: appeler directlighting ici
 				// directlighting boucle sur les lumières, pour chaque lance un shadow ray et shade si pas d'intersection
-
-				color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+		
 				LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 				Ray			shadowRay( hitRecord._point, lightSample._direction );
 				shadowRay.offset( hitRecord._normal );

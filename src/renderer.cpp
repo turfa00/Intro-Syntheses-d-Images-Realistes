@@ -72,9 +72,10 @@ namespace RT_ISICG
 
 					Ray ray = p_camera->generateRay( x, y );
 					//rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
-					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000000.f );
+					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
 				}
 				rayColor /= _nbPixelSamples;
+				//glm::clamp( rayColor, Vec3f( 0.f ), Vec3f( 1.f ) );
 				p_texture.setPixel( i, j, rayColor );
 			}
 			progressBar.next();
