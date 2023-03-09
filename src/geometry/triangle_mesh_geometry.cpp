@@ -34,7 +34,7 @@ namespace RT_ISICG
 
 		f = 1.f / a;
 		s = o - v0;
-		u = f * glm::dot( s, h ), 0.f );
+		u = f * glm::dot( s, h );
 		if (u < 0.f || u > 1.f) { return false;
 		}
 		q = glm::cross( s, edge1 );

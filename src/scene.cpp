@@ -34,7 +34,8 @@ namespace RT_ISICG
 
 		//initTP1();
 		//initTP2();
-		initTP3();
+		//initTP3();
+		initTP4();
 		/*// Add objects.
 		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
 		// Add Plane
@@ -246,34 +247,34 @@ namespace RT_ISICG
 		// Add materials .
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = =
-		_addMaterial( new ColorMaterial( " RedColor ", RED ) );
-		_addMaterial( new ColorMaterial( " GreenColor ", GREEN ) );
-		_addMaterial( new ColorMaterial( " BlueColor ", BLUE ) );
-		_addMaterial( new ColorMaterial( " GreyColor ", GREY ) );
-		_addMaterial( new ColorMaterial( " MagentaColor ", MAGENTA ) );
-		_addMaterial( new ColorMaterial( " YellowColor ", YELLOW ) );
-		_addMaterial( new ColorMaterial( " CyanColor ", CYAN ) );
+		_addMaterial( new ColorMaterial( "RedColor", RED ) );
+		_addMaterial( new ColorMaterial( "GreenColor", GREEN ) );
+		_addMaterial( new ColorMaterial( "BlueColor", BLUE ) );
+		_addMaterial( new ColorMaterial( "GreyColor", GREY ) );
+		_addMaterial( new ColorMaterial( "MagentaColor", MAGENTA ) );
+		_addMaterial( new ColorMaterial( "YellowColor", YELLOW ) );
+		_addMaterial( new ColorMaterial( "CyanColor", CYAN ) );
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
-		loadFileTriangleMesh( " UVsphere ", DATA_PATH + " uvsphere . obj " );
-		_attachMaterialToObject( " CyanColor ", "UVsphere_defaultobject" );
+		loadFileTriangleMesh( "UVsphere","C:/Users/turfa/OneDrive/Documents/GitHub/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
+		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .
-		_addObject( new Plane( " PlaneGround ", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
-		_attachMaterialToObject( " GreyColor ", " PlaneGround " );
-		_addObject( new Plane( " PlaneLeft ", Vec3f( 5. f, 0. f, 0. f ), Vec3f( -1.f, 0. f, 0. f ) ) );
-		_attachMaterialToObject( " RedColor ", " PlaneLeft " );
-		_addObject( new Plane( " PlaneCeiling ", Vec3f( 0. f, 7. f, 0. f ), Vec3f( 0. f, -1.f, 0. f ) ) );
-		_attachMaterialToObject( " GreenColor ", " PlaneCeiling " );
-		_addObject( new Plane( " PlaneRight ", Vec3f( -5.f, 0. f, 0. f ), Vec3f( 1. f, 0. f, 0. f ) ) );
-		_attachMaterialToObject( " BlueColor ", " PlaneRight " );
-		_addObject( new Plane( " PlaneFront ", Vec3f( 0. f, 0. f, 10. f ), Vec3f( 0. f, 0. f, -1. f ) ) );
-		_attachMaterialToObject( " MagentaColor ", " PlaneFront " );
-		_addObject( new Plane( " PlaneRear ", Vec3f( 0. f, 0. f, -10. f ), Vec3f( 0. f, 0. f, 1. f ) ) );
-		_attachMaterialToObject( " YellowColor ", " PlaneRear " );
+		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+		_attachMaterialToObject( "GreyColor", "PlaneGround" );
+		_addObject( new Plane( "PlaneLeft", Vec3f( 5.f, 0.f, 0.f ), Vec3f( -1.f, 0.f, 0.f ) ) );
+		_attachMaterialToObject( "RedColor", "PlaneLeft" );
+		_addObject( new Plane( "PlaneCeiling", Vec3f( 0.f, 7.f, 0.f ), Vec3f( 0.f, -1.f, 0.f ) ) );
+		_attachMaterialToObject( "GreenColor", "PlaneCeiling" );
+		_addObject( new Plane( "PlaneRight", Vec3f( -5.f, 0.f, 0.f ), Vec3f( 1.f, 0.f, 0.f ) ) );
+		_attachMaterialToObject( "BlueColor", "PlaneRight" );
+		_addObject( new Plane( "PlaneFront", Vec3f( 0.f, 0.f, 10.f ), Vec3f( 0.f, 0.f, -1.f ) ) );
+		_attachMaterialToObject( "MagentaColor", "PlaneFront" );
+		_addObject( new Plane( "PlaneRear", Vec3f( 0.f, 0.f, -10.f ), Vec3f( 0.f, 0.f, 1.f ) ) );
+		_attachMaterialToObject( "YellowColor", "PlaneRear" );
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = Add lights . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = =
-		_addLight( new PointLight( Vec3f( 0. f, 3. f, -5. f ), WHITE, 100. f ) );
+		_addLight( new PointLight( Vec3f( 0.f, 3.f, -5.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG

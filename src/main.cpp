@@ -18,8 +18,8 @@ namespace RT_ISICG
 		scene.init();
 
 		// Create a perspective camera.
-		//PerspectiveCamera camera( float( imgWidth ) / imgHeight );
-		Vec3f			  position = Vec3f( 0, 0, -2 );
+		//Vec3f			  position = Vec3f( 0, 0, -2 );
+		Vec3f			  position = Vec3f( 0, 2, -6 );
 		Vec3f			  lookAt   = Vec3f( 0, 0, 79);
 		Vec3f			  up	   = Vec3f( 0, 1, 0 );
 		float			  fov	   = 60.f;
@@ -29,7 +29,7 @@ namespace RT_ISICG
 
 		// Create and setup the renderer.
 		Renderer renderer;
-		renderer.setNbPixelSamples( 6 );
+		renderer.setNbPixelSamples( 4 );
 		//renderer.setIntegrator( IntegratorType::RAY_CAST ); //A
 		renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
 		
