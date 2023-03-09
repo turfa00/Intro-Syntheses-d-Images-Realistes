@@ -23,13 +23,13 @@ namespace RT_ISICG
 		
 		const float epsilon = 0.0000001;
 		Vec3f edge1, edge2, h, s, q;
-		float		a, f, u, v, t;
+		float		a, f, u, v;
 		edge1 = v1 - v0;
 		edge2 = v2 - v0;
 		h = glm::cross(d, edge2);
-		a	  = glm::dot(edge1, h);
+		a = glm::dot(edge1, h);
 
-		if (a > -epsilon && a < epsilon) { return false;
+		if (a > -epsilon && a < epsilon) { return false; // Le rayon est parallèle au triangle.
 		}
 
 		f = 1.f / a;
@@ -42,9 +42,9 @@ namespace RT_ISICG
 		if (v < 0.f || u + v > 1.f) { return false;
 		}
 
-		t = f * glm::dot( edge2, q );
-		if (t > epsilon) {
-
+		float t = f * glm::dot( edge2, q );
+		if (t > epsilon) { // Intersection avec le rayon
+			p_t = glm::dot(o, d * t); //To work on. Calculate intersection point
 			return true;
 		}
 		/// TODO
