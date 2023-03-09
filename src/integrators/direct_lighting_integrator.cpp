@@ -18,19 +18,39 @@ namespace RT_ISICG
 			{
 				// TODO: appeler directlighting ici
 				// directlighting boucle sur les lumières, pour chaque lance un shadow ray et shade si pas d'intersection
-		
-				LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
-				Ray			shadowRay( hitRecord._point, lightSample._direction );
-				shadowRay.offset( hitRecord._normal );
-
-				if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) ) 
-				{ 
-					/// TODO: shading
-					color += _directLighting( p_scene.getLights().at( i ), hitRecord ); 
+				if ( p_scene.getLights().at( i )->getIsSurface() )
+				{
+					for (int j = 0; j < _nbLightSamples; j++) {
+						LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
+						Ray			shadowRay( hitRecord._point, lightSample._direction );
+						shadowRay.offset( hitRecord._normal );
+						if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
+						{
+							/// TODO: shading
+							color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+						}
+					}
 				}
+				else {
+					LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
+					Ray			shadowRay( hitRecord._point, lightSample._direction );
+					shadowRay.offset( hitRecord._normal );
+					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
+					{
+						/// TODO: shading
+						color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+					}
+				}
+				
 			}
+			return color;
 		}
-		return color;
+		else 
+		{ 
+			return _backgroundColor;
+		}
+		
+		
 	}
 
 	Vec3f DirectLightingIntegrator::_directLighting( const BaseLight * light, const HitRecord hitRecord ) const
@@ -40,7 +60,7 @@ namespace RT_ISICG
 		LightSample lightSample = light->sample( hitRecord._point );
 		Vec3f		normal		= hitRecord._normal;
 		float		cosTheta	= glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
-		if ( light->getIsSurface() ) 
+		/*if ( light->getIsSurface() ) 
 		{
 			for (int i = 0; i < _nbLightSamples; i++) {
 				color	+= hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
@@ -50,7 +70,8 @@ namespace RT_ISICG
 		else {
 			
 			color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
-		}
+		}*/
+		color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		return color;
 	}
 

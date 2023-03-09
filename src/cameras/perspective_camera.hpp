@@ -22,7 +22,7 @@ namespace RT_ISICG
 		{
 			Vec3f viewportPosition = _viewportTopLeftCorner - _viewportV * p_sy + _viewportU * p_sx;
 			Vec3f rayDirection	   = viewportPosition - _position;
-
+			//Vec3f rayDirection	   = ( _viewportTopLeftCorner - _position ) + _viewportU * p_sx - _viewportV * p_sy;	//Before. Deprecated
 			return Ray( _position, glm::normalize(rayDirection) );
 		}
 

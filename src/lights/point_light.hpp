@@ -18,9 +18,7 @@ namespace RT_ISICG
 		}
 
 		virtual LightSample sample(const Vec3f& p_point) const override {
-			//float _distance = glm::distance( _position, p_point);
 			float _distance = glm::distance( _position, p_point);
-			//float _facteur	 = 1 / glm::pow( _distance, 2 );
 			float _facteur	 = glm::pow( _distance, 2 );
 			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _facteur;
 			Vec3f _direction = glm::normalize( _position - p_point );

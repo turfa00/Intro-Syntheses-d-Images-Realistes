@@ -20,8 +20,35 @@ namespace RT_ISICG
 		const Vec3f & v0 = _refMesh->_vertices[ _v0 ];
 		const Vec3f & v1 = _refMesh->_vertices[ _v1 ];
 		const Vec3f & v2 = _refMesh->_vertices[ _v2 ];
+		
+		const float epsilon = 0.0000001;
+		Vec3f edge1, edge2, h, s, q;
+		float		a, f, u, v, t;
+		edge1 = v1 - v0;
+		edge2 = v2 - v0;
+		h = glm::cross(d, edge2);
+		a	  = glm::dot(edge1, h);
 
+		if (a > -epsilon && a < epsilon) { return false;
+		}
+
+		f = 1.f / a;
+		s = o - v0;
+		u = f * glm::dot( s, h ), 0.f );
+		if (u < 0.f || u > 1.f) { return false;
+		}
+		q = glm::cross( s, edge1 );
+		v = f * glm::dot( d, q );
+		if (v < 0.f || u + v > 1.f) { return false;
+		}
+
+		t = f * glm::dot( edge2, q );
+		if (t > epsilon) {
+
+			return true;
+		}
 		/// TODO
+		//On a bien une intersection de droite mais pas de rayon
 		return false;
 	}
 

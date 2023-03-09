@@ -24,9 +24,7 @@ namespace RT_ISICG
 			_u		  = p_u;
 			_v		  = p_v;
 
-			float x = glm::length( _u );
-			float y = glm::length( _v );
-			_aire = (x) * (y);
+			_aire	= glm::length( _u ) * glm::length( _v );
 			_n		= glm::normalize(glm::cross( _u, _v ));
 
 			_isSurface = true;
@@ -34,11 +32,7 @@ namespace RT_ISICG
 
 		virtual LightSample sample( const Vec3f & p_point ) const override
 		{
-			//float _rx = _position.x + ( randomFloat() * _u.x ) + ( randomFloat() * _v.x );
-			//float _ry = _position.y + ( randomFloat() * _u.y ) + ( randomFloat() * _v.y );
-			//float _rz = _position.z + ( randomFloat() * _u.z ) + ( randomFloat() * _v.z );
-
-			Vec3f randomPosition = _position + _u * randomFloat() + _v * randomFloat(); 
+			Vec3f randomPosition = _position + (_u * randomFloat() + _v * randomFloat()); 
 				
 			Vec3f _direction = glm::normalize( randomPosition - p_point );
 			float _distance	 = glm::distance( randomPosition, p_point );

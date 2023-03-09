@@ -29,7 +29,7 @@ namespace RT_ISICG
 
 		// Create and setup the renderer.
 		Renderer renderer;
-		renderer.setNbPixelSamples( 1 );
+		renderer.setNbPixelSamples( 6 );
 		//renderer.setIntegrator( IntegratorType::RAY_CAST ); //A
 		renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
 		
