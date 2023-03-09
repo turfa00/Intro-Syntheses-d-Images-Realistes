@@ -44,7 +44,7 @@ namespace RT_ISICG
 
 		float t = f * glm::dot( edge2, q );
 		if (t > epsilon) { // Intersection avec le rayon
-			p_t = glm::dot(o, d * t); //To work on. Calculate intersection point
+			//p_t = glm::dot(o + d * t, ); //To work on. Calculate intersection point
 			return true;
 		}
 		/// TODO
