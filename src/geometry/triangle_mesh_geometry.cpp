@@ -21,6 +21,8 @@ namespace RT_ISICG
 		const Vec3f & v1 = _refMesh->_vertices[ _v1 ];
 		const Vec3f & v2 = _refMesh->_vertices[ _v2 ];
 		
+		//_faceNormal = ( 1 - u - v ) * n0 + u * n1 + v * n2;
+		//_faceNormal = ( 1 - u - v ) * v0 + u * v1 + v * v2;
 		const float epsilon = 0.0000001;
 		Vec3f edge1, edge2, h, s, q;
 		float		a, f, u, v;
@@ -43,11 +45,10 @@ namespace RT_ISICG
 		}
 
 		float t = f * glm::dot( edge2, q );
+		p_t		= t;
 		if (t > epsilon) { // Intersection avec le rayon
-			//p_t = glm::dot(o + d * t, ); //To work on. Calculate intersection point
 			return true;
 		}
-		/// TODO
 		//On a bien une intersection de droite mais pas de rayon
 		return false;
 	}

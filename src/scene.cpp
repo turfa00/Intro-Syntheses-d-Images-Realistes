@@ -9,6 +9,9 @@
 #include "lights/point_light.hpp"
 #include "lights/quad_light.hpp"
 
+static const std::string DATA_PATH
+	= "C:/Users/turfa/OneDrive/Documents/GitHub/Intro-Syntheses-d-Images-Realistes/src/obj/";
+
 namespace RT_ISICG
 {
 	Scene::Scene() { _addMaterial( new ColorMaterial( "default", WHITE ) ); }
@@ -73,6 +76,7 @@ namespace RT_ISICG
 			if ( mesh == nullptr ) { throw std::runtime_error( "Fail to load file: " + p_path + ": mesh is null" ); }
 
 			const std::string meshName = p_name + "_" + std::string( mesh->mName.C_Str() );
+			//std::cout << "here << " << mesh->mName.C_Str() << std::endl; // New
 			std::cout << "-- Load mesh " << m + 1 << "/" << scene->mNumMeshes << ": " << meshName << std::endl;
 
 			cptTriangles += mesh->mNumFaces;
@@ -257,8 +261,8 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
-		//loadFileTriangleMesh( "UVsphere","C:/Users/turfa/OneDrive/Documents/GitHub/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
-		loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
+		loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
+		//loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
