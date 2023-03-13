@@ -60,7 +60,7 @@ namespace RT_ISICG
 		LightSample lightSample = light->sample( hitRecord._point );
 		Vec3f		normal		= hitRecord._normal;
 		float		cosTheta	= glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
-		/*if ( light->getIsSurface() ) 
+		if ( light->getIsSurface() ) 
 		{
 			for (int i = 0; i < _nbLightSamples; i++) {
 				color	+= hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
@@ -70,8 +70,8 @@ namespace RT_ISICG
 		else {
 			
 			color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
-		}*/
-		color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
+		}
+		//color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		return color;
 	}
 
