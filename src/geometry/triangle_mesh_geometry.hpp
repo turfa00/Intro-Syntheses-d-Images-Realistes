@@ -24,7 +24,7 @@ namespace RT_ISICG
 			Vec3f n0	= _refMesh->_normals[ _v0 ];
 			Vec3f n1	= _refMesh->_normals[ _v1 ];
 			Vec3f n2	= _refMesh->_normals[ _v2 ];
-			_faceNormal = ( 1 - _u - _v ) * n0 + _u * n1 + v * n2;
+			_faceNormal = ( 1 - _u - _v ) * n0 + _u * n1 + _v * n2;
 			return _faceNormal; 
 		}
 
@@ -35,10 +35,10 @@ namespace RT_ISICG
 			struct
 			{
 				unsigned int _v0, _v1, _v2;
+				float _u, _v;
 			};
 			unsigned int _v[ 3 ] = { 0, 0, 0 };
 		};
-		float _u = 0.f, _v = 0.f;
 		Vec3f _faceNormal;
 	};
 } // namespace RT_ISICG

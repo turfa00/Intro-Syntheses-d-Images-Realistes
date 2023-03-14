@@ -37,6 +37,7 @@ namespace RT_ISICG
 		f = 1.f / a;
 		s = o - v0;
 		u = f * glm::dot( s, h );
+		_refMesh->_uvs[ u ] = u;
 		_u = u;
 		if (u < 0.f || u > 1.f) { return false;
 		}
