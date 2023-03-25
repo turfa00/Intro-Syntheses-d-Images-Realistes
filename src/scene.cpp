@@ -261,7 +261,7 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
-		loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
+		loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
 		//loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .

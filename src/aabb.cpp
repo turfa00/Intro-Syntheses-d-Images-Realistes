@@ -8,12 +8,13 @@ namespace RT_ISICG
 		Vec3f rayDirection = p_ray.getDirection();
 		Vec3f tMin		   = ( _min - rayOrigin ) / rayDirection;
 		Vec3f tMax		   = ( _max - rayOrigin ) / rayDirection;
-		Vec3f t1	= min( tMin, tMax );
+		Vec3f t1	= glm::min( tMin, tMax );
 		Vec3f t2	= max( tMin, tMax );
-		float tNear = max( max( t1.x, t1.y ), t1.z );
-		float tFar	= min( min( t2.x, t2.y ), t2.z );
+		float tNear = glm::max( glm::max( t1.x, t1.y ), t1.z );
+		float tFar	= glm::min( glm::min( t2.x, t2.y ), t2.z );
 
-		return vec2( tNear, tFar );
+		if (tNear <= tFar) { return true;
+		}
 		return false;
 	}
 } // namespace RT_ISICG
