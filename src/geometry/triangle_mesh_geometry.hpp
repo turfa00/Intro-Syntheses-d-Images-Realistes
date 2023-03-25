@@ -2,6 +2,7 @@
 #define __RT_ISICG_TRIANGLE_GEOMETRY__
 
 #include "base_geometry.hpp"
+#include <iostream>
 
 namespace RT_ISICG
 {
@@ -17,18 +18,24 @@ namespace RT_ISICG
 							  const unsigned int p_v1,
 							  const unsigned int p_v2,
 							  MeshTriangle *	 p_refMesh );
-		bool intersect( const Ray & p_ray, float & p_t) const;
+		bool intersect( const Ray & p_ray, float & p_t ) const;
 
-		inline const Vec3f & getFaceNormal() const { 
-			//Vec3f n0	= _refMesh->_normals[ _v0 ];
-			//Vec3f n1	= _refMesh->_normals[ _v1 ];
-			//Vec3f n2	= _refMesh->_normals[ _v2 ];
-
-			//Vec3f n = ( 1 - _u - _v ) * n0 + _u * n1 + _v * n2;
-			//_faceNormal = ( 1 - _u - _v ) * n0 + _u * n1 + _v * n2;
-			//_refMesh->addNormal( n.x, n.y, n.z);
+		inline const Vec3f & getFaceNormal() const{ 
 			return _faceNormal; 
 		}
+
+		/* Vec3f & updateNormal( float u, float v ) const
+		{
+			Vec3f & v0 = _refMesh->_vertices[ _v0 ];
+			Vec3f & v1 = _refMesh->_vertices[ _v1 ];
+			Vec3f & v2 = _refMesh->_vertices[ _v2 ];
+
+			Vec3f n0	= _refMesh->_normals[ _v0 ];
+			Vec3f n1	= _refMesh->_normals[ _v1 ];
+			Vec3f n2	= _refMesh->_normals[ _v2 ];
+			_faceNormal = ( 1 - u - v ) * n0 + u * n1 + v * n2;
+			return _faceNormal;
+		}*/
 
 	  private:
 		MeshTriangle * _refMesh;

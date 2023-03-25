@@ -21,6 +21,24 @@ namespace RT_ISICG
 		// Extends the AABB with a point
 		inline void extend( const Vec3f & p_point )
 		{
+			if (p_point.x < _min.x) { _min.x = p_point.x;
+			}
+			else {
+				if ( p_point.x > _max.x ) { _max.x = p_point.x; }
+
+			}
+			if (p_point.y < _min.y) { _min.y = p_point.y;
+			}
+			else {
+				if ( p_point.y > _max.y ) { _max.y = p_point.y;
+				}
+			}
+			if (p_point.z < _min.z) { _min.z = p_point.z;
+			}
+			else {
+				if ( p_point.y > _max.y ) { _max.z = p_point.z;
+				}
+			}
 			/// TODO
 		}
 		// Extends the AABB with another AABB

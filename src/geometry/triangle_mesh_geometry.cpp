@@ -17,16 +17,14 @@ namespace RT_ISICG
 	{
 		const Vec3f & o	 = p_ray.getOrigin();
 		const Vec3f & d	 = p_ray.getDirection();
-		const Vec3f & v0 = _refMesh->_vertices[ _v0 ];
-		const Vec3f & v1 = _refMesh->_vertices[ _v1 ];
-		const Vec3f & v2 = _refMesh->_vertices[ _v2 ];
+		Vec3f & v0 = _refMesh->_vertices[ _v0 ];
+		Vec3f & v1 = _refMesh->_vertices[ _v1 ];
+		Vec3f & v2 = _refMesh->_vertices[ _v2 ];
 
 		Vec3f n0 = _refMesh->_normals[ _v0 ];
 		Vec3f n1 = _refMesh->_normals[ _v1 ];
 		Vec3f n2 = _refMesh->_normals[ _v2 ];
 		
-		//_faceNormal = ( 1 - u - v ) * n0 + u * n1 + v * n2;
-		//_faceNormal = ( 1 - u - v ) * v0 + u * v1 + v * v2;
 		const float epsilon = 0.0000001;
 		Vec3f edge1, edge2, h, s, q;
 		float		a, f, u, v;
@@ -34,7 +32,6 @@ namespace RT_ISICG
 		edge2 = v2 - v0;
 		h = glm::cross(d, edge2);
 		a = glm::dot(edge1, h);
-
 		if (a > -epsilon && a < epsilon) { return false; // Le rayon est parallèle au triangle.
 		}
 
@@ -47,11 +44,8 @@ namespace RT_ISICG
 		v = f * glm::dot( d, q );
 		if (v < 0.f || u + v > 1.f) { return false;
 		}
-
 		float t = f * glm::dot( edge2, q );
 		p_t		= t;
-		//n		= ( 1 - u - v ) * n0 + u * n1 + v * n2;
-		//_faceNormal = ( 1 - u - v ) * n0 + u * n1 + v * n2;
 		if (t > epsilon) { // Intersection avec le rayon
 			return true;
 		}
