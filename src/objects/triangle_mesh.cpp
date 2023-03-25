@@ -39,12 +39,15 @@ namespace RT_ISICG
 
 	bool MeshTriangle::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const
 	{
-		for ( size_t i = 0; i < _triangles.size(); i++ )
+		if ( _aabb.intersect( p_ray, p_tMin, p_tMax ) ) 
 		{
-			float t;
-			if ( _triangles[ i ].intersect( p_ray, t ) )
+			for ( size_t i = 0; i < _triangles.size(); i++ )
 			{
-				if ( t >= p_tMin && t <= p_tMax ) return true; // No need to search for the nearest.
+				float t;
+				if ( _triangles[ i ].intersect( p_ray, t ) )
+				{
+					if ( t >= p_tMin && t <= p_tMax ) return true; // No need to search for the nearest.
+				}
 			}
 		}
 		return false;
