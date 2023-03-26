@@ -40,6 +40,21 @@ namespace RT_ISICG
 						 const unsigned int p_lastTriangleId,
 						 const unsigned int p_depth )
 	{
+		for (int i = p_firstTriangleId; i < p_lastTriangleId; i++) {
+			TriangleMeshGeometry triangle = _triangles->at( i );
+			std::vector<Vec3f>	 vertices = triangle.getVertices();
+			for (int j = 0; j <= 3; j++) {
+				p_node->_aabb.extend( vertices.at( j ) );
+			}
+		}
+		int depth = p_depth + 1;
+		if (depth <= _maxDepth) { 
+			int axePartition = p_node->_aabb.largestAxis();
+			Vec3f milieu		 = p_node->_aabb.centroid();
+			int	  idPartition	   = 0;
+			_buildRec( p_node->_left, p_firstTriangleId, idPartition, depth );
+			_buildRec( p_node->_right, p_firstTriangleId, p_lastTriangleId, depth );
+		}
 		/// TODO
 	}
 

@@ -41,6 +41,7 @@ namespace RT_ISICG
 			}
 			/// TODO
 		}
+
 		// Extends the AABB with another AABB
 		inline void extend( const AABB & p_aabb )
 		{
