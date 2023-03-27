@@ -26,12 +26,32 @@ namespace RT_ISICG
 	bool BVH::intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
 	{
 		/// TODO
+		Vec3f rayOrigin	   = p_ray.getOrigin();
+		Vec3f rayDirection = p_ray.getDirection();
+		Vec3f tMin		   = ( _root->_aabb.getMin() - rayOrigin ) / rayDirection;
+		Vec3f tMax		   = ( _root->_aabb.getMax() - rayOrigin ) / rayDirection;
+		Vec3f t1		   = glm::min( tMin, tMax );
+		Vec3f t2		   = max( tMin, tMax );
+		float tNear		   = glm::max( glm::max( t1.x, t1.y ), t1.z );
+		float tFar		   = glm::min( glm::min( t2.x, t2.y ), t2.z );
+
+		if ( tNear <= tFar ) { return true; }
 		return false;
 	}
 
 	bool BVH::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const
 	{
 		/// TODO
+		Vec3f rayOrigin	   = p_ray.getOrigin();
+		Vec3f rayDirection = p_ray.getDirection();
+		Vec3f tMin		   = ( _root->_aabb.getMin() - rayOrigin ) / rayDirection;
+		Vec3f tMax		   = ( _root->_aabb.getMax() - rayOrigin ) / rayDirection;
+		Vec3f t1		   = glm::min( tMin, tMax );
+		Vec3f t2		   = max( tMin, tMax );
+		float tNear		   = glm::max( glm::max( t1.x, t1.y ), t1.z );
+		float tFar		   = glm::min( glm::min( t2.x, t2.y ), t2.z );
+
+		if ( tNear <= tFar ) { return true; }
 		return false;
 	}
 
