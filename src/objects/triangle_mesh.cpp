@@ -39,6 +39,17 @@ namespace RT_ISICG
 
 	bool MeshTriangle::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const
 	{
+		if (_bvh.intersectAny(p_ray, p_tMin, p_tMax)) {
+			for ( size_t i = 0; i < _triangles.size(); i++ )
+			{
+				float t;
+				if ( _triangles[ i ].intersect( p_ray, t ) )
+				{
+					if ( t >= p_tMin && t <= p_tMax ) return true; // No need to search for the nearest.
+				}
+			}
+		}
+		/*
 		if ( _aabb.intersect( p_ray, p_tMin, p_tMax ) ) 
 		{
 			for ( size_t i = 0; i < _triangles.size(); i++ )
@@ -50,6 +61,6 @@ namespace RT_ISICG
 				}
 			}
 		}
-		return false;
+		return false;*/
 	}
 } // namespace RT_ISICG

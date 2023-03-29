@@ -53,4 +53,10 @@ namespace RT_ISICG
 		return false;
 	}
 
+	const AABB getAABB()
+	{ 
+		AABB aabb = _refMesh->getAABB();
+		return aabb;
+	}
+
 } // namespace RT_ISICG

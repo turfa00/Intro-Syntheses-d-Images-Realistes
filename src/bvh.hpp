@@ -24,6 +24,7 @@ namespace RT_ISICG
 		BVHNode *	 _right			  = nullptr;
 		unsigned int _firstTriangleId = 0;
 		unsigned int _lastTriangleId  = 0;
+		unsigned int _depth = 0;
 	};
 
 	class BVH

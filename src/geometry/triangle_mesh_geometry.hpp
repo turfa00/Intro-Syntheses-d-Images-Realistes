@@ -2,8 +2,9 @@
 #define __RT_ISICG_TRIANGLE_GEOMETRY__
 
 #include "base_geometry.hpp"
+#include "aabb.hpp"
 #include <iostream>
-
+#include <vector>
 namespace RT_ISICG
 {
 	class MeshTriangle;
@@ -24,14 +25,7 @@ namespace RT_ISICG
 			return _faceNormal; 
 		}
 
-		inline const std::vector<Vec3f> getVertices() const { 
-			std::vector<Vec3f> vertices;
-			vertices.push_back( _refMesh->_vertices[ _v0 ] );
-			vertices.push_back( _refMesh->_vertices[ _v1 ] );
-			vertices.push_back( _refMesh->_vertices[ _v2 ] );
-			return vertices;
-		}
-
+		const AABB getAABB();
 		/* Vec3f & updateNormal( float u, float v ) const
 		{
 			Vec3f & v0 = _refMesh->_vertices[ _v0 ];

@@ -1,6 +1,9 @@
 #include "bvh.hpp"
 #include "geometry/triangle_mesh_geometry.hpp"
 #include "utils/chrono.hpp"
+#include <algorithm>
+#include <iterator>
+#include <forward_list>
 
 namespace RT_ISICG
 {
@@ -17,7 +20,7 @@ namespace RT_ISICG
 		chr.start();
 
 		/// TODO
-
+		_buildRec( _root, 0, _triangles->size(), _root->_depth );
 		chr.stop();
 
 		std::cout << "[DONE]: " << chr.elapsedTime() << "s" << std::endl;
@@ -60,20 +63,17 @@ namespace RT_ISICG
 						 const unsigned int p_lastTriangleId,
 						 const unsigned int p_depth )
 	{
-		for (int i = p_firstTriangleId; i < p_lastTriangleId; i++) {
-			TriangleMeshGeometry triangle = _triangles->at( i );
-			std::vector<Vec3f>	 vertices = triangle.getVertices();
-			for (int j = 0; j <= 3; j++) {
-				p_node->_aabb.extend( vertices.at( j ) );
-			}
+		for (int i = p_firstTriangleId; i <= p_lastTriangleId; i++) {
+			p_node->_aabb.extend( _triangles->at(i).getAABB() );
 		}
-		int depth = p_depth + 1;
-		if (depth <= _maxDepth) { 
+		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
 			int axePartition = p_node->_aabb.largestAxis();
-			Vec3f milieu		 = p_node->_aabb.centroid();
-			int	  idPartition	   = 0;
-			_buildRec( p_node->_left, p_firstTriangleId, idPartition, depth );
-			_buildRec( p_node->_right, p_firstTriangleId, p_lastTriangleId, depth );
+			int milieu		 = axePartition / 2;
+			//Vec3f milieu		 = p_node->_aabb.centroid();
+			//int	  idPartition	   = 0;
+			int idPartition = std::partition( axePartition, milieu, [ axePartition, milieu ]( int x ) );
+			_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_node->_depth+1 );
+			_buildRec( p_node->_right, p_firstTriangleId, p_lastTriangleId, p_node->_depth+1 );
 		}
 		/// TODO
 	}
