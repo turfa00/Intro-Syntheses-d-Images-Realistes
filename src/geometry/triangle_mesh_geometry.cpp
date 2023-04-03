@@ -53,7 +53,7 @@ namespace RT_ISICG
 		return false;
 	}
 
-	const AABB getAABB()
+	const AABB TriangleMeshGeometry::getAABB()
 	{ 
 		AABB aabb = _refMesh->getAABB();
 		return aabb;

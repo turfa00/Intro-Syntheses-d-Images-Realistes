@@ -20,7 +20,7 @@ namespace RT_ISICG
 		chr.start();
 
 		/// TODO
-		_buildRec( _root, 0, _triangles->size(), _root->_depth );
+		//_buildRec( _root, 0, _triangles->size(), _root->_depth );
 		chr.stop();
 
 		std::cout << "[DONE]: " << chr.elapsedTime() << "s" << std::endl;
@@ -34,7 +34,7 @@ namespace RT_ISICG
 		Vec3f tMin		   = ( _root->_aabb.getMin() - rayOrigin ) / rayDirection;
 		Vec3f tMax		   = ( _root->_aabb.getMax() - rayOrigin ) / rayDirection;
 		Vec3f t1		   = glm::min( tMin, tMax );
-		Vec3f t2		   = max( tMin, tMax );
+		Vec3f t2		   = glm::max( tMin, tMax );
 		float tNear		   = glm::max( glm::max( t1.x, t1.y ), t1.z );
 		float tFar		   = glm::min( glm::min( t2.x, t2.y ), t2.z );
 
@@ -67,13 +67,26 @@ namespace RT_ISICG
 			p_node->_aabb.extend( _triangles->at(i).getAABB() );
 		}
 		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
-			int axePartition = p_node->_aabb.largestAxis();
+			size_t axePartition = p_node->_aabb.largestAxis();
+			Vec3f  diagonal		= p_node->_aabb.diagonal();
+			//int axePartition = p_node->_aabb.largestAxis();
+			if (axePartition == 0) {
+
+			}
+			else if (axePartition == 1) {
+
+			}
+			else {
+
+			}
 			int milieu		 = axePartition / 2;
-			//Vec3f milieu		 = p_node->_aabb.centroid();
-			//int	  idPartition	   = 0;
-			int idPartition = std::partition( axePartition, milieu, [ axePartition, milieu ]( int x ) );
-			_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_node->_depth+1 );
-			_buildRec( p_node->_right, p_firstTriangleId, p_lastTriangleId, p_node->_depth+1 );
+			//int idPartition = std::partition( axePartition, milieu, []( int x ) 
+				//{ return x <= 5;} );
+			//_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_node->_depth+1 );
+			//_buildRec( p_node->_right, idPartition, p_lastTriangleId, p_node->_depth+1 );
+
+			_buildRec( p_node->_left, p_firstTriangleId, milieu, p_node->_depth + 1 );
+			_buildRec( p_node->_right, milieu, p_lastTriangleId, p_node->_depth + 1 );
 		}
 		/// TODO
 	}
