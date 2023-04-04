@@ -43,9 +43,12 @@ namespace RT_ISICG
 		}
 
 		// Extends the AABB with another AABB
-		inline void extend( const AABB & p_aabb )
-		{
-			/// TODO
+		inline void extend( const AABB & p_aabb ) { 
+			Vec3f p_min = p_aabb.getMin();
+			Vec3f p_max = p_aabb.getMax();
+			
+			extend( p_min );
+			extend( p_max );
 		}
 
 		// Returns the AABB diagonal vector.

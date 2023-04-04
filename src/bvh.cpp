@@ -3,6 +3,7 @@
 #include "utils/chrono.hpp"
 #include <algorithm>
 #include <iterator>
+#include <vector>
 #include <forward_list>
 
 namespace RT_ISICG
@@ -19,8 +20,7 @@ namespace RT_ISICG
 		Chrono chr;
 		chr.start();
 
-		/// TODO
-		//_buildRec( _root, 0, _triangles->size(), _root->_depth );
+		_buildRec( _root, 0, _triangles->size(), _root->_depth );
 		chr.stop();
 
 		std::cout << "[DONE]: " << chr.elapsedTime() << "s" << std::endl;
@@ -28,7 +28,6 @@ namespace RT_ISICG
 
 	bool BVH::intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const
 	{
-		/// TODO
 		Vec3f rayOrigin	   = p_ray.getOrigin();
 		Vec3f rayDirection = p_ray.getDirection();
 		Vec3f tMin		   = ( _root->_aabb.getMin() - rayOrigin ) / rayDirection;
@@ -44,7 +43,6 @@ namespace RT_ISICG
 
 	bool BVH::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const
 	{
-		/// TODO
 		Vec3f rayOrigin	   = p_ray.getOrigin();
 		Vec3f rayDirection = p_ray.getDirection();
 		Vec3f tMin		   = ( _root->_aabb.getMin() - rayOrigin ) / rayDirection;
@@ -67,28 +65,24 @@ namespace RT_ISICG
 			p_node->_aabb.extend( _triangles->at(i).getAABB() );
 		}
 		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
-			size_t axePartition = p_node->_aabb.largestAxis();
-			Vec3f  diagonal		= p_node->_aabb.diagonal();
-			//int axePartition = p_node->_aabb.largestAxis();
-			if (axePartition == 0) {
-
+			int largestAxis = p_node->_aabb.largestAxis();
+			float		 milieu		 = p_node->_aabb.centroid()[ largestAxis ];
+			unsigned int idPartition		 = std::partition( ( *_triangles )->begin() + p_firstTriangleId,
+													   ( *_triangles )->end() + p_lastTriangleId,
+								  [ & ]( const TriangleMeshGeometry & a )
+								  { 
+					return a.getAABB().centroid()[ largestAxis ] < milieu; 
+				} )
+				  - ( *_triangles ).begin();
+			if ( p_node->_left != nullptr )
+			{
+				_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_node->_depth + 1 );
 			}
-			else if (axePartition == 1) {
-
+			if ( p_node->_right != nullptr )
+			{
+				_buildRec( p_node->_right, idPartition, p_lastTriangleId, p_node->_depth + 1 );
 			}
-			else {
-
-			}
-			int milieu		 = axePartition / 2;
-			//int idPartition = std::partition( axePartition, milieu, []( int x ) 
-				//{ return x <= 5;} );
-			//_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_node->_depth+1 );
-			//_buildRec( p_node->_right, idPartition, p_lastTriangleId, p_node->_depth+1 );
-
-			_buildRec( p_node->_left, p_firstTriangleId, milieu, p_node->_depth + 1 );
-			_buildRec( p_node->_right, milieu, p_lastTriangleId, p_node->_depth + 1 );
 		}
-		/// TODO
 	}
 
 	bool BVH::_intersectRec( const BVHNode * p_node,
@@ -97,7 +91,13 @@ namespace RT_ISICG
 							 const float	 p_tMax,
 							 HitRecord &	 p_hitRecord ) const
 	{
-		/// TODO
+		if (p_node->_aabb.intersect(p_ray, p_tMin, p_tMax)) { 
+			return true;
+		}
+		if ( p_node->_left != nullptr )
+			_intersectRec( p_node->_left, p_ray, p_tMin, p_tMax, p_hitRecord);
+		if ( p_node->_right != nullptr )
+			_intersectRec( p_node->_right, p_ray, p_tMin, p_tMax, p_hitRecord);
 		return false;
 	}
 	bool BVH::_intersectAnyRec( const BVHNode * p_node,
@@ -105,7 +105,11 @@ namespace RT_ISICG
 								const float		p_tMin,
 								const float		p_tMax ) const
 	{
-		/// TODO
+		if ( p_node->_aabb.intersect( p_ray, p_tMin, p_tMax ) ) { return true; }
+		if ( p_node->_left != nullptr )
+			_intersectAnyRec( p_node->_left, p_ray, p_tMin, p_tMax );
+		if ( p_node->_right != nullptr )
+			_intersectAnyRec( p_node->_right, p_ray, p_tMin, p_tMax );
 		return false;
 	}
 } // namespace RT_ISICG
