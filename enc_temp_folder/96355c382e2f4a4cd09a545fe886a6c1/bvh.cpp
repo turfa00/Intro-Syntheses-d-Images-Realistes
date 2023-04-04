@@ -19,7 +19,7 @@ namespace RT_ISICG
 
 		Chrono chr;
 		chr.start();
-		_root = 
+
 		_buildRec( _root, 0, _triangles->size(), _root->_depth );
 		chr.stop();
 

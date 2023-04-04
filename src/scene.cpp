@@ -8,6 +8,7 @@
 #include <assimp/scene.h>
 #include "lights/point_light.hpp"
 #include "lights/quad_light.hpp"
+#include "bvh.hpp"
 
 static const std::string DATA_PATH
 	= "C:/Users/turfa/OneDrive/Documents/GitHub/Intro-Syntheses-d-Images-Realistes/src/obj/";
@@ -99,7 +100,9 @@ namespace RT_ISICG
 			}
 
 			_addObject( triMesh );
-
+			BVH _bvh;
+			_bvh.build( &triMesh->getTriangles() );
+			//BuildBVH here
 			const aiMaterial * const mtl = scene->mMaterials[ mesh->mMaterialIndex ];
 			if ( mtl == nullptr )
 			{

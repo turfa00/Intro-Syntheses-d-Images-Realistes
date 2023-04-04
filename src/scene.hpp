@@ -5,6 +5,7 @@
 #include "lights/base_light.hpp"
 #include "lights/quad_light.hpp"
 #include "objects/base_object.hpp"
+#include "bvh.hpp"
 #include <exception>
 #include <map>
 #include <vector>
@@ -53,6 +54,7 @@ namespace RT_ISICG
 		ObjectMap	_objectMap;
 		MaterialMap _materialMap;
 		LightList	_lightList;
+		//BVH			_bvh;
 	};
 } // namespace RT_ISICG
 
