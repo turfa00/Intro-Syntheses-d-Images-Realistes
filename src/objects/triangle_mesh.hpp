@@ -53,7 +53,7 @@ namespace RT_ISICG
 		std::vector<Vec2f>				  _uvs;
 		std::vector<TriangleMeshGeometry> _triangles;
 		AABB							  _aabb;
-		BVH								  _bvh;
+		//BVH								  _bvh;
 	};
 } // namespace RT_ISICG
 
