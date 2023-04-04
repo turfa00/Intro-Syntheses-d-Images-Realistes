@@ -67,9 +67,9 @@ namespace RT_ISICG
 		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
 			int largestAxis = p_node->_aabb.largestAxis();
 			float		 milieu		 = p_node->_aabb.centroid()[ largestAxis ];
-			unsigned int idPartition		 = std::partition( ( *_triangles )->begin() + p_firstTriangleId,
-													   ( *_triangles )->end() + p_lastTriangleId,
-								  [ & ]( const TriangleMeshGeometry & a )
+			unsigned int idPartition		 = std::partition( ( *_triangles ).begin() + p_firstTriangleId,
+													   ( *_triangles ).end() + p_lastTriangleId,
+								  [ & ]( TriangleMeshGeometry & a )
 								  { 
 					return a.getAABB().centroid()[ largestAxis ] < milieu; 
 				} )
