@@ -36,7 +36,10 @@ namespace RT_ISICG
 		}
 		inline void addUV( const float p_u, const float p_v ) { _uvs.emplace_back( p_u, p_v ); }
 
-		const AABB getAABB() const { return _aabb;
+		const AABB getAABB() { return _aabb;
+		}
+
+		const BVH getBVH() { return _bvh;
 		}
 		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
 		bool intersect( const Ray & p_ray,

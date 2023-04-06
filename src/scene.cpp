@@ -100,7 +100,7 @@ namespace RT_ISICG
 			}
 
 			_addObject( triMesh );
-			BVH _bvh;
+			BVH _bvh = triMesh->getBVH();
 			_bvh.build( &triMesh->getTriangles() );
 			//BuildBVH here
 			const aiMaterial * const mtl = scene->mMaterials[ mesh->mMaterialIndex ];
