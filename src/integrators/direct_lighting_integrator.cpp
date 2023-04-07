@@ -12,7 +12,7 @@ namespace RT_ISICG
 		HitRecord hitRecord;
 		Vec3f	  color = BLACK;
 		Vec3f	  _fr;
-		LambertMaterial _lambertMaterial();
+		
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) ) 
 		{
 			for ( int i = 0; i < p_scene.getLights().size(); i++ ) 
@@ -25,27 +25,30 @@ namespace RT_ISICG
 						LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 						Ray			shadowRay( hitRecord._point, lightSample._direction );
 						shadowRay.offset( hitRecord._normal );
+						// Lambert Material
+						LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
+														  hitRecord._object->getMaterial()->getFlatColor() );
+						_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );
 						if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 						{
 							/// TODO: shading
-							color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+							color += _directLighting( p_scene.getLights().at( i ), hitRecord ) * _fr;
 						}
 					}
 				}
 				else {
-					//BaseMaterial	* _mat			= hitRecord._object->getMaterial();
-					//LambertMaterial _material( *_mat, GREY );
-					_lambertMaterial = hitRecord._object->getMaterial();
 
 					LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 					Ray			shadowRay( hitRecord._point, lightSample._direction );
 					shadowRay.offset( hitRecord._normal );
-
-					//_material.shade( p_ray, hitRecord, lightSample );
+					//Lambert Material
+					LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
+													  hitRecord._object->getMaterial()->getFlatColor() );
+					_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );
 					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 					{
 						/// TODO: shading
-						color += _directLighting( p_scene.getLights().at( i ), hitRecord );
+						color += _directLighting( p_scene.getLights().at( i ), hitRecord ) * _fr;
 					}
 				}
 				

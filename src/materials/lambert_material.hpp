@@ -20,6 +20,8 @@ namespace RT_ISICG
 			
 		}
 
+		LambertMaterial();
+
 		virtual ~LambertMaterial() = default;
 
 		Vec3f shade( const Ray &		 p_ray,
