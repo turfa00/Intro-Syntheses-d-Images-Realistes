@@ -1,22 +1,22 @@
-#ifndef __RT_ISICG_LAMBERT_MATERIAL__
-#define __RT_ISICG_LAMBERT_MATERIAL__
+#ifndef __RT_ISICG_MATTE_MATERIAL__
+#define __RT_ISICG_MATTE_MATERIAL__
 
 #include "base_material.hpp"
-#include "brdfs/lambert_brdf.hpp"
+#include "brdfs/oren_nayar_brdf.hpp"
 
 namespace RT_ISICG
 {
-	class LambertMaterial : public BaseMaterial
+	class MatteMaterial : public BaseMaterial
 	{
 	  public:
-		LambertMaterial( const std::string & p_name, const Vec3f & p_diffuse )
+		MatteMaterial( const std::string & p_name, const Vec3f & p_diffuse )
 			: BaseMaterial( p_name ), _brdf( p_diffuse )
 		{
 		}
 
-		LambertMaterial();
+		MatteMaterial();
 
-		virtual ~LambertMaterial() = default;
+		virtual ~MatteMaterial() = default;
 
 		Vec3f shade( const Ray &		 p_ray,
 					 const HitRecord &	 p_hitRecord,
@@ -28,7 +28,7 @@ namespace RT_ISICG
 		inline const Vec3f & getFlatColor() const override { return _brdf.getKd(); }
 
 	  protected:
-		LambertBRDF _brdf;
+		OrenNayarBRDF _brdf;
 	};
 
 } // namespace RT_ISICG
