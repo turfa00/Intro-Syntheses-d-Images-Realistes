@@ -8,7 +8,7 @@ namespace RT_ISICG
 	class OrenNayarBRDF
 	{
 	  public:
-		OrenNayarBRDF( const Vec3f & p_kd , const float pente, const float incidence, const float observation) : _kd( p_kd ) 
+		OrenNayarBRDF( const Vec3f & p_kd , const float pente, const float incidence, const float observation) : _kd( p_kd ) //Take care of this
 		{ 
 			gamma = pente;
 			this->incidence = incidence;

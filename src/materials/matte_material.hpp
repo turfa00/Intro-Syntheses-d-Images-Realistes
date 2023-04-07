@@ -33,4 +33,4 @@ namespace RT_ISICG
 
 } // namespace RT_ISICG
 
-#endif // __RT_ISICG_LAMBERT_MATERIAL__
+#endif // __RT_ISICG_MATTE_MATERIAL__
