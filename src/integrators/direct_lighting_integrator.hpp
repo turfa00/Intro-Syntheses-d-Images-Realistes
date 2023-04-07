@@ -2,6 +2,7 @@
 #define __RT_ISICG_DIRECT_LIGHTING_INTEGRATOR__
 
 #include "base_integrator.hpp"
+#include "materials/lambert_material.hpp"
 
 namespace RT_ISICG
 {

@@ -7,8 +7,8 @@ namespace RT_ISICG
 								  const float p_tMax,
 								  HitRecord & p_hitRecord ) const
 	{
-		return _bvh.intersect( p_ray, p_tMin, p_tMax, p_hitRecord );
-		/*if ( _aabb.intersect( p_ray, p_tMin, p_tMax ) )
+		//return _bvh.intersect( p_ray, p_tMin, p_tMax, p_hitRecord );
+		if ( _aabb.intersect( p_ray, p_tMin, p_tMax ) )
 		{
 			float  tClosest = p_tMax;			 // Hit distance.
 			size_t hitTri	= _triangles.size(); // Hit triangle id.
@@ -36,13 +36,13 @@ namespace RT_ISICG
 				return true;
 			}
 		}
-		return false;*/
+		return false;
 	}
 
 	bool MeshTriangle::intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const
 	{
-		return _bvh.intersectAny( p_ray, p_tMin, p_tMax);
-		/* if ( _aabb.intersect( p_ray, p_tMin, p_tMax ) ) 
+		//return _bvh.intersectAny( p_ray, p_tMin, p_tMax);
+		if ( _aabb.intersect( p_ray, p_tMin, p_tMax ) ) 
 		{
 			for ( size_t i = 0; i < _triangles.size(); i++ )
 			{
@@ -52,7 +52,7 @@ namespace RT_ISICG
 					if ( t >= p_tMin && t <= p_tMax ) return true; // No need to search for the nearest.
 				}
 			}
-		}*/
+		}
 		return false;
 	}
 } // namespace RT_ISICG

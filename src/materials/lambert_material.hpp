@@ -14,6 +14,12 @@ namespace RT_ISICG
 		{
 		}
 
+		LambertMaterial(BaseMaterial & _material, const Vec3f & p_diffuse) 
+			: BaseMaterial( _material.getName() ), _brdf(p_diffuse)
+		{
+			
+		}
+
 		virtual ~LambertMaterial() = default;
 
 		Vec3f shade( const Ray &		 p_ray,

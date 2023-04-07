@@ -17,10 +17,14 @@ namespace RT_ISICG
 		}
 		_triangles = p_triangles;
 
+		_root = new BVHNode();
+		_root->_depth = 0;
+		//std::cout << "here" << std::endl;
 		Chrono chr;
 		chr.start();
 		//_root->_aabb = _triangles->at( 0 ).getAABB();
-		_buildRec( _root, 0, _triangles->size(), _root->_depth );
+		//_buildRec( _root, 0, _triangles->size(), _root->_depth );
+		//_buildRec( new BVHNode(), 0, _triangles->size(), _root->_depth );
 		chr.stop();
 
 		std::cout << "[DONE]: " << chr.elapsedTime() << "s" << std::endl;
@@ -61,7 +65,7 @@ namespace RT_ISICG
 						 const unsigned int p_lastTriangleId,
 						 const unsigned int p_depth )
 	{
-		for (int i = p_firstTriangleId; i <= p_lastTriangleId; i++) {
+		for (int i = p_firstTriangleId; i < p_lastTriangleId; i++) {
 			p_node->_aabb.extend( _triangles->at(i).getAABB() );
 		}
 		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 

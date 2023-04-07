@@ -42,6 +42,7 @@ namespace RT_ISICG
 		}
 		q = glm::cross( s, edge1 );
 		v = f * glm::dot( d, q );
+		const_cast<Vec3f &>( _faceNormal ) = ( 1.f - u - v ) * n0 + u * n1 + v * n2;
 		if (v < 0.f || u + v > 1.f) { return false;
 		}
 		float t = f * glm::dot( edge2, q );

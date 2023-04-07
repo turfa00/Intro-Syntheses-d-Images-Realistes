@@ -11,7 +11,8 @@ namespace RT_ISICG
 	{
 		HitRecord hitRecord;
 		Vec3f	  color = BLACK;
-
+		Vec3f	  _fr;
+		LambertMaterial _lambertMaterial();
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) ) 
 		{
 			for ( int i = 0; i < p_scene.getLights().size(); i++ ) 
@@ -32,9 +33,15 @@ namespace RT_ISICG
 					}
 				}
 				else {
+					//BaseMaterial	* _mat			= hitRecord._object->getMaterial();
+					//LambertMaterial _material( *_mat, GREY );
+					_lambertMaterial = hitRecord._object->getMaterial();
+
 					LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 					Ray			shadowRay( hitRecord._point, lightSample._direction );
 					shadowRay.offset( hitRecord._normal );
+
+					//_material.shade( p_ray, hitRecord, lightSample );
 					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 					{
 						/// TODO: shading
@@ -60,6 +67,8 @@ namespace RT_ISICG
 		LightSample lightSample = light->sample( hitRecord._point );
 		Vec3f		normal		= hitRecord._normal;
 		float		cosTheta	= glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
+		
+
 		if ( light->getIsSurface() ) 
 		{
 			for (int i = 0; i < _nbLightSamples; i++) {

@@ -1,5 +1,6 @@
 #include "scene.hpp"
 #include "materials/color_material.hpp"
+#include "materials/lambert_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
@@ -39,7 +40,8 @@ namespace RT_ISICG
 		//initTP1();
 		//initTP2();
 		//initTP3();
-		initTP4();
+		//initTP4();
+		initTP5();
 		/*// Add objects.
 		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
 		// Add Plane
@@ -100,9 +102,9 @@ namespace RT_ISICG
 			}
 
 			_addObject( triMesh );
-			BVH _bvh = triMesh->getBVH();
+			//BVH _bvh = triMesh->getBVH();
+			BVH _bvh;
 			_bvh.build( &triMesh->getTriangles() );
-			//BuildBVH here
 			const aiMaterial * const mtl = scene->mMaterials[ mesh->mMaterialIndex ];
 			if ( mtl == nullptr )
 			{
@@ -284,5 +286,20 @@ namespace RT_ISICG
 		// = = = = = = = = = Add lights . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = =
 		_addLight( new PointLight( Vec3f( 0.f, 3.f, -5.f ), WHITE, 100.f ) );
+	}
+
+	void Scene::initTP5() {
+		// Add objects.
+		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
+		// Add Plane
+		_addObject( new Plane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+		// Add Lighting
+		_addLight( new PointLight( Vec3f( 0.f, 0.f, -2.f ), WHITE, 60 ) );
+
+		_addMaterial( new LambertMaterial( "Grey", GREY ) );
+		_addMaterial( new LambertMaterial( "Red", RED ) );
+
+		_attachMaterialToObject( "Grey", "Sphere1" );
+		_attachMaterialToObject( "Red", "Plane1" );
 	}
 } // namespace RT_ISICG
