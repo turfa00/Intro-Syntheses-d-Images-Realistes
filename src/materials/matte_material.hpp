@@ -9,9 +9,10 @@ namespace RT_ISICG
 	class MatteMaterial : public BaseMaterial
 	{
 	  public:
-		MatteMaterial( const std::string & p_name, const Vec3f & p_diffuse )
-			: BaseMaterial( p_name ), _brdf( p_diffuse )
+		MatteMaterial( const std::string & p_name, const Vec3f & p_diffuse, const Vec3f incidence, const Vec3f observation )
+			: BaseMaterial( p_name ), _brdf( p_diffuse, incidence, observation )
 		{
+			//const Vec3f & p_kd, const float pente, const Vec3f incidence, const Vec3f observation
 		}
 
 		MatteMaterial();

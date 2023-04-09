@@ -1,6 +1,7 @@
 #include "direct_lighting_integrator.hpp"
 #include "lights/base_light.hpp"
 #include "lights/quad_light.hpp"
+#include <materials/matte_material.hpp>
 
 namespace RT_ISICG
 {
@@ -26,9 +27,14 @@ namespace RT_ISICG
 						Ray			shadowRay( hitRecord._point, lightSample._direction );
 						shadowRay.offset( hitRecord._normal );
 						// Lambert Material
-						LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
+						/* LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
 														  hitRecord._object->getMaterial()->getFlatColor() );
-						_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );
+						_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );*/
+
+						//Matte Material
+						MatteMaterial _matteMaterial( hitRecord._object->getMaterial()->getName(), hitRecord._object->getMaterial()->getFlatColor(), 
+							shadowRay.getDirection(), lightSample._direction );
+						_fr = _matteMaterial.shade( p_ray, hitRecord, lightSample );
 						if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 						{
 							/// TODO: shading
@@ -42,12 +48,18 @@ namespace RT_ISICG
 					Ray			shadowRay( hitRecord._point, lightSample._direction );
 					shadowRay.offset( hitRecord._normal );
 					//Lambert Material
-					LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
+					/* LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
 													  hitRecord._object->getMaterial()->getFlatColor() );
-					_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );
+					_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );*/
+
+					// Matte Material
+					MatteMaterial _matteMaterial( hitRecord._object->getMaterial()->getName(),
+												  hitRecord._object->getMaterial()->getFlatColor(),
+												  shadowRay.getDirection(),
+												  lightSample._direction );
+					_fr = _matteMaterial.shade( p_ray, hitRecord, lightSample );
 					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 					{
-						/// TODO: shading
 						color += _directLighting( p_scene.getLights().at( i ), hitRecord ) * _fr;
 					}
 				}
