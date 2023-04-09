@@ -19,6 +19,7 @@ namespace RT_ISICG
 
 			phi_incidence	  = glm::acos(_incidence.z / glm::length(_incidence));
 			phi_observation	  = glm::acos( _observation.z / glm::length( _observation ) );
+
 			A	  = 1 - ( 0.5f ) * ( gamma * gamma / (( gamma * gamma ) + 0.09f ));
 			B	  = 0.45f * ( gamma * gamma / ( ( gamma * gamma ) + 0.09f ) );
 			alpha			  = glm::max( theta_incidence, theta_observation );
@@ -34,7 +35,7 @@ namespace RT_ISICG
 
 	  private:
 		Vec3f  _kd = WHITE, _incidence, _observation;
-		float A, B, alpha, beta, gamma = 0.2f;
+		float A, B, alpha, beta, gamma = 0.f;
 		float  theta_incidence = 0.f, theta_observation = 0.f, phi_incidence = 0.f, phi_observation = 0.f;
 		//double  incidence, observation;
 	};
