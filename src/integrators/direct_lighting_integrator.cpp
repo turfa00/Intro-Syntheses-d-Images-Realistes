@@ -2,6 +2,7 @@
 #include "lights/base_light.hpp"
 #include "lights/quad_light.hpp"
 #include <materials/matte_material.hpp>
+#include <materials/plastic_material.hpp>
 
 namespace RT_ISICG
 {
@@ -12,29 +13,29 @@ namespace RT_ISICG
 	{
 		HitRecord hitRecord;
 		Vec3f	  color = BLACK;
-		Vec3f	  _fr;
+		Vec3f	  _fr	= VEC3F_ZERO;
 		
 		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) ) 
 		{
 			for ( int i = 0; i < p_scene.getLights().size(); i++ ) 
 			{
+				LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
+				Ray			shadowRay( hitRecord._point, lightSample._direction );
+				shadowRay.offset( hitRecord._normal );
+				//------------------Plastic Material----------------
+				_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
+
 				// TODO: appeler directlighting ici
 				// directlighting boucle sur les lumières, pour chaque lance un shadow ray et shade si pas d'intersection
 				if ( p_scene.getLights().at( i )->getIsSurface() )
 				{
 					for (int j = 0; j < _nbLightSamples; j++) {
-						LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
+						lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 						Ray			shadowRay( hitRecord._point, lightSample._direction );
 						shadowRay.offset( hitRecord._normal );
-						// Lambert Material
-						/* LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
-														  hitRecord._object->getMaterial()->getFlatColor() );
-						_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );*/
 
-						//Matte Material
-						MatteMaterial _matteMaterial( hitRecord._object->getMaterial()->getName(), hitRecord._object->getMaterial()->getFlatColor(), 
-							shadowRay.getDirection(), lightSample._direction );
-						_fr = _matteMaterial.shade( p_ray, hitRecord, lightSample );
+						_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
+
 						if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 						{
 							/// TODO: shading
@@ -43,21 +44,6 @@ namespace RT_ISICG
 					}
 				}
 				else {
-
-					LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
-					Ray			shadowRay( hitRecord._point, lightSample._direction );
-					shadowRay.offset( hitRecord._normal );
-					//Lambert Material
-					/* LambertMaterial _lambertMaterial( hitRecord._object->getMaterial()->getName(),
-													  hitRecord._object->getMaterial()->getFlatColor() );
-					_fr = _lambertMaterial.shade( p_ray, hitRecord, lightSample );*/
-
-					// Matte Material
-					MatteMaterial _matteMaterial( hitRecord._object->getMaterial()->getName(),
-												  hitRecord._object->getMaterial()->getFlatColor(),
-												  shadowRay.getDirection(),
-												  lightSample._direction );
-					_fr = _matteMaterial.shade( p_ray, hitRecord, lightSample );
 					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
 					{
 						color += _directLighting( p_scene.getLights().at( i ), hitRecord ) * _fr;

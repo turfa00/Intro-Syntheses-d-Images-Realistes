@@ -2,6 +2,7 @@
 #include "materials/color_material.hpp"
 #include "materials/lambert_material.hpp"
 #include "materials/matte_material.hpp"
+#include "materials/plastic_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
@@ -299,8 +300,8 @@ namespace RT_ISICG
 
 		//_addMaterial( new LambertMaterial( "Grey", GREY ) );
 		//_addMaterial( new LambertMaterial( "Red", RED ) );
-		_addMaterial( new MatteMaterial( "Grey", GREY , Vec3f(0.f, 0.f, 0.f), Vec3f(0.f, 0.f, 0.f)) );
-		_addMaterial( new MatteMaterial( "Red", RED, Vec3f( 0.f, 0.f, 0.f ), Vec3f( 0.f, 0.f, 0.f ) ) );
+		_addMaterial( new PlasticMaterial( "Grey", GREY , GREY) );
+		_addMaterial( new PlasticMaterial( "Red", RED, RED ) );
 
 		_attachMaterialToObject( "Grey", "Sphere1" );
 		_attachMaterialToObject( "Red", "Plane1" );

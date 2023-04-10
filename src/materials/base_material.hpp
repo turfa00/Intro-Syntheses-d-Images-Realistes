@@ -14,9 +14,10 @@ namespace RT_ISICG
 		BaseMaterial( const std::string & p_name ) : _name( p_name ) {}
 		virtual ~BaseMaterial() = default;
 
-		virtual Vec3f shade( const Ray &		 p_ray,
+		virtual Vec3f shade( const Ray &		  p_ray,
 							 const HitRecord &	 p_hitRecord,
 							 const LightSample & p_lightSample ) const = 0;
+		//Vec3f shade( const Ray & p_ray, const HitRecord & p_hitRecord, const LightSample & p_lightSample );
 
 		virtual inline const Vec3f & getFlatColor() const = 0;
 
