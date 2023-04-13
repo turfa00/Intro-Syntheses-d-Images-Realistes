@@ -23,6 +23,7 @@ namespace RT_ISICG
 					 const HitRecord &	 p_hitRecord,
 					 const LightSample & p_lightSample ) const override
 		{
+			//return _phongBrdf.evaluate( p_hitRecord, p_lightSample, p_ray.getOrigin() );
 			return _lambertBrdf.evaluate( )
 				   + _phongBrdf.evaluate( p_hitRecord, p_lightSample, p_ray.getOrigin() );
 		}
