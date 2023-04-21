@@ -226,5 +226,11 @@
     <ClInclude Include="src\materials\plastic_material.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\materials\cook_torrance.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\brdfs\cook_torrance_brdf.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
