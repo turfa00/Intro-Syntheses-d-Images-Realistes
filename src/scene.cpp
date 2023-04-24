@@ -3,6 +3,7 @@
 #include "materials/lambert_material.hpp"
 #include "materials/matte_material.hpp"
 #include "materials/plastic_material.hpp"
+#include "materials/cook_torrance.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
@@ -297,12 +298,19 @@ namespace RT_ISICG
 		// Add Lighting
 		_addLight( new PointLight( Vec3f( 0.f, 0.f, -2.f ), WHITE, 60 ) );
 
+		//_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		//_addMaterial( new LambertMaterial( "Grey", GREY ) );
 		//_addMaterial( new LambertMaterial( "Red", RED ) );
-		_addMaterial( new PlasticMaterial( "Grey", GREY , GREY) );
-		_addMaterial( new PlasticMaterial( "Red", RED, RED ) );
+		//_addMaterial( new PlasticMaterial( "Grey", GREY , GREY) );
+		//_addMaterial( new PlasticMaterial( "Red", RED, RED ) );
+		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
+		_addMaterial( new CookTorranceMaterial( "Red", RED) );
 
-		_attachMaterialToObject( "Grey", "Sphere1" );
+		_attachMaterialToObject( "Gold", "Sphere1" );
 		_attachMaterialToObject( "Red", "Plane1" );
+	}
+
+	void initTP6() {
+
 	}
 } // namespace RT_ISICG
