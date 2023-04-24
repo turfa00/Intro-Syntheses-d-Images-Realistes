@@ -39,7 +39,12 @@ namespace RT_ISICG
 		const AABB getAABB() { return _aabb;
 		}
 
-		const BVH getBVH() { return _bvh;
+		const BVH getBVH() { return * _bvh;
+		}
+
+		inline void _buildBVH() { 
+			_bvh = new BVH();
+			_bvh->build( &_triangles );
 		}
 		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
 		bool intersect( const Ray & p_ray,
@@ -59,7 +64,7 @@ namespace RT_ISICG
 		std::vector<Vec2f>				  _uvs;
 		std::vector<TriangleMeshGeometry> _triangles;
 		AABB							  _aabb;
-		BVH								  _bvh;
+		BVH *							  _bvh;
 	};
 } // namespace RT_ISICG
 

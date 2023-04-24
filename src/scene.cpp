@@ -103,10 +103,9 @@ namespace RT_ISICG
 				triMesh->addTriangle( face.mIndices[ 0 ], face.mIndices[ 1 ], face.mIndices[ 2 ] );
 			}
 
+			triMesh->_buildBVH();
 			_addObject( triMesh );
-			//BVH _bvh = triMesh->getBVH();
-			BVH _bvh;
-			_bvh.build( &triMesh->getTriangles() );
+			
 			const aiMaterial * const mtl = scene->mMaterials[ mesh->mMaterialIndex ];
 			if ( mtl == nullptr )
 			{

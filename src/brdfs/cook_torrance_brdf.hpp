@@ -10,7 +10,7 @@ namespace RT_ISICG
 	class CookTorranceBRDF
 	{
 	  public:
-		CookTorranceBRDF( const Vec3f & p_ks ) : _ks( p_ks ) {};
+		CookTorranceBRDF( const Vec3f & p_Fo, const float p_rugosite ) : Fo( p_Fo ), s(p_rugosite) {};
 
 		inline Vec3f evaluate( HitRecord hitRecord, LightSample lightSample, Vec3f observation ) const
 		{
@@ -24,28 +24,34 @@ namespace RT_ISICG
 			alpha				  = glm::pow(s, 2 );
 			
 			n = hitRecord._normal;
-			h		= ( angleIncidence + angleObservation ) / glm::length( angleIncidence + angleObservation );
-			float a = n * h;
-			D = ( alpha * alpha ) / glm::pow((INV_PIf * ((n*h)*(n*h) * (glm::pow(alpha, 2) - 1.f) + 1.f)), 2);
+			//Vec3f h = ( p_wo + p_wi ) / glm::length( p_wo + p_wi );
+			h		= ( _incidence + _observation ) / glm::length( _incidence + _observation );
+			float a = glm::dot(n, h);
+			//Compute D
+			D = ( alpha * alpha ) / ((PIf * glm::pow(glm::dot(n,h), 2) * (glm::pow(alpha, 2) - 1.f) + 1.f));
 
-			//G =
+			//Compute G1
+			G1 = x / ( x * ( 1.f - k ) + k );
+
+			// Compute G
+			float k = ( s + 1.f ) * ( s + 1.f ) / 8.f;
+			G		= ( glm::dot( n, wo ) / ( glm::dot( n, wo ) * ( 1.f - k ) + k ) )
+				* ( ( glm::dot( n, wi ) / ( glm::dot( n, wi ) * ( 1.f - k ) + k ) ) );
 			
-			float p = h * _observation;
-			F = Fo + ( 1 - Fo ) * ( 1 - glm::pow(p, 2 ) );
-			 
-			// theta		 = glm::acos(glm::dot( _incidence, hitRecord._normal ));
-			//return _ks / glm::cos( theta ) * glm::cos( glm::pow( alpha, s ) );
+			float x = pow( ( 1.f - glm::dot( h, wo ) ), 5 );
+			F		= Fo + ( 1.f - Fo ) * x;
 
-			return ( D * F * G / ( 4 * _observation * n * _incidence * n ) );
+			return ( D * F * G / ( 4 * glm::dot(wo, n) * glm::dot(wi, n)) );
 		}
 
-		inline const Vec3f & getKs() const { return _ks; }
+		//inline const Vec3f & getKs() const { return _ks; }
 
 	  private:
-		mutable float F = 0.f, G = 0.f;
-		mutable Vec3f D	  = VEC3F_ZERO;
-		mutable Vec3f _ks = WHITE, _incidence = VEC3F_ZERO, _observation = VEC3F_ZERO, _reflet = VEC3F_ZERO, n = VEC3F_ZERO;
-		mutable float alpha = 0.f, s = 0.3f, Fo = 0.f, h = 0.f, angleObservation = 0.f, angleIncidence = 0.f; //s = rugosite
+		mutable float G1 = 0.f, G = 0.f, D = 0.f;
+		mutable float x = 0.f, k = 0.f;
+		mutable Vec3f _ks = WHITE, _incidence = VEC3F_ZERO, _observation = VEC3F_ZERO, _reflet = VEC3F_ZERO, n = VEC3F_ZERO, h = VEC3F_ZERO;
+		mutable Vec3f		  wo = VEC3F_ZERO, wi = VEC3F_ZERO, Fo = VEC3F_ZERO, F = VEC3F_ZERO;
+		mutable float alpha = 0.f, s = 0.3f, angleObservation = 0.f, angleIncidence = 0.f; //s = rugosite
 	};
 } // namespace RT_ISICG
 

@@ -18,12 +18,11 @@ namespace RT_ISICG
 		_triangles = p_triangles;
 
 		_root = new BVHNode();
-		_root->_depth = 0;
 		//std::cout << "here" << std::endl;
 		Chrono chr;
 		chr.start();
 		//_root->_aabb = _triangles->at( 0 ).getAABB();
-		//_buildRec( _root, 0, _triangles->size(), _root->_depth );
+		_buildRec( _root, 0, _triangles->size(), _root->_depth );
 		//_buildRec( new BVHNode(), 0, _triangles->size(), _root->_depth );
 		chr.stop();
 
