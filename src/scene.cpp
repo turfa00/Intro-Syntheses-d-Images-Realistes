@@ -3,6 +3,7 @@
 #include "materials/lambert_material.hpp"
 #include "materials/matte_material.hpp"
 #include "materials/plastic_material.hpp"
+#include "materials/mirror_material.hpp"
 #include "materials/cook_torrance.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
@@ -325,6 +326,7 @@ namespace RT_ISICG
 		_addMaterial( new MatteMaterial("BlueMatte", BLUE, 0.6f ) );
 		_addMaterial( new MatteMaterial("GreyMatte", GREY, 0.6f ) );
 		_addMaterial( new MatteMaterial("MagentaMatte", MAGENTA, 0.6f ) );
+		_addMaterial( new MirrorMaterial("Mirror" ) );
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = =
 		// Add objects .
@@ -332,7 +334,7 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = =
 		// Spheres .
 		_addObject( new Sphere( "Sphere1", Vec3f(-2.f, 0.f, 3.f ), 1.5f ) );
-		_attachMaterialToObject( "WhiteMatte", "Sphere1" );
+		_attachMaterialToObject( "Mirror", "Sphere1" );
 		_addObject( new Sphere( "Sphere2", Vec3f( 2.f, 0.f, 3.f ), 1.5f ) );
 		_attachMaterialToObject( "WhiteMatte", "Sphere2" );
 		// Pseudo Cornell box made with infinite planes .

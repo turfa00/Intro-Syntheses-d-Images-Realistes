@@ -17,11 +17,12 @@ namespace RT_ISICG
 		// Return incoming luminance.
 		Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
 
-		Vec3f trace( const Scene & p_scene, const Ray & p_ray, HitRecord hitRecord );
+		Vec3f trace( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax, int p_nbounces ) const;
 
 	  private:
-		Vec3f _directLighting( const BaseLight * light, const HitRecord hitRecord ) const;
+		Vec3f _directLighting( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const;
 		int	  _nbLightSamples = 2;
+		int	  _nbBounce		  = 5;
 	};
 
 } // namespace RT_ISICG

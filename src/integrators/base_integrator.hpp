@@ -9,6 +9,7 @@ namespace RT_ISICG
 	{
 		RAY_CAST = 0,
 		DIRECT_LIGHTING,
+		WHITTED,
 		COUNT // keep it last
 	};
 

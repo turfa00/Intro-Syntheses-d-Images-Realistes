@@ -22,11 +22,8 @@ namespace RT_ISICG
 				LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 				Ray			shadowRay( hitRecord._point, lightSample._direction );
 				shadowRay.offset( hitRecord._normal );
-				s
 				_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
 
-				// TODO: appeler directlighting ici
-				// directlighting boucle sur les lumières, pour chaque lance un shadow ray et shade si pas d'intersection
 				if ( p_scene.getLights().at( i )->getIsSurface() )
 				{
 					for (int j = 0; j < _nbLightSamples; j++) {

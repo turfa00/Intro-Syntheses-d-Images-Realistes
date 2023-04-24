@@ -9,7 +9,7 @@ namespace RT_ISICG
 	class MirrorMaterial : public BaseMaterial
 	{
 	  public:
-		MirrorMaterial( const std::string & p_name, const Vec3f & p_color ) : BaseMaterial( p_name ), _color( p_color )
+		MirrorMaterial( const std::string & p_name ) : BaseMaterial( p_name )
 		{
 		}
 
@@ -26,7 +26,7 @@ namespace RT_ISICG
 		}
 
 	  protected:
-		Vec3f _color = Vec3f( 1.f, 1.f, 1.f );
+		Vec3f _color = BLACK;
 	};
 
 } // namespace RT_ISICG

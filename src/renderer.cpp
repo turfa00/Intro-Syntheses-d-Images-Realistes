@@ -1,6 +1,7 @@
 #include "renderer.hpp"
 #include "integrators/ray_cast_integrator.hpp"
 #include "integrators/direct_lighting_integrator.hpp"
+#include "integrators/whitted_integrator.hpp"
 #include "utils/console_progress_bar.hpp"
 #include "utils/random.hpp"
 
@@ -22,6 +23,9 @@ namespace RT_ISICG
 		}
 		case IntegratorType::DIRECT_LIGHTING: 
 			_integrator = new DirectLightingIntegrator(); 
+			break;
+		case IntegratorType::WHITTED:
+			_integrator = new WhittedIntegrator();
 			break;
 		//case IntegratorType::COUNT: 
 
