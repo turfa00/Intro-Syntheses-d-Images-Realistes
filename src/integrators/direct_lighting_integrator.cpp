@@ -22,7 +22,7 @@ namespace RT_ISICG
 				LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
 				Ray			shadowRay( hitRecord._point, lightSample._direction );
 				shadowRay.offset( hitRecord._normal );
-				
+				s
 				_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
 
 				// TODO: appeler directlighting ici

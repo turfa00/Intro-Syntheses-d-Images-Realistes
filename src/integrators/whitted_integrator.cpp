@@ -79,4 +79,13 @@ namespace RT_ISICG
 		return color;
 	}
 
+	Vec3f WhittedIntegrator::trace( const Scene & p_scene, const Ray & p_ray, HitRecord hitRecord )
+	{
+		Ray reflectionRay = Ray(hitRecord._normal, glm::reflect( p_ray.getDirection(), hitRecord._normal ));
+		trace( p_scene, reflectionRay,  );
+
+
+		return VEC3F_ZERO;
+	}
+
 } // namespace RT_ISICG
