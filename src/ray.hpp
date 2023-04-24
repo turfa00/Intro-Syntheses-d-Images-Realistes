@@ -29,6 +29,7 @@ namespace RT_ISICG
 	  private:
 		Vec3f _origin	 = VEC3F_ZERO;
 		Vec3f _direction = VEC3F_ZERO;
+		int _nbBounces = 5;
 	};
 } // namespace RT_ISICG
 

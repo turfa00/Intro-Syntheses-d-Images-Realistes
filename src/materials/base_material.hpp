@@ -23,6 +23,9 @@ namespace RT_ISICG
 
 		virtual const std::string & getName() const final { return _name; }
 
+		virtual bool isMirror() const { return false;
+		};
+
 	  protected:
 		std::string _name;
 	};

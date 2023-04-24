@@ -11,7 +11,7 @@ namespace RT_ISICG
 	{
 	  public:
 		CookTorranceMaterial( const std::string & p_name, const Vec3f & p_diffuse )
-			: BaseMaterial( p_name ), _lambBrdf( p_diffuse ), _orenbBrdf( p_diffuse ),
+			: BaseMaterial( p_name ), _lambBrdf( p_diffuse ), _orenbBrdf( p_diffuse, 0.4f),
 			  _cookBrdf( Vec3f( 1.f, 0.85f, 0.57f ) )
 		{
 		}
