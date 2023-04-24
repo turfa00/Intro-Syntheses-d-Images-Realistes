@@ -17,7 +17,7 @@ namespace RT_ISICG
 		// Return incoming luminance.
 		Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
 
-		Vec3f trace( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax, int p_nbounces ) const;
+		Vec3f trace( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax, int p_nbounces, bool isInside ) const;
 
 	  private:
 		Vec3f _directLighting( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const;
