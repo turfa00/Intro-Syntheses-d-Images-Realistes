@@ -29,8 +29,13 @@ namespace RT_ISICG
 		// Evaluate normal by computing gradient at 'p_point'
 		virtual Vec3f _evaluateNormal( const Vec3f & p_point ) const
 		{
-			/// TODO
-			return Vec3f( 1.f );
+			float fx = _sdf( Vec3f( p_point.x + _minDistance, p_point.y, p_point.z ) )
+					   - _sdf( Vec3f( p_point.x - _minDistance, p_point.y, p_point.z ) );
+			float fy = _sdf( Vec3f( p_point.x, p_point.y + _minDistance, p_point.z ) )
+					   - _sdf( Vec3f( p_point.x, p_point.y - _minDistance, p_point.z ) );
+			float fz = _sdf( Vec3f( p_point.x, p_point.y, p_point.z + _minDistance ) )
+					   - _sdf( Vec3f( p_point.x, p_point.y, p_point.z - _minDistance ) );
+			return glm::normalize(Vec3f(fx, fy, fz));
 		}
 
 	  private:

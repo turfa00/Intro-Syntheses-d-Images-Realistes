@@ -10,6 +10,8 @@
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
 #include "objects/implicit_sphere.hpp"
+#include "objects/implicit_plane.hpp"
+#include "objects/implicit_box.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -49,7 +51,7 @@ namespace RT_ISICG
 		//initTP4();
 		//initTP5();
 		//initTP6();
-		initTP7();
+		//initTP7();
 
 
 		/*// Add objects.
@@ -275,8 +277,8 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
-		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
-		loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/Bunny.obj" );
+		loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
+		//loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/Bunny.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
@@ -362,7 +364,18 @@ namespace RT_ISICG
 	}
 
 	void Scene::initTP7() { 
-		_addObject( new ImplicitSphere( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 2.f ) );
+		_addMaterial( new PlasticMaterial( "Grey", GREY, GREY ) );
+		_addMaterial( new MatteMaterial( "RedMatte", RED, 0.6f ) );
+		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
+
+		//_addObject( new ImplicitSphere( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 2.f ) );
+		_addObject( new ImplicitBox( "Box1", Vec3f( 1.f, 1.f, 4.f ), 10.f ) );
+		_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
+
+		//_attachMaterialToObject( "Gold", "Sphere1" );
+		_attachMaterialToObject( "Gold", "Box1" );
+		_attachMaterialToObject( "RedMatte", "Plane1" );
+
 		_addLight( new PointLight( Vec3f( 0.f, 5.f, 0.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG

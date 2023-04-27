@@ -18,12 +18,9 @@ namespace RT_ISICG
 		_triangles = p_triangles;
 
 		_root = new BVHNode();
-		//std::cout << "here" << std::endl;
 		Chrono chr;
 		chr.start();
-		//_root->_aabb = _triangles->at( 0 ).getAABB();
-		_buildRec( _root, 0, _triangles->size(), _root->_depth );
-		//_buildRec( new BVHNode(), 0, _triangles->size(), _root->_depth );
+		_buildRec( _root, 0, _triangles->size(), 0 );
 		chr.stop();
 
 		std::cout << "[DONE]: " << chr.elapsedTime() << "s" << std::endl;
@@ -67,24 +64,30 @@ namespace RT_ISICG
 		for (int i = p_firstTriangleId; i < p_lastTriangleId; i++) {
 			p_node->_aabb.extend( _triangles->at(i).getAABB() );
 		}
+		p_node->_firstTriangleId = p_firstTriangleId;
+		p_node->_lastTriangleId	 = p_lastTriangleId;
+
 		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
 			int largestAxis = p_node->_aabb.largestAxis();
+			//int largestAxis = 1;
 			float		 milieu		 = p_node->_aabb.centroid()[ largestAxis ];
-			unsigned int idPartition		 = std::partition( ( *_triangles ).begin() + p_firstTriangleId,
-													   ( *_triangles ).end() + p_lastTriangleId,
-								  [ & ]( TriangleMeshGeometry & a )
-								  { 
-					return a.getAABB().centroid()[ largestAxis ] < milieu; 
-				} )
-				  - ( *_triangles ).begin();
-			if ( p_node->_left != nullptr )
-			{
-				_buildRec( p_node->_left, p_firstTriangleId, idPartition, p_node->_depth + 1 );
-			}
-			if ( p_node->_right != nullptr )
-			{
-				_buildRec( p_node->_right, idPartition, p_lastTriangleId, p_node->_depth + 1 );
-			}
+			std::vector<TriangleMeshGeometry>::iterator idPartition
+				= std::partition( _triangles->begin() + p_firstTriangleId,
+								  _triangles->begin() + p_lastTriangleId,
+								  [ largestAxis, milieu ]( TriangleMeshGeometry & a )
+								  { return a.getAABB().centroid()[ largestAxis ] < milieu; } );
+			/* unsigned int idPartition = std::partition( ( *_triangles ).begin() + p_firstTriangleId,
+													   ( *_triangles ).begin() + p_lastTriangleId,
+													   [ largestAxis, milieu ]( TriangleMeshGeometry & a )
+													   { return a.getAABB().centroid()[ largestAxis ] < milieu; } );*/
+				  //- ( *_triangles ).begin();
+			p_node->_left = new BVHNode();
+			p_node->_right = new BVHNode();
+
+			int idPartition1 = std::distance( _triangles->begin(), idPartition );
+
+			_buildRec( p_node->_left, p_firstTriangleId, idPartition1, p_node->_depth + 1 );
+			_buildRec( p_node->_right, idPartition1, p_lastTriangleId, p_node->_depth + 1 );
 		}
 	}
 
