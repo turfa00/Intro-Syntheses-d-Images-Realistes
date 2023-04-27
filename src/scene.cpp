@@ -51,7 +51,7 @@ namespace RT_ISICG
 		//initTP4();
 		//initTP5();
 		//initTP6();
-		//initTP7();
+		initTP7();
 
 
 		/*// Add objects.
@@ -369,12 +369,12 @@ namespace RT_ISICG
 		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
 
 		//_addObject( new ImplicitSphere( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 2.f ) );
-		_addObject( new ImplicitBox( "Box1", Vec3f( 1.f, 1.f, 4.f ), 10.f ) );
-		_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
+		_addObject( new ImplicitBox( "Box1", Vec3f( 1.f, 1.f, 1.f ), 10.f ) );
+		//_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
 
 		//_attachMaterialToObject( "Gold", "Sphere1" );
 		_attachMaterialToObject( "Gold", "Box1" );
-		_attachMaterialToObject( "RedMatte", "Plane1" );
+		//_attachMaterialToObject( "RedMatte", "Plane1" );
 
 		_addLight( new PointLight( Vec3f( 0.f, 5.f, 0.f ), WHITE, 100.f ) );
 	}
