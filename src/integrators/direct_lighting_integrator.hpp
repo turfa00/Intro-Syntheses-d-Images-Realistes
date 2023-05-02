@@ -3,6 +3,7 @@
 
 #include "base_integrator.hpp"
 #include "materials/lambert_material.hpp"
+#include "lights/point_light.hpp"
 
 namespace RT_ISICG
 {
@@ -15,11 +16,14 @@ namespace RT_ISICG
 		const IntegratorType getType() const override { return IntegratorType::RAY_CAST; }
 
 		// Return incoming luminance.
+		//Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
 		Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
 
 	  private:
 		Vec3f _directLighting( const BaseLight * light, const HitRecord hitRecord ) const;
 		int	  _nbLightSamples = 2;
+		int	  instantRadiosity = 10;
+		//mutable PointLight p;
 	};
 
 } // namespace RT_ISICG

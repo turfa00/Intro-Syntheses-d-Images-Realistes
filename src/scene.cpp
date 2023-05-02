@@ -48,10 +48,10 @@ namespace RT_ISICG
 		//initTP1();
 		//initTP2();
 		//initTP3();
-		//initTP4();
+		initTP4();
 		//initTP5();
 		//initTP6();
-		initTP7();
+		//initTP7();
 
 
 		/*// Add objects.
@@ -113,7 +113,7 @@ namespace RT_ISICG
 				triMesh->addTriangle( face.mIndices[ 0 ], face.mIndices[ 1 ], face.mIndices[ 2 ] );
 			}
 
-			triMesh->_buildBVH();
+			//triMesh->_buildBVH();
 			_addObject( triMesh );
 			
 			const aiMaterial * const mtl = scene->mMaterials[ mesh->mMaterialIndex ];
@@ -277,7 +277,8 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
-		loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
+		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
+		loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
 		//loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/Bunny.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .

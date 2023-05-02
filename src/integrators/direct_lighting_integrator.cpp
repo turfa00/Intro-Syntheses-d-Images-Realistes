@@ -3,6 +3,8 @@
 #include "lights/quad_light.hpp"
 #include <materials/matte_material.hpp>
 #include <materials/plastic_material.hpp>
+//Instant radiosity
+#include "scene.hpp"
 
 namespace RT_ISICG
 {
@@ -23,6 +25,10 @@ namespace RT_ISICG
 				Ray			shadowRay( hitRecord._point, lightSample._direction );
 				shadowRay.offset( hitRecord._normal );
 				_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
+
+				//const_cast<int &>( p_scene ) = p_scene._addLight( new PointLight( Vec3f( 0.f, 5.f, 0.f ), WHITE, 100.f ) );
+				//p_scene.getLights().emplace_back( p );
+				//p = ( new PointLight( hitRecord._point, WHITE, 100.f ) );
 
 				if ( p_scene.getLights().at( i )->getIsSurface() )
 				{

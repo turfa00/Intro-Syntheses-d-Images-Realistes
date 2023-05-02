@@ -21,7 +21,7 @@ namespace RT_ISICG
 		// Signed Distance Function
 		float _sdf( const Vec3f & p_point ) const 
 		{
-			/* Vec2f q  = _height * Vec2f( _center.x, -_center.y ) / _center.y;
+			Vec2f q  = _height * Vec2f( _center.x, -_center.y ) / _center.y;
 			Vec2f mm = Vec2f( p_point.x, p_point.z );
 			Vec2f w = Vec2f( glm::length( mm ), p_point.y );
 
@@ -30,9 +30,9 @@ namespace RT_ISICG
 			float k = glm::sign( q.y );
 			float d = glm::min( dot( a, a ), dot( b, b ) );
 			float s = glm::max( k * ( w.x * q.y - w.y * q.x ), k * ( w.y - q.y ) );
-			return glm::sqrt( d ) * glm::sign( s ) + 0.2f;*/
+			return glm::sqrt( d ) * glm::sign( s ) + 0.2f;
 
-				Vec3f w			 = p_point;
+				/* Vec3f							  w = p_point;
 			Windows::Foundation::Numerics::float3 mm
 				= Windows::Foundation::Numerics::float3( p_point.x, p_point.y, p_point.z );
 				float	 m			 = dot( w, w );
@@ -58,7 +58,7 @@ namespace RT_ISICG
 
 
 				 //https://arxiv.org/pdf/2102.01747.pdf
-
+				 */
 
 
 		}
