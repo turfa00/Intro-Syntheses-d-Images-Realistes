@@ -16,7 +16,15 @@ namespace RT_ISICG
 
 	  private:
 		// Signed Distance Function
-		float _sdf( const Vec3f & p_point ) const { return glm::distance( p_point, _center ) - _radius; }
+		float _sdf( const Vec3f & p_point ) const { 
+			//return glm::length( p_point - _center ) - _radius;
+			float disp = 45.f;
+			float p1 = glm::length( p_point - _center ) - _radius;
+			//float p2 = sin( 20 * p_point.x ) * sin( 20 * p_point.y ) * sin( 20 * p_point.z );
+			float p2 = sin( disp * p_point.x ) * sin( disp * p_point.y ) * sin( disp * p_point.z );
+			return p1 + p2;
+			//return glm::distance( p_point, _center ) - _radius; 
+		}
 
 	  private:
 		const float _minDistance = 1e-4f;

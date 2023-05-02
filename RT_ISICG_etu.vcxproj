@@ -207,6 +207,7 @@ xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"</Command>
     <ClInclude Include="src\objects\base_object.hpp" />
     <ClInclude Include="src\objects\implicit_plane.hpp" />
     <ClInclude Include="src\objects\implicit_box.hpp" />
+    <ClInclude Include="src\objects\implicit_rot_box.hpp" />
     <ClInclude Include="src\objects\implicit_sphere.hpp" />
     <ClInclude Include="src\objects\implicit_surface.hpp" />
     <ClInclude Include="src\objects\plane.hpp" />

@@ -12,6 +12,7 @@
 #include "objects/implicit_sphere.hpp"
 #include "objects/implicit_plane.hpp"
 #include "objects/implicit_box.hpp"
+#include "objects/implicit_torus.hpp"
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>
 #include <assimp/scene.h>
@@ -48,10 +49,10 @@ namespace RT_ISICG
 		//initTP1();
 		//initTP2();
 		//initTP3();
-		initTP4();
+		//initTP4();
 		//initTP5();
 		//initTP6();
-		//initTP7();
+		initTP7();
 
 
 		/*// Add objects.
@@ -365,18 +366,21 @@ namespace RT_ISICG
 	}
 
 	void Scene::initTP7() { 
-		_addMaterial( new PlasticMaterial( "Grey", GREY, GREY ) );
-		_addMaterial( new MatteMaterial( "RedMatte", RED, 0.6f ) );
+		_addMaterial( new LambertMaterial( "Red", RED ) );
+		_addMaterial( new PlasticMaterial( "Grey", GREY, BLACK ) );
+		_addMaterial( new PlasticMaterial( "White", RED, BLACK ) );
 		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
 
-		//_addObject( new ImplicitSphere( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 2.f ) );
-		_addObject( new ImplicitBox( "Box1", Vec3f( 1.f, 1.f, 1.f ), 10.f ) );
-		//_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
+		_addObject( new ImplicitSphere( "Sphere1", Vec3f( 2.f, 0.f, -5.f ), 1.f ) );
+		_addObject( new ImplicitBox( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(-4.f, 0.f, -1.f) ) );
+		_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -1.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
+		_addObject( new ImplicitTorus( "RoundedCy", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
 
-		//_attachMaterialToObject( "Gold", "Sphere1" );
-		_attachMaterialToObject( "Gold", "Box1" );
-		//_attachMaterialToObject( "RedMatte", "Plane1" );
+		_attachMaterialToObject( "Gold", "Sphere1" );
+		_attachMaterialToObject( "Grey", "Box1" );
+		_attachMaterialToObject( "White", "Plane1" );
+		_attachMaterialToObject( "Gold", "RoundedCy" );
 
-		_addLight( new PointLight( Vec3f( 0.f, 5.f, 0.f ), WHITE, 100.f ) );
+		_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG

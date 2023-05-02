@@ -58,13 +58,13 @@ namespace RT_ISICG
 			{
 				Vec3f rayColor = VEC3F_ZERO;
 				//Without anti aliasing
-				float x	= (float)i / ( width - 1 );
+				/* float x	= (float)i / ( width - 1 );
 				float y	  = (float)j / ( height - 1 );
 				Ray ray	 = p_camera->generateRay( x, y );
-				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000.f );
+				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000.f );*/
 				
 				//With anti aliasing
-				/*for ( int k = 0; k < _nbPixelSamples; k++ )
+				for ( int k = 0; k < _nbPixelSamples; k++ )
 				{
 					float x = ((float) i + randomFloat() ) / ( width - 1 );
 					float y = ( (float)j + randomFloat() ) / ( height - 1 );
@@ -73,7 +73,7 @@ namespace RT_ISICG
 					//rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
 					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
 				}
-				rayColor /= _nbPixelSamples;*/
+				rayColor /= _nbPixelSamples;
 				rayColor = Vec3f( glm::clamp( rayColor.x, 0.f, 1.f ),
 								  glm::clamp( rayColor.y, 0.f, 1.f ),
 								  glm::clamp( rayColor.z, 0.f, 1.f ) );
