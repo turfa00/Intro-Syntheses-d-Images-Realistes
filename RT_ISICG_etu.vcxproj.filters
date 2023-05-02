@@ -253,7 +253,7 @@
     <ClInclude Include="src\objects\implicit_plane.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\objects\implicit_rot_box.hpp">
+    <ClInclude Include="src\objects\implicit_torus.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
