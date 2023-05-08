@@ -19,13 +19,15 @@ namespace RT_ISICG
 
 		// Create a perspective camera.
 		//Vec3f			  position = Vec3f( 0, 0, -2 );
-		Vec3f			  position = Vec3f( 0, 10, -15);
+		//Vec3f			  position = Vec3f( 0, 2, -12);
+		Vec3f			  position = Vec3f( 0, 10, -6);
 		Vec3f			  lookAt   = Vec3f( 0, 0, -1);
 		Vec3f			  up	   = Vec3f( 0, 1, 0 );
 		float			  fov	   = 60.f;
 		float			  aspectRatio = float (imgWidth / imgHeight);
 
 		PerspectiveCamera camera( position, lookAt, up, fov, aspectRatio );
+		scene._addCamera( &camera );
 
 		// Create and setup the renderer.
 		Renderer renderer;

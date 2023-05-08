@@ -17,8 +17,11 @@ namespace RT_ISICG
 
 		virtual inline Ray generateRay( const float p_sx, const float p_sy ) const = 0;
 
+		const float getFocalDistance() const { return _focalDistance; }
+
 	  protected:
 		Vec3f _position = VEC3F_ZERO;
+		float _focalDistance = 1.f;
 	};
 
 } // namespace RT_ISICG

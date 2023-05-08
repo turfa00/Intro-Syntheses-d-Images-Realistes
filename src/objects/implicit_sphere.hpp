@@ -20,10 +20,8 @@ namespace RT_ISICG
 			//return glm::length( p_point - _center ) - _radius;
 			float disp = 45.f;
 			float p1 = glm::length( p_point - _center ) - _radius;
-			//float p2 = sin( 20 * p_point.x ) * sin( 20 * p_point.y ) * sin( 20 * p_point.z );
 			float p2 = sin( disp * p_point.x ) * sin( disp * p_point.y ) * sin( disp * p_point.z );
 			return p1 + p2;
-			//return glm::distance( p_point, _center ) - _radius; 
 		}
 
 	  private:

@@ -2,7 +2,8 @@
 #define __RT_ISICG_PERSPECTIVE_CAMERA__
 
 #include "base_camera.hpp"
-
+#include <stdlib.h>
+#include <time.h>
 namespace RT_ISICG
 {
 	class PerspectiveCamera : public BaseCamera
@@ -20,10 +21,12 @@ namespace RT_ISICG
 
 		inline Ray generateRay( const float p_sx, const float p_sy ) const override
 		{
+			//srand( time( NULL ) );
 			Vec3f viewportPosition = _viewportTopLeftCorner - _viewportV * p_sy + _viewportU * p_sx;
 			Vec3f rayDirection	   = viewportPosition - _position;
-			//Vec3f rayDirection	   = ( _viewportTopLeftCorner - _position ) + _viewportU * p_sx - _viewportV * p_sy;	//Before. Deprecated
-			return Ray( _position, glm::normalize(rayDirection) );
+			//Vec3f offset		   = Vec3f(rand()/RAND_MAX, rand()/RAND_MAX, rand()/RAND_MAX);
+			//return Ray( _position + offset, glm::normalize( rayDirection ) );
+			return Ray( _position, glm::normalize( rayDirection ) );
 		}
 
 	  private:
@@ -31,7 +34,6 @@ namespace RT_ISICG
 
 	  private:
 		float _fovy			 = 60.f;
-		float _focalDistance = 1.f;
 		float _aspectRatio	 = 1.f;
 
 		// Local coordinates system

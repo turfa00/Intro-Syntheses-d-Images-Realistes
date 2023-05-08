@@ -21,7 +21,7 @@ namespace RT_ISICG
 		Vec3f	  _fr	= VEC3F_ZERO;
 
 		Vec3f		normal		= hitRecord._normal;
-		if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
+		/**/ if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
 		{
 			for ( int i = 0; i < p_scene.getLights().size(); i++ )
 			{

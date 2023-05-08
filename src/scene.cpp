@@ -6,6 +6,7 @@
 #include "materials/mirror_material.hpp"
 #include "materials/transparent_material.hpp"
 #include "materials/cook_torrance.hpp"
+//#include "materials/texture_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
@@ -18,7 +19,9 @@
 #include <assimp/scene.h>
 #include "lights/point_light.hpp"
 #include "lights/quad_light.hpp"
+#include "lights/spot_light.hpp"
 #include "bvh.hpp"
+#include "utils/file_path.hpp"
 
 static const std::string DATA_PATH
 	= "C:/Users/turfa/OneDrive/Documents/GitHub/Intro-Syntheses-d-Images-Realistes/src/obj/";
@@ -205,6 +208,9 @@ namespace RT_ISICG
 
 	void Scene::_addLight( BaseLight * p_light ) { _lightList.emplace_back( p_light ); }
 
+	void Scene::_addCamera( BaseCamera * p_camera ) { _focal_dist = p_camera->getFocalDistance() * 10.f;
+	};
+
 	void Scene::_attachMaterialToObject( const std::string & p_materialName, const std::string & p_objectName )
 	{
 		if ( _objectMap.find( p_objectName ) == _objectMap.end() )
@@ -370,17 +376,21 @@ namespace RT_ISICG
 		_addMaterial( new PlasticMaterial( "Grey", GREY, BLACK ) );
 		_addMaterial( new PlasticMaterial( "White", RED, BLACK ) );
 		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
+		//_addMaterial( new TextureMaterial( "TerrainTexture", DATA_PATH + "/textures/dirt_floor_diff_1k.jpg" ) );
 
 		_addObject( new ImplicitSphere( "Sphere1", Vec3f( 2.f, 0.f, -5.f ), 1.f ) );
 		_addObject( new ImplicitBox( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(-4.f, 0.f, -1.f) ) );
-		_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -1.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
-		_addObject( new ImplicitTorus( "RoundedCy", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
+		//_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -1.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
+		//_addObject( new ImplicitTorus( "RoundedCy", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
+		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -1.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+		_attachMaterialToObject( "White", "PlaneGround" );
 
 		_attachMaterialToObject( "Gold", "Sphere1" );
 		_attachMaterialToObject( "Grey", "Box1" );
-		_attachMaterialToObject( "White", "Plane1" );
-		_attachMaterialToObject( "Gold", "RoundedCy" );
+		//_attachMaterialToObject( "White", "Plane1" );
+		//_attachMaterialToObject( "Gold", "RoundedCy" );
 
-		_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 100.f ) );
+		//_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 100.f ) );
+		_addLight( new SpotLight( Vec3f( 0.f, 2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG
