@@ -15,25 +15,24 @@ namespace RT_ISICG
 			: BaseLight( p_color, p_power )
 		{
 			_position = p_position;
-			_direction = p_direction;
+			_direction = glm::normalize(p_direction);
 		}
 
 		virtual LightSample sample( const Vec3f & p_point ) const override
 		{
 			float _distance	 = glm::distance( _position, p_point );
-			float _facteur	 = glm::pow( _distance, 2 );
-			//Vec3f _radiance	 = ( this->getFlatColor() * this->getPower() ) / _facteur;
-			//Vec3f _direction = glm::normalize( _position - p_point );
-			float angle = glm::max( glm::dot( p_point, _direction ), 0.f );
-			float _pdf		= ( _facteur / angle );
-			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _pdf;
-			if (angle < _cutoff) {
-				LightSample lightSample( _direction, _distance, _radiance, _pdf );
+			Vec3f _directionToPoint = glm::normalize( _position - p_point );
+			float _facteur	 = glm::pow( _distance, 1.8 );
+			float angle			= glm::degrees(glm::max( glm::dot( _direction, _directionToPoint ), 0.f ));
+			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _facteur;
+			if ( angle > _openingAngle )
+			{
+				
+				LightSample lightSample( _direction, _distance, _radiance, 1.f );
 				return lightSample;
 			}
-			//float _pdf		 = 1.f;
-
-			LightSample lightSample( _direction, _distance, Vec3f(0.f), _pdf );
+			_radiance = ( this->getFlatColor() * angle / _facteur);
+			LightSample lightSample( _direction, _distance, _radiance, 1.f );
 			return lightSample;
 		}
 
@@ -42,7 +41,7 @@ namespace RT_ISICG
 	  private:
 		Vec3f _position;
 		Vec3f _direction;
-		float _cutoff = 20.f;
+		float _openingAngle = 45.f;
 	};
 
 } // namespace RT_ISICG

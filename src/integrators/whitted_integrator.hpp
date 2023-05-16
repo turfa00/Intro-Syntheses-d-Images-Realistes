@@ -19,11 +19,11 @@ namespace RT_ISICG
 
 		Vec3f trace( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax, int p_nbounces, bool isInside ) const;
 
-		Vec3f _directLighting( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const;
+		Vec3f _directLighting( const Scene & p_scene, const Ray & p_ray, const HitRecord & hitRecord, const float p_tMax ) const;
 
 	  private:
-		int	  _nbLightSamples = 2;
-		int	  _nbBounce		  = 5;
+		int	  _nbLightSamples = 12;
+		int	  _nbBounce		  = 6;
 	};
 
 } // namespace RT_ISICG

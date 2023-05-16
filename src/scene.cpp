@@ -55,8 +55,8 @@ namespace RT_ISICG
 		//initTP3();
 		//initTP4();
 		//initTP5();
-		initTP6();
-		//initTP7();
+		//initTP6();
+		initTP7();
 
 
 		/*// Add objects.
@@ -349,9 +349,9 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = =
 		// Spheres .
 		_addObject( new Sphere( "Sphere1", Vec3f(-2.f, 0.f, 3.f ), 1.5f ) );
-		_attachMaterialToObject( "Transparent", "Sphere1" );
+		_attachMaterialToObject( "Mirror", "Sphere1" );
 		_addObject( new Sphere( "Sphere2", Vec3f( 2.f, 0.f, 3.f ), 1.5f ) );
-		_attachMaterialToObject( "Mirror", "Sphere2" );
+		_attachMaterialToObject( "Transparent", "Sphere2" );
 		// Pseudo Cornell box made with infinite planes .
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
 		_attachMaterialToObject( "GreyMatte", "PlaneGround" );
@@ -375,29 +375,32 @@ namespace RT_ISICG
 	void Scene::initTP7() { 
 		//Change color material b
 		//_addMaterial( new LambertMaterial( "Red", RED ) );
-		_addMaterial( new ColorMaterial( "Red", RED ) );
+		_addMaterial( new ColorMaterial( "White", GREY) );
 		_addMaterial( new PlasticMaterial( "Grey", GREY, BLACK ) );
-		_addMaterial( new PlasticMaterial( "White", RED, BLACK ) );
+		_addMaterial( new PlasticMaterial( "Brown", Vec3f(150.f, 75.f, 0.f), WHITE ) );
+		_addMaterial( new PlasticMaterial( "RED_PLASTIC", RED, BLACK ) );
 		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
 		//TextureMaterial A( "TerrainTexture", DATA_PATH + "/textures/dirt_floor_diff_1k.jpg" );
 		//_addMaterial( new TextureMaterial( "TerrainTexture", DATA_PATH + "/textures/dirt_floor_diff_1k.jpg" ) );
-		ImplicitSphere sphereA( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 1.f );
-		ImplicitBox boxA( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(0.f, 0.f, 0.f));
-		_addObject( new ImplicitCSGObject("CSG", sphereA, boxA, '+') );
+		//ImplicitSphere sphereA( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 1.f );
+		//ImplicitBox boxA( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(0.f, 0.f, 0.f));
+		//_addObject( new ImplicitCSGObject("CSG", sphereA, boxA, '+') );
 		//_addObject( new ImplicitSphere( "Sphere1", Vec3f( 2.f, 0.f, -5.f ), 1.f ) );
-		//addObject( new ImplicitBox( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(-4.f, 0.f, -1.f) ) );
+		//_addObject( new ImplicitBox( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(-4.f, 0.f, -1.f) ) );
 		//_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -1.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
-		//_addObject( new ImplicitTorus( "RoundedCy", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
-		//_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -1.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
-		//_attachMaterialToObject( "White", "PlaneGround" );
+		//_addObject( new ImplicitTorus( "Torus", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
+		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -1.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
+		_attachMaterialToObject( "RED_PLASTIC", "PlaneGround" );
 
-		//_attachMaterialToObject( "Gold", "Sphere1" );
-		//_attachMaterialToObject( "Grey", "Box1" );
-		//_attachMaterialToObject( "Red", "Box1" );
-		//_attachMaterialToObject( "White", "Plane1" );
+		_attachMaterialToObject( "Grey", "Sphere1" );
+		_attachMaterialToObject( "Grey", "Box1" );
+		_attachMaterialToObject( "Gold", "Torus" );
+		_attachMaterialToObject( "RED_PLASTIC", "Plane1" );
 		//_attachMaterialToObject( "Gold", "CSG" );
 
-		_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 100.f ) );
-		//_addLight( new SpotLight( Vec3f( 0.f, 2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
+		//_addLight( new PointLight( Vec3f( 0.f, 10.f, 0.f ), WHITE, 100.f ) );
+		//_addLight( new PointLight( Vec3f( 0.f, 2.f, 6.f ), WHITE, 100.f ) );
+		_addLight( new QuadLight( Vec3f( 1.f, 10.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
+		//_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG

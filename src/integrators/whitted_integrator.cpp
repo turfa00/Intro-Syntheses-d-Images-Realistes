@@ -14,66 +14,62 @@ namespace RT_ISICG
 		return trace( p_scene, p_ray, p_tMin, p_tMax, _nbBounce, false );
 	}
 
-	Vec3f WhittedIntegrator::_directLighting( const Scene &	p_scene, const Ray & p_ray, const float	p_tMin, const float p_tMax ) const
+	Vec3f WhittedIntegrator::_directLighting( const Scene &	p_scene, const Ray & p_ray, const HitRecord & hitRecord, const float p_tMax ) const
 	{
-		HitRecord hitRecord;
 		Vec3f	  color = BLACK;
 		Vec3f	  _fr	= VEC3F_ZERO;
 
 		Vec3f		normal		= hitRecord._normal;
-		/**/ if ( p_scene.intersect( p_ray, p_tMin, p_tMax, hitRecord ) )
+
+		for ( int i = 0; i < p_scene.getLights().size(); i++ )
 		{
-			for ( int i = 0; i < p_scene.getLights().size(); i++ )
+			LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
+			Ray			shadowRay( hitRecord._point, lightSample._direction );
+			shadowRay.offset( hitRecord._normal );
+
+			_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
+
+			float cosTheta = glm::max( 0.f, glm::dot( lightSample._direction, hitRecord._normal ) );
+			if ( p_scene.getLights().at( i )->getIsSurface() )
 			{
-				LightSample lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
-				Ray			shadowRay( hitRecord._point, lightSample._direction );
-				shadowRay.offset( hitRecord._normal );
-
-				_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
-
-				float cosTheta = glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
-				if ( p_scene.getLights().at( i )->getIsSurface() )
+				for ( int j = 0; j < _nbLightSamples; j++ )
 				{
+					lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
+					Ray shadowRay( hitRecord._point, lightSample._direction );
+					shadowRay.offset( hitRecord._normal );
 
-					for ( int j = 0; j < _nbLightSamples; j++ )
+					cosTheta = glm::max( 0.f, glm::dot( lightSample._direction, hitRecord._normal ) );
+
+					_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
+					color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta * _fr;
+
+					if ( !p_scene.intersectAny( shadowRay, SHADOW_EPSILON, lightSample._distance ) )
 					{
-						lightSample = p_scene.getLights().at( i )->sample( hitRecord._point );
-						Ray shadowRay( hitRecord._point, lightSample._direction );
-						shadowRay.offset( hitRecord._normal );
-
-						cosTheta = glm::max( glm::dot( lightSample._direction, hitRecord._normal ), 0.f );
-
-						_fr = hitRecord._object->getMaterial()->shade( p_ray, hitRecord, lightSample );
-						color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta * _fr;
-
-						if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
-						{
-							color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta * _fr;
-						}
+						color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta
+								 * _fr;
 					}
-					color /= _nbLightSamples;
 				}
-				else
+				color /= _nbLightSamples;
+			}
+			else
+			{
+				if ( !p_scene.intersectAny( shadowRay, SHADOW_EPSILON, lightSample._distance ) )
 				{
-					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
-					{
-						color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta * _fr;
-					}
+					color += hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta * _fr;
 				}
 			}
-			return color;
 		}
-		else { return _backgroundColor; }
+		return color;
 	}
 
 	Vec3f WhittedIntegrator::trace( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax, int p_nbounces, bool isInside ) const
 	{
-		//insInside = si le rayon est dedans ou dehors comme ça n1 et n2 sont inversé ou pas
+		//isInside = si le rayon est dedans ou dehors comme ça n1 et n2 sont inversé ou pas
 		HitRecord hitRecord;
 
 		if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord)) {
 
-			if ( p_nbounces == 0 ) { return _directLighting( p_scene, p_ray, p_tMin, p_tMax ); }
+			if ( p_nbounces == 0 ) { return _directLighting( p_scene, p_ray, hitRecord, p_tMax ); }
 
 			if ( hitRecord._object->getMaterial()->isMirror() )
 			{
@@ -93,7 +89,7 @@ namespace RT_ISICG
 				Ray	  reflectRay = Ray( hitRecord._point, glm::normalize(glm::reflect( p_ray.getDirection(), hitRecord._normal )) );
 				reflectRay.offset( hitRecord._normal );
 
-				Vec3f reflectLi = trace( p_scene, reflectRay, p_tMin, p_tMax, p_nbounces - 1, isInside);
+				Vec3f reflectLi = trace( p_scene, reflectRay, 0, p_tMax, p_nbounces - 1, isInside);
 				float kr		= 1.f;
 				float coeff		= n1 / n2;
 
@@ -105,7 +101,7 @@ namespace RT_ISICG
 				float rp = pow( ( n1 * cosTheta_t - n2 * cosTheta_i ) / ( n1 * cosTheta_t + n2 * cosTheta_i ), 2 );
 
 				kr = ( rs + rp ) * 0.5f;
-				if ( kr <= 1.f )
+				if ( kr < 1.f )
 				{
 					Vec3f refractRay = glm::refract( p_ray.getDirection(), hitRecord._normal, coeff );
 
@@ -114,13 +110,13 @@ namespace RT_ISICG
 					Vec3f refractLi = trace( p_scene, ray_refraction, p_tMin, p_tMax, p_nbounces - 1, !isInside );
 
 					return kr * reflectLi + ( 1.f - kr ) * refractLi;
+					std::cout << "here" << std::endl;
 				}
 				else { 
-					//std::cout << "here" << std::endl;
 					return reflectLi; }
 			}
 
-			else { return _directLighting( p_scene, p_ray, p_tMin, p_tMax );
+			else { return _directLighting( p_scene, p_ray, hitRecord, p_tMax );
 			}
 		}
 

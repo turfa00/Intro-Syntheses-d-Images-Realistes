@@ -47,7 +47,7 @@ namespace RT_ISICG
 					}
 				}
 				else {
-					if ( !p_scene.intersectAny( shadowRay, p_tMin, lightSample._distance ) )
+					if ( !p_scene.intersectAny( shadowRay, SHADOW_EPSILON, lightSample._distance ) )
 					{
 						color += _directLighting( p_scene.getLights().at( i ), hitRecord ) * _fr;
 					}

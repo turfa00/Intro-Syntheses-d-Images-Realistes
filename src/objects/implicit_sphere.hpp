@@ -21,6 +21,7 @@ namespace RT_ISICG
 			float p1   = glm::length( p_point - _center ) - _radius;
 			float p2   = sin( disp * p_point.x ) * sin( disp * p_point.y ) * sin( disp * p_point.z );
 			return p1 + p2;
+			//return p1;
 		}
 	  private:
 		
