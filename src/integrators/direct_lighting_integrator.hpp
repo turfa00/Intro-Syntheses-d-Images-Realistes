@@ -13,7 +13,7 @@ namespace RT_ISICG
 		DirectLightingIntegrator() : BaseIntegrator() {}
 		virtual ~DirectLightingIntegrator() = default;
 
-		const IntegratorType getType() const override { return IntegratorType::RAY_CAST; }
+		const IntegratorType getType() const override { return IntegratorType::DIRECT_LIGHTING; }
 
 		// Return incoming luminance.
 		//Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
@@ -21,9 +21,7 @@ namespace RT_ISICG
 
 	  private:
 		Vec3f _directLighting( const BaseLight * light, const HitRecord hitRecord ) const;
-		int	  _nbLightSamples = 2;
-		int	  instantRadiosity = 10;
-		//mutable PointLight p;
+		int	  _nbLightSamples = 4;
 	};
 
 } // namespace RT_ISICG

@@ -209,9 +209,6 @@ namespace RT_ISICG
 
 	void Scene::_addLight( BaseLight * p_light ) { _lightList.emplace_back( p_light ); }
 
-	void Scene::_addCamera( BaseCamera * p_camera ) { _focal_dist = p_camera->getFocalDistance() * 10.f;
-	};
-
 	void Scene::_attachMaterialToObject( const std::string & p_materialName, const std::string & p_objectName )
 	{
 		if ( _objectMap.find( p_objectName ) == _objectMap.end() )
@@ -286,8 +283,8 @@ namespace RT_ISICG
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
 		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
-		loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
-		//loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/Bunny.obj" );
+		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
+		loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/Bunny.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
@@ -385,10 +382,10 @@ namespace RT_ISICG
 		//ImplicitSphere sphereA( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 1.f );
 		//ImplicitBox boxA( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(0.f, 0.f, 0.f));
 		//_addObject( new ImplicitCSGObject("CSG", sphereA, boxA, '+') );
-		//_addObject( new ImplicitSphere( "Sphere1", Vec3f( 2.f, 0.f, -5.f ), 1.f ) );
-		//_addObject( new ImplicitBox( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(-4.f, 0.f, -1.f) ) );
+		_addObject( new ImplicitSphere( "Sphere1", Vec3f( 2.f, 0.f, -5.f ), 1.f ) );
+		_addObject( new ImplicitBox( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(-4.f, 0.f, -1.f) ) );
 		//_addObject( new ImplicitPlane( "Plane1", Vec3f( 0.f, -1.f, 0.f ), Vec3f(0.f, 1.f, 0.f) ));
-		//_addObject( new ImplicitTorus( "Torus", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
+		_addObject( new ImplicitTorus( "Torus", Vec3f( 5.f, 0.f, 2.f ), 2.f, 1.f, 1.f ) );
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -1.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
 		_attachMaterialToObject( "RED_PLASTIC", "PlaneGround" );
 
@@ -400,7 +397,7 @@ namespace RT_ISICG
 
 		//_addLight( new PointLight( Vec3f( 0.f, 10.f, 0.f ), WHITE, 100.f ) );
 		//_addLight( new PointLight( Vec3f( 0.f, 2.f, 6.f ), WHITE, 100.f ) );
-		_addLight( new QuadLight( Vec3f( 1.f, 10.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
-		//_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
+		//_addLight( new QuadLight( Vec3f( 1.f, 10.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
+		_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG

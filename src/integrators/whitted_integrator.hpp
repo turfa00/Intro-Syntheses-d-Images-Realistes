@@ -12,7 +12,7 @@ namespace RT_ISICG
 		WhittedIntegrator() : BaseIntegrator() {}
 		virtual ~WhittedIntegrator() = default;
 
-		const IntegratorType getType() const override { return IntegratorType::RAY_CAST; }
+		const IntegratorType getType() const override { return IntegratorType::WHITTED; }
 
 		// Return incoming luminance.
 		Vec3f Li( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
@@ -22,7 +22,7 @@ namespace RT_ISICG
 		Vec3f _directLighting( const Scene & p_scene, const Ray & p_ray, const HitRecord & hitRecord, const float p_tMax ) const;
 
 	  private:
-		int	  _nbLightSamples = 12;
+		int	  _nbLightSamples = 4;
 		int	  _nbBounce		  = 6;
 	};
 

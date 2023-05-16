@@ -47,13 +47,11 @@ namespace RT_ISICG
 		bool intersect( const Ray & p_ray, const float p_tMin, const float p_tMax, HitRecord & p_hitRecord ) const;
 		bool intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const;
 
-		float getFocalDistance() const { return _focal_dist; };
 
 	  public:
 		void _addObject( BaseObject * p_object );
 		void _addMaterial( BaseMaterial * p_material );
 		void _addLight( BaseLight * p_light );
-		void _addCamera( BaseCamera * p_camera );
 
 		void _attachMaterialToObject( const std::string & p_materialName, const std::string & p_objectName );
 
@@ -62,7 +60,6 @@ namespace RT_ISICG
 		ObjectMap	_objectMap;
 		MaterialMap _materialMap;
 		LightList	_lightList;
-		float		_focal_dist = 1.f;
 		//BVH			_bvh;
 	};
 } // namespace RT_ISICG
