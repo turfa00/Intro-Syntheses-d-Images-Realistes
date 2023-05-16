@@ -8,10 +8,12 @@ namespace RT_ISICG
 	class ImplicitSurface : public BaseObject
 	{
 	  public:
+		//ImplicitSurface()		   = delete;
 		ImplicitSurface()		   = delete;
 		virtual ~ImplicitSurface() = default;
 
 		ImplicitSurface( const std::string & p_name ) : BaseObject( p_name ) {}
+		ImplicitSurface( const ImplicitSurface & implicitSurface) : BaseObject( implicitSurface.getName() ) {}
 
 		// Check for nearest intersection between p_tMin and p_tMax : if found fill p_hitRecord.
 		virtual bool intersect( const Ray & p_ray,
@@ -21,10 +23,10 @@ namespace RT_ISICG
 
 		// Check for any intersection between p_tMin and p_tMax.
 		virtual bool intersectAny( const Ray & p_ray, const float p_tMin, const float p_tMax ) const override;
-
-	  private:
 		// Signed Distance Function
 		virtual float _sdf( const Vec3f & p_point ) const = 0;
+	  private:
+		
 
 		// Evaluate normal by computing gradient at 'p_point'
 		virtual Vec3f _evaluateNormal( const Vec3f & p_point ) const

@@ -68,6 +68,7 @@ namespace RT_ISICG
 
 	Vec3f WhittedIntegrator::trace( const Scene & p_scene, const Ray & p_ray, const float p_tMin, const float p_tMax, int p_nbounces, bool isInside ) const
 	{
+		//insInside = si le rayon est dedans ou dehors comme ça n1 et n2 sont inversé ou pas
 		HitRecord hitRecord;
 
 		if (p_scene.intersect(p_ray, p_tMin, p_tMax, hitRecord)) {
@@ -89,7 +90,7 @@ namespace RT_ISICG
 					n1 = hitRecord._object->getMaterial()->getIOR();
 					n2 = 1.f;
 				}
-				Ray	  reflectRay = Ray( hitRecord._point, glm::reflect( p_ray.getDirection(), hitRecord._normal ) );
+				Ray	  reflectRay = Ray( hitRecord._point, glm::normalize(glm::reflect( p_ray.getDirection(), hitRecord._normal )) );
 				reflectRay.offset( hitRecord._normal );
 
 				Vec3f reflectLi = trace( p_scene, reflectRay, p_tMin, p_tMax, p_nbounces - 1, isInside);
@@ -104,7 +105,7 @@ namespace RT_ISICG
 				float rp = pow( ( n1 * cosTheta_t - n2 * cosTheta_i ) / ( n1 * cosTheta_t + n2 * cosTheta_i ), 2 );
 
 				kr = ( rs + rp ) * 0.5f;
-				if ( kr < 1.f )
+				if ( kr <= 1.f )
 				{
 					Vec3f refractRay = glm::refract( p_ray.getDirection(), hitRecord._normal, coeff );
 
@@ -115,7 +116,7 @@ namespace RT_ISICG
 					return kr * reflectLi + ( 1.f - kr ) * refractLi;
 				}
 				else { 
-					//std::cout << "here man2" << std::endl;
+					//std::cout << "here" << std::endl;
 					return reflectLi; }
 			}
 

@@ -10,7 +10,7 @@ namespace RT_ISICG
 		Image() = default;
 		~Image();
 
-		bool load( const FilePath & p_filePath );
+		bool load( const std::string & p_path );
 
 		int				_width		= 0;
 		int				_height		= 0;

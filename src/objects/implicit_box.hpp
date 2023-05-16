@@ -15,18 +15,18 @@ namespace RT_ISICG
 		ImplicitBox( const std::string & p_name, const Vec3f & p_size, const Vec3f & p_center ) : ImplicitSurface( p_name ), _size( p_size ), _center(p_center)
 		{
 		}
-
-	  private:
-		// Signed Distance Function
-		float _sdf( const Vec3f & p_point ) const 
+		float _sdf( const Vec3f & p_point ) const
 		{
 			Vec3f q = abs( p_point - _center ) - _size;
-			//return glm::length( glm::max( q, 0.f ) ) + glm::min( glm::max( q.x, glm::max( q.y, q.z ) ), 0.f );
+			// return glm::length( glm::max( q, 0.f ) ) + glm::min( glm::max( q.x, glm::max( q.y, q.z ) ), 0.f );
 			return glm::length( glm::max( q, 0.f ) ) + glm::min( glm::max( q.x, glm::max( q.y, q.z ) ), 0.f );
-			
-			//http://www.cs.cornell.edu/courses/cs6630/2012sp/slides/Boyadzhiev-Matzen-InstantRadiosity.pdf //Instant radiosity
 
+			// http://www.cs.cornell.edu/courses/cs6630/2012sp/slides/Boyadzhiev-Matzen-InstantRadiosity.pdf //Instant
+			// radiosity
 		}
+	  private:
+		// Signed Distance Function
+		
 
 	  private:
 		const float _minDistance = 1e-4f;

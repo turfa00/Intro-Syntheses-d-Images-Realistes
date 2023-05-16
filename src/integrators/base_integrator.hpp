@@ -10,7 +10,6 @@ namespace RT_ISICG
 		RAY_CAST = 0,
 		DIRECT_LIGHTING,
 		WHITTED,
-		DEPTH_OF_FIELD,
 		COUNT // keep it last
 	};
 

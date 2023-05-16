@@ -17,6 +17,8 @@ namespace RT_ISICG
 
 		Vec3f shade( const Ray & p_ray, const HitRecord & p_hit, const LightSample & p_lightSample ) const //override
 		{
+			//float pattern =  ( glm::sin( p_hit._point.x * 2 * PIf * 5.f ) * 0.5f );
+			//return _color * ( pattern );
 			return _color;
 		}
 
