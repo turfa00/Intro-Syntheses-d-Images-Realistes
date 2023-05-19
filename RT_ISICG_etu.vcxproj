@@ -155,6 +155,7 @@ xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"</Command>
   <ItemGroup>
     <ClCompile Include="src\aabb.cpp" />
     <ClCompile Include="src\bvh.cpp" />
+    <ClCompile Include="src\cameras\orthographic_camera.cpp" />
     <ClCompile Include="src\cameras\perspective_camera.cpp" />
     <ClCompile Include="src\geometry\plane_geometry.cpp" />
     <ClCompile Include="src\geometry\sphere_geometry.cpp" />
@@ -182,6 +183,7 @@ xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"</Command>
     <ClInclude Include="src\bvh.hpp" />
     <ClInclude Include="src\brdfs\lambert_brdf.hpp" />
     <ClInclude Include="src\cameras\base_camera.hpp" />
+    <ClInclude Include="src\cameras\orthographic_camera.hpp" />
     <ClInclude Include="src\cameras\perspective_camera.hpp" />
     <ClInclude Include="src\geometry\base_geometry.hpp" />
     <ClInclude Include="src\geometry\plane_geometry.hpp" />

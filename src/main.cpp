@@ -1,4 +1,5 @@
 #include "cameras/perspective_camera.hpp"
+#include "cameras/orthographic_camera.hpp"
 #include "objects/sphere.hpp"
 #include "defines.hpp"
 #include "renderer.hpp"
@@ -28,12 +29,14 @@ namespace RT_ISICG
 		float			  fov	   = 60.f;
 		float			  aspectRatio = float (imgWidth / imgHeight);
 
-		PerspectiveCamera camera( position, lookAt, up, fov, aspectRatio );
+		//PerspectiveCamera camera( position, lookAt, up, fov, aspectRatio );
+		OrthographicCamera camera( position, lookAt, up, fov, aspectRatio );
+		
 
 		// Create and setup the renderer.
 		Renderer renderer;
 		renderer.setNbPixelSamples( 4 );
-		renderer.setIntegrator( IntegratorType::RADIOSITY );
+		renderer.setIntegrator( IntegratorType::WHITTED );
 		//renderer.setIntegrator( IntegratorType::RAY_CAST );
 		//renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );
 		//renderer.setIntegrator( IntegratorType::RADIOSITY );

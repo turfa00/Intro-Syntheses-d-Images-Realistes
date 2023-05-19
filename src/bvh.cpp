@@ -67,20 +67,14 @@ namespace RT_ISICG
 		p_node->_firstTriangleId = p_firstTriangleId;
 		p_node->_lastTriangleId	 = p_lastTriangleId;
 
-		if ((p_node->_depth <= _maxDepth) || (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
-			int largestAxis = p_node->_aabb.largestAxis();
-			//int largestAxis = 1;
-			float		 milieu		 = p_node->_aabb.centroid()[ largestAxis ];
+		if ((p_depth < _maxDepth) && (p_lastTriangleId - p_firstTriangleId < _maxTrianglesPerLeaf)) { 
+			const int largestAxis = static_cast<const unsigned int>( p_node->_aabb.largestAxis() );
+			const float		 milieu		 = p_node->_aabb.centroid()[ largestAxis ];
 			std::vector<TriangleMeshGeometry>::iterator idPartition
 				= std::partition( _triangles->begin() + p_firstTriangleId,
 								  _triangles->begin() + p_lastTriangleId,
 								  [ largestAxis, milieu ]( TriangleMeshGeometry & a )
 								  { return a.getAABB().centroid()[ largestAxis ] < milieu; } );
-			/* unsigned int idPartition = std::partition( ( *_triangles ).begin() + p_firstTriangleId,
-													   ( *_triangles ).begin() + p_lastTriangleId,
-													   [ largestAxis, milieu ]( TriangleMeshGeometry & a )
-													   { return a.getAABB().centroid()[ largestAxis ] < milieu; } );*/
-				  //- ( *_triangles ).begin();
 			p_node->_left = new BVHNode();
 			p_node->_right = new BVHNode();
 
@@ -88,6 +82,10 @@ namespace RT_ISICG
 
 			_buildRec( p_node->_left, p_firstTriangleId, idPartition1, p_node->_depth + 1 );
 			_buildRec( p_node->_right, idPartition1, p_lastTriangleId, p_node->_depth + 1 );
+		}
+		else { 
+			p_node->_left = nullptr;
+			p_node->_right = nullptr;
 		}
 	}
 

@@ -30,8 +30,6 @@ namespace RT_ISICG
 		_viewportU			   = _u * _viewportWidth;
 
 		_viewportTopLeftCorner = _position - ( _w * _focalDistance ) + ( _viewportV * 0.5f ) - ( _viewportU * 0.5f );
-
-		/// TODO ! _viewportTopLeftCorner ?	_viewportU ? _viewportV ?
 	}
 
 } // namespace RT_ISICG

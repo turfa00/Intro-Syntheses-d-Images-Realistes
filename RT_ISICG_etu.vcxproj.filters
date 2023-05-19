@@ -122,6 +122,9 @@
     <ClCompile Include="src\integrators\radiosity_integrator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\cameras\orthographic_camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\defines.hpp">
@@ -272,6 +275,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\integrators\radiosity_integrator.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cameras\orthographic_camera.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

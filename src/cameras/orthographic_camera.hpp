@@ -1,37 +1,45 @@
-#ifndef __RT_ISICG_PERSPECTIVE_CAMERA__
-#define __RT_ISICG_PERSPECTIVE_CAMERA__
+#ifndef __RT_ISICG_ORTHOGRAPHIC_CAMERA__
+#define __RT_ISICG_ORTHOGRAPHIC_CAMERA__
 
 #include "base_camera.hpp"
 #include <stdlib.h>
 #include <time.h>
 namespace RT_ISICG
 {
-	class PerspectiveCamera : public BaseCamera
+	class OrthographicCamera : public BaseCamera
 	{
 	  public:
-		PerspectiveCamera( const float p_aspectRatio );
+		OrthographicCamera( const float p_aspectRatio );
 
-		PerspectiveCamera( const Vec3f & p_position,
+		OrthographicCamera( const Vec3f & p_position,
 						   const Vec3f & p_lookAt,
 						   const Vec3f & p_up,
 						   const float	 p_fovy,
 						   const float	 p_aspectRatio );
 
-		~PerspectiveCamera() = default;
+		~OrthographicCamera() = default;
 
 		inline Ray generateRay( const float p_sx, const float p_sy ) const override
 		{
+			// srand( time( NULL ) );
 			Vec3f viewportPosition = _viewportTopLeftCorner - _viewportV * p_sy + _viewportU * p_sx;
-			Vec3f rayDirection	   = viewportPosition - _position;
-			return Ray( _position, glm::normalize( rayDirection ) );
+			//Vec3f rayDirection	   = glm::normalize(_w);
+			
+			//Vec3f rayOrigin		   = _position + ( _viewportV * p_sy ) + ( _viewportU * p_sx );
+			
+			Vec3f rayDirection = viewportPosition - _position;
+			Vec3f rayOrigin	   = -_w + viewportPosition;
+			// Vec3f offset		   = Vec3f(rand()/RAND_MAX, rand()/RAND_MAX, rand()/RAND_MAX);
+			// return Ray( _position + offset, glm::normalize( rayDirection ) );
+			return Ray( rayOrigin, glm::normalize( -_w ) );
 		}
 
 	  private:
 		void _updateViewport();
 
 	  private:
-		float _fovy			 = 60.f;
-		float _aspectRatio	 = 1.f;
+		float _fovy		   = 60.f;
+		float _aspectRatio = 1.f;
 
 		// Local coordinates system
 		Vec3f _u = Vec3f( 1.f, 0.f, 0.f );
@@ -44,8 +52,8 @@ namespace RT_ISICG
 		Vec3f _viewportV			 = VEC3F_ZERO; // Vertical vector
 
 		float _viewportHeight = 0.f;
-		float _viewportWidth = 0.f;
+		float _viewportWidth  = 0.f;
 	};
 } // namespace RT_ISICG
 
-#endif // __RT_ISICG_PERSPECTIVE_CAMERA__
+#endif // __RT_ISICG_ORTHOGRAPHIC_CAMERA__
