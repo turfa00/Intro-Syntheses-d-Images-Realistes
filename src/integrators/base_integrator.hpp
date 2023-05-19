@@ -10,7 +10,6 @@ namespace RT_ISICG
 		RAY_CAST = 0,
 		DIRECT_LIGHTING,
 		WHITTED,
-		RADIOSITY,
 		COUNT // keep it last
 	};
 

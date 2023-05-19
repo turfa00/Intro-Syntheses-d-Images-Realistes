@@ -57,23 +57,6 @@ namespace RT_ISICG
 		//initTP5();
 		//initTP6();
 		initTP7();
-
-
-		/*// Add objects.
-		_addObject( new Sphere( "Sphere1", Vec3f( 0.f, 0.f, 3.f ), 1.f ) );
-		// Add Plane
-		_addObject( new Plane( "Plane1", Vec3f( 0.f, -2.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
-		//Add Lighting
-		_addLight( new PointLight( Vec3f( 1.f, 10.f, 1.f ), WHITE, 100.f ));
-
-		// Add materials.
-		_addMaterial( new ColorMaterial( "Blue", BLUE ) );
-		_addMaterial( new ColorMaterial( "Red", RED ) );
-
-		// Link objects and materials.
-		_attachMaterialToObject( "Blue", "Sphere1" );
-		_attachMaterialToObject( "Red", "Plane1" );
-		*/
 	}
 
 	void Scene::loadFileTriangleMesh( const std::string & p_name, const std::string & p_path )
@@ -284,7 +267,7 @@ namespace RT_ISICG
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
 		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
 		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
-		loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/Bunny.obj" );
+		loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );

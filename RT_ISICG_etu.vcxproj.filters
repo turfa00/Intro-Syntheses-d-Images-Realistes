@@ -119,9 +119,6 @@
     <ClCompile Include="src\materials\texture_material.hpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\integrators\radiosity_integrator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\cameras\orthographic_camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -272,9 +269,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\utils\stb_image\rtw_stb_image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\integrators\radiosity_integrator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\cameras\orthographic_camera.hpp">

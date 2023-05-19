@@ -32,7 +32,7 @@ namespace RT_ISICG
 		}
 
 		Vec3f				 color(float u, float v, const Vec3f& p) { 
-			u = glm::clamp( u, 0.f, 1.f );
+			/* u = glm::clamp( u, 0.f, 1.f );
 			v = glm::clamp( v, 0.f, 1.f );
 
 			int i = u * _width;
@@ -45,7 +45,7 @@ namespace RT_ISICG
 			}
 
 			_color = Vec3f( scale * _pixels[ 0 ], scale * _pixels[ 1 ], scale * _pixels[ 2 ] );
-
+			*/
 			return _color;
 		}
 		inline const Vec3f & getFlatColor() const override { return _color; }

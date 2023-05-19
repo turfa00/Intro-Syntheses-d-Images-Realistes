@@ -161,7 +161,6 @@ xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"</Command>
     <ClCompile Include="src\geometry\sphere_geometry.cpp" />
     <ClCompile Include="src\geometry\triangle_mesh_geometry.cpp" />
     <ClCompile Include="src\integrators\direct_lighting_integrator.cpp" />
-    <ClCompile Include="src\integrators\radiosity_integrator.cpp" />
     <ClCompile Include="src\integrators\ray_cast_integrator.cpp" />
     <ClCompile Include="src\integrators\whitted_integrator.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -192,7 +191,6 @@ xcopy /y /d  "$(ProjectDir)lib\zlib1.dll" "$(OutDir)"</Command>
     <ClInclude Include="src\hit_record.hpp" />
     <ClInclude Include="src\integrators\base_integrator.hpp" />
     <ClInclude Include="src\integrators\direct_lighting_integrator.hpp" />
-    <ClInclude Include="src\integrators\radiosity_integrator.hpp" />
     <ClInclude Include="src\integrators\ray_cast_integrator.hpp" />
     <ClInclude Include="src\integrators\whitted_integrator.hpp" />
     <ClInclude Include="src\lights\base_light.hpp" />
