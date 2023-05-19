@@ -21,21 +21,24 @@ namespace RT_ISICG
 		// Create a perspective camera.
 		//Vec3f			  position = Vec3f( 0, 2, -6 ); 
 		//Vec3f			  position = Vec3f( 0, 0, -6 ); //TP6
-		//Vec3f			  position = Vec3f( 0, 10, -12);
-		Vec3f			  position = Vec3f( 0, 12, -6); //TP7
+		Vec3f			  position = Vec3f( 0, 4, -8);
+		//Vec3f			  position = Vec3f( 0, 12, -6); //TP7
 		Vec3f			  lookAt   = Vec3f( 0, 0, 1);
 		//Vec3f			  lookAt   = Vec3f( 0, 0, -1);
 		Vec3f			  up	   = Vec3f( 0, 1, 0 );
 		float			  fov	   = 60.f;
 		float			  aspectRatio = float (imgWidth / imgHeight);
+		float			  height	  = imgHeight / fov; // For orthographic camera
+		float			  width		  = imgWidth / fov; // For orthographic camera
 
-		//PerspectiveCamera camera( position, lookAt, up, fov, aspectRatio );
-		OrthographicCamera camera( position, lookAt, up, fov, aspectRatio );
+
+		PerspectiveCamera camera( position, lookAt, up, fov, aspectRatio );
+		//OrthographicCamera camera( position, lookAt, up, height, width);
 		
 
 		// Create and setup the renderer.
 		Renderer renderer;
-		renderer.setNbPixelSamples( 4 );
+		renderer.setNbPixelSamples( 8 );
 		renderer.setIntegrator( IntegratorType::WHITTED );
 		//renderer.setIntegrator( IntegratorType::RAY_CAST );
 		//renderer.setIntegrator( IntegratorType::DIRECT_LIGHTING );

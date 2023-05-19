@@ -9,8 +9,6 @@ namespace RT_ISICG
 	class OrthographicCamera : public BaseCamera
 	{
 	  public:
-		OrthographicCamera( const float p_aspectRatio );
-
 		OrthographicCamera( const Vec3f & p_position,
 						   const Vec3f & p_lookAt,
 						   const Vec3f & p_up,
@@ -21,25 +19,16 @@ namespace RT_ISICG
 
 		inline Ray generateRay( const float p_sx, const float p_sy ) const override
 		{
-			// srand( time( NULL ) );
 			Vec3f viewportPosition = _viewportTopLeftCorner - _viewportV * p_sy + _viewportU * p_sx;
-			//Vec3f rayDirection	   = glm::normalize(_w);
-			
-			//Vec3f rayOrigin		   = _position + ( _viewportV * p_sy ) + ( _viewportU * p_sx );
-			
-			Vec3f rayDirection = viewportPosition - _position;
-			Vec3f rayOrigin	   = -_w + viewportPosition;
-			// Vec3f offset		   = Vec3f(rand()/RAND_MAX, rand()/RAND_MAX, rand()/RAND_MAX);
-			// return Ray( _position + offset, glm::normalize( rayDirection ) );
-			return Ray( rayOrigin, glm::normalize( -_w ) );
+			Vec3f rayOrigin		   = viewportPosition;
+			Vec3f rayDirection	   =  -_w;
+			return Ray( rayOrigin, glm::normalize( rayDirection ) );
 		}
 
 	  private:
 		void _updateViewport();
 
 	  private:
-		float _fovy		   = 60.f;
-		float _aspectRatio = 1.f;
 
 		// Local coordinates system
 		Vec3f _u = Vec3f( 1.f, 0.f, 0.f );

@@ -3,17 +3,13 @@
 
 namespace RT_ISICG
 {
-	OrthographicCamera::OrthographicCamera( const float p_aspectRatio ) : _aspectRatio( p_aspectRatio )
-	{
-		_updateViewport();
-	}
-
+	
 	OrthographicCamera::OrthographicCamera( const Vec3f & p_position,
 										  const Vec3f & p_lookAt,
 										  const Vec3f & p_up,
-										  const float	p_fovy,
-										  const float	p_aspectRatio )
-		: BaseCamera( p_position ), _fovy( p_fovy ), _aspectRatio( p_aspectRatio )
+										  const float	p_height,
+										  const float	p_width )
+		: BaseCamera( p_position ), _viewportHeight( p_height ), _viewportWidth( p_width )
 	{
 		_w = glm::normalize( p_position - p_lookAt );
 		_u = glm::normalize( glm::cross( p_up, _w ) );
@@ -23,9 +19,6 @@ namespace RT_ISICG
 
 	void OrthographicCamera::_updateViewport()
 	{
-		_viewportHeight = 2.0f * _focalDistance * glm::tan( glm::radians( _fovy / 2.0f ) );
-		_viewportWidth	= _aspectRatio * _viewportHeight;
-
 		_viewportV = _v * _viewportHeight;
 		_viewportU = _u * _viewportWidth;
 

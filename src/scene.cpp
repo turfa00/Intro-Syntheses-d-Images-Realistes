@@ -395,9 +395,11 @@ namespace RT_ISICG
 		_attachMaterialToObject( "RED_PLASTIC", "Plane1" );
 		//_attachMaterialToObject( "Gold", "CSG" );
 
-		//_addLight( new PointLight( Vec3f( 0.f, 10.f, 0.f ), WHITE, 100.f ) );
-		//_addLight( new PointLight( Vec3f( 0.f, 2.f, 6.f ), WHITE, 100.f ) );
+		//_addLight( new PointLight( Vec3f( 4.f, 4.f, 0.f ), WHITE, 100.f ) );
+		//_addLight( new PointLight( Vec3f( 0.f, 4.f, -8.f ), WHITE, 100.f ) );
 		//_addLight( new QuadLight( Vec3f( 1.f, 10.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
-		_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
+		_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
+		_addLight( new QuadLight( Vec3f( 4.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
+		//_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG
