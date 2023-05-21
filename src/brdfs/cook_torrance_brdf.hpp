@@ -40,8 +40,6 @@ namespace RT_ISICG
 			return ( D * F * G / ( 4 * glm::dot(wo, n) * glm::dot(wi, n)) );
 		}
 
-		//inline const Vec3f & getKs() const { return _ks; }
-
 	  private:
 		mutable float G1 = 0.f, G = 0.f, D = 0.f;
 		mutable float x = 0.f, k = 0.f;

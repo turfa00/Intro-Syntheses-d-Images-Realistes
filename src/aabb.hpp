@@ -39,7 +39,6 @@ namespace RT_ISICG
 				if ( p_point.y > _max.y ) { _max.z = p_point.z;
 				}
 			}
-			/// TODO
 		}
 
 		// Extends the AABB with another AABB

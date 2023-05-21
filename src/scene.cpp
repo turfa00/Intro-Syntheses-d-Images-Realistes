@@ -6,7 +6,6 @@
 #include "materials/mirror_material.hpp"
 #include "materials/transparent_material.hpp"
 #include "materials/cook_torrance.hpp"
-//#include "materials/texture_material.hpp"
 #include "objects/sphere.hpp"
 #include "objects/plane.hpp"
 #include "objects/triangle_mesh.hpp"
@@ -22,7 +21,6 @@
 #include "lights/quad_light.hpp"
 #include "lights/spot_light.hpp"
 #include "bvh.hpp"
-//#include "utils/file_path.hpp"
 
 static const std::string DATA_PATH
 	= "C:/Users/turfa/OneDrive/Documents/GitHub/Intro-Syntheses-d-Images-Realistes/src/obj/";
@@ -55,8 +53,8 @@ namespace RT_ISICG
 		//initTP3();
 		//initTP4();
 		//initTP5();
-		//initTP6();
-		initTP7();
+		initTP6();
+		//initTP7();
 	}
 
 	void Scene::loadFileTriangleMesh( const std::string & p_name, const std::string & p_path )
@@ -79,7 +77,6 @@ namespace RT_ISICG
 			if ( mesh == nullptr ) { throw std::runtime_error( "Fail to load file: " + p_path + ": mesh is null" ); }
 
 			const std::string meshName = p_name + "_" + std::string( mesh->mName.C_Str() );
-			//std::cout << "here << " << mesh->mName.C_Str() << std::endl; // New
 			std::cout << "-- Load mesh " << m + 1 << "/" << scene->mNumMeshes << ": " << meshName << std::endl;
 
 			cptTriangles += mesh->mNumFaces;
@@ -266,8 +263,8 @@ namespace RT_ISICG
 		// = = = = = = = = = Add objects . = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
 		// = = = = = = = = = = = = = = = = = = = = = = = = = OBJ .
 		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "Bunny.obj" );
-		//loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
-		loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
+		loadFileTriangleMesh( "UVsphere", DATA_PATH + "uvsphere.obj" );
+		//loadFileTriangleMesh( "UVsphere","C:/Users/turikumwe1/Documents/Github/Intro-Syntheses-d-Images-Realistes/src/obj/uvsphere.obj" );
 		_attachMaterialToObject( "CyanColor", "UVsphere_defaultobject" );
 		// Pseudo Cornell box made with infinite planes .
 		_addObject( new Plane( "PlaneGround", Vec3f( 0.f, -3.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ) ) );
@@ -360,8 +357,6 @@ namespace RT_ISICG
 		_addMaterial( new PlasticMaterial( "Brown", Vec3f(150.f, 75.f, 0.f), WHITE ) );
 		_addMaterial( new PlasticMaterial( "RED_PLASTIC", RED, BLACK ) );
 		_addMaterial( new CookTorranceMaterial( "Gold", Vec3f( 1.f, 0.85f, 0.57f ) ) );
-		//TextureMaterial A( "TerrainTexture", DATA_PATH + "/textures/dirt_floor_diff_1k.jpg" );
-		//_addMaterial( new TextureMaterial( "TerrainTexture", DATA_PATH + "/textures/dirt_floor_diff_1k.jpg" ) );
 		//ImplicitSphere sphereA( "Sphere1", Vec3f( 0.f, 0.f, 0.f ), 1.f );
 		//ImplicitBox boxA( "Box1", Vec3f( 3.f, 1.f, 3.f ), Vec3f(0.f, 0.f, 0.f));
 		//_addObject( new ImplicitCSGObject("CSG", sphereA, boxA, '+') );
@@ -376,10 +371,7 @@ namespace RT_ISICG
 		_attachMaterialToObject( "Grey", "Box1" );
 		_attachMaterialToObject( "Gold", "Torus" );
 		_attachMaterialToObject( "RED_PLASTIC", "Plane1" );
-		//_attachMaterialToObject( "Gold", "CSG" );
 
-		//_addLight( new PointLight( Vec3f( 4.f, 4.f, 0.f ), WHITE, 100.f ) );
-		//_addLight( new PointLight( Vec3f( 0.f, 4.f, -8.f ), WHITE, 100.f ) );
 		//_addLight( new QuadLight( Vec3f( 1.f, 10.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
 		_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
 		_addLight( new QuadLight( Vec3f( 4.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );

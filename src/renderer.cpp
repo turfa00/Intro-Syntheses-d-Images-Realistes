@@ -63,6 +63,8 @@ namespace RT_ISICG
 				Ray ray	 = p_camera->generateRay( x, y );
 				rayColor = _integrator->Li( p_scene, ray, 0.f, 10000.f );
 				*/
+
+
 				//With anti aliasing
 				for ( int k = 0; k < _nbPixelSamples; k++ )
 				{
@@ -70,7 +72,6 @@ namespace RT_ISICG
 					float y = ( (float)j + randomFloat() ) / ( height - 1 );
 
 					Ray ray = p_camera->generateRay( x, y );
-					//rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
 					rayColor += _integrator->Li( p_scene, ray, 0.f, 1000.f );
 				}
 				rayColor /= _nbPixelSamples;

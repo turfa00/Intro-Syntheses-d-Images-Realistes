@@ -4,7 +4,6 @@ namespace RT_ISICG
 {
 	bool SphereGeometry::intersect( const Ray & p_ray, float & p_t1, float & p_t2 ) const
 	{
-		/// TODO !
 		Vec3f rayOrigin = p_ray.getOrigin();
 		Vec3f rayDirection = p_ray.getDirection();
 		Vec3f center	   = getCenter();

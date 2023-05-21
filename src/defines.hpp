@@ -9,8 +9,6 @@
 
 namespace RT_ISICG
 {
-	// TODO: split this file
-
 	// Scalars.
 	const float PIf			 = glm::pi<float>();
 	const float PI_2f		 = glm::half_pi<float>();

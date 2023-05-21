@@ -84,7 +84,6 @@ namespace RT_ISICG
 			
 			color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		}
-		//color = hitRecord._object->getMaterial()->getFlatColor() * lightSample._radiance * cosTheta;
 		return color;
 	}
 

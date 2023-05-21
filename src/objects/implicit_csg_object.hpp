@@ -20,16 +20,11 @@ namespace RT_ISICG
 			_objectA = &p_objectA; 
 			_objectB = &p_objectB;
 			_operation = p_operation;
-			std::cout << "here" << _objectA->_sdf( Vec3f( 1.f ) ) << std::endl;
+			//std::cout << "here" << _objectA->_sdf( Vec3f( 1.f ) ) << std::endl;
 		}
 		// Signed Distance Function
 		float _sdf( const Vec3f & p_point ) const
 		{
-			s = _objectA->_sdf( p_point );
-			//return _objectA->_sdf( p_point );
-			//return _objectA->_sdf( p_point );
-			//float sdf = glm::min( _objectA->_sdf( p_point ), _objectB->_sdf( p_point ) );
-			// std::cout << _objectA->getName() << std::endl;
 			/* if ( _operation == '+' )
 			{
 				return glm::min( _objectA->_sdf( p_point ), _objectB->_sdf( p_point ) );

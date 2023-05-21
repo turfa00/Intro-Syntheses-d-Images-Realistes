@@ -38,7 +38,6 @@ namespace RT_ISICG
 			float _distance	 = glm::distance( randomPosition, p_point );
 			float _facteur = glm::pow( _distance, 2.f );
 			float cosTheta = glm::max( glm::dot( _n, _direction ), 0.f );
-			//float cosTheta	= glm::dot( _direction, _n );
 			float _pdf		= ( ( 1.f / _aire ) * ( _facteur / cosTheta ) );
 			Vec3f _radiance = ( this->getFlatColor() * this->getPower() ) / _pdf;
 

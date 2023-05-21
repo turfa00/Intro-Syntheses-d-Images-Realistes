@@ -13,7 +13,7 @@ namespace RT_ISICG
 		while ( pos < p_tMax ) {
 			rayPoint = p_ray.pointAtT( pos );
 			step	= _sdf( rayPoint );
-			//step = 1.f;
+			//step = 0.5f;
 			pos += step;
 			if ( step < _minDistance )
 			{ 

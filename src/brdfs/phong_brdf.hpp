@@ -21,7 +21,6 @@ namespace RT_ISICG
 			_reflet		 = glm::reflect( _incidence, hitRecord._normal );
 			alpha		 = glm::dot( _observation, _reflet );
 			theta		 = glm::dot( _incidence, hitRecord._normal );
-			//theta		 = glm::acos(glm::dot( _incidence, hitRecord._normal ));
 			return _ks / glm::cos( theta ) * glm::cos( glm::pow( alpha, s ) ); 
 		}
 
