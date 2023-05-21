@@ -53,8 +53,8 @@ namespace RT_ISICG
 		//initTP3();
 		//initTP4();
 		//initTP5();
-		initTP6();
-		//initTP7();
+		//initTP6();
+		initTP7();
 	}
 
 	void Scene::loadFileTriangleMesh( const std::string & p_name, const std::string & p_path )
@@ -370,11 +370,11 @@ namespace RT_ISICG
 		_attachMaterialToObject( "Grey", "Sphere1" );
 		_attachMaterialToObject( "Grey", "Box1" );
 		_attachMaterialToObject( "Gold", "Torus" );
-		_attachMaterialToObject( "RED_PLASTIC", "Plane1" );
+		//_attachMaterialToObject( "RED_PLASTIC", "Plane1" );
 
 		//_addLight( new QuadLight( Vec3f( 1.f, 10.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 40.f ) );
-		_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
-		_addLight( new QuadLight( Vec3f( 4.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
-		//_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
+		//_addLight( new QuadLight( Vec3f( 1.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
+		//_addLight( new QuadLight( Vec3f( 4.f, 8.f, -2.f ), Vec3f( -2.f, 0.f, 0.f ), Vec3f( 0.f, 1.f, 2.f ), WHITE, 50.f ) );
+		_addLight( new SpotLight( Vec3f( 0.f, 6.f, 0.f ), Vec3f( 0.f, 1.f, 0.f ), WHITE, 100.f ) );
 	}
 } // namespace RT_ISICG

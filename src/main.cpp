@@ -20,9 +20,9 @@ namespace RT_ISICG
 
 		// Create a perspective camera.
 		//Vec3f			  position = Vec3f( 0, 2, -6 ); 
-		Vec3f			  position = Vec3f( 0, 0, -6 ); //TP6 && TP4
+		//Vec3f			  position = Vec3f( 0, 0, -6 ); //TP6 && TP4
 		//Vec3f			  position = Vec3f( 0, 4, -8); //TP7 lower view
-		//Vec3f			  position = Vec3f( 0, 12, -6); //TP7 top view
+		Vec3f			  position = Vec3f( 0, 12, -6); //TP7 top view
 		Vec3f			  lookAt   = Vec3f( 0, 0, 1);
 		Vec3f			  up	   = Vec3f( 0, 1, 0 );
 		float			  fov	   = 60.f;

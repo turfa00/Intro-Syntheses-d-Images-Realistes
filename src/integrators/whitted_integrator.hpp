@@ -23,7 +23,7 @@ namespace RT_ISICG
 
 	  private:
 		int	  _nbLightSamples = 6;
-		int	  _nbBounce		  = 6;
+		int	  _nbBounce		  = 4;
 	};
 
 } // namespace RT_ISICG
